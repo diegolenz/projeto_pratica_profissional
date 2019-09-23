@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core">
+
+	<h:head />
+	
+	<h:body>
+		<h1>Novo produto</h1>
+	
+		<h:dataTable value="#{ProdutoBean.produtos}" var="produto" id="tabelaProduto">
+			<h:column>
+				<f:facet name="header">Descricao</f:facet>
+				<h:outputText value="#{Produto.descricao}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Preço</f:facet>
+				<h:outputText value="#{produto.valor}">
+					<f:convertNumber type="currency" pattern="R$ #0.00"
+						currencySymbol="R$" locale="pt_BR" />
+				</h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Data</f:facet>
+				<h:outputText value="#{produto.data_cadastro.time}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
+				</h:outputText>
+			</h:column>
+		</h:dataTable>
+	
+	</h:body>
+</html>
+

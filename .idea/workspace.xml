@@ -1,0 +1,1058 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Projeto_Estoque:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="848be81c-7757-4fa8-85a9-f2c7be755fdc" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/comercial/compra/CadastroCompraForm$19$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/comercial/compra/CadastroCompraForm$19$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/comercial/compra/CadastroCompraForm$19.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/comercial/compra/CadastroCompraForm$19.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/comercial/compra/CadastroCompraForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/comercial/compra/CadastroCompraForm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/comercial/compra/ConsultaCompraForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/comercial/compra/ConsultaCompraForm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/enderecos/estados/CadastroEstado$7$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/enderecos/estados/CadastroEstado$7$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/enderecos/estados/CadastroEstado$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/enderecos/estados/CadastroEstado$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/enderecos/estados/CadastroEstado.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/enderecos/estados/CadastroEstado.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/enderecos/estados/PesquisarEstado$7$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/enderecos/estados/PesquisarEstado$7$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/enderecos/estados/PesquisarEstado$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/enderecos/estados/PesquisarEstado$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/enderecos/estados/PesquisarEstado$Callback.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/enderecos/estados/PesquisarEstado$Callback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/enderecos/estados/PesquisarEstado.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/enderecos/estados/PesquisarEstado.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/enderecos/pais/PesquisarPais$6$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/enderecos/pais/PesquisarPais$6$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/enderecos/pais/PesquisarPais$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/enderecos/pais/PesquisarPais$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/enderecos/pais/PesquisarPais$Callback.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/enderecos/pais/PesquisarPais$Callback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/enderecos/pais/PesquisarPais.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/enderecos/pais/PesquisarPais.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/financeiro/CondicaoPagamento/ConsultaCondicoesPagamentoForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/financeiro/CondicaoPagamento/ConsultaCondicoesPagamentoForm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/financeiro/CondicaoPagamento/PesquisarCondicaoPagamento$6$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/financeiro/CondicaoPagamento/PesquisarCondicaoPagamento$6$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/financeiro/CondicaoPagamento/PesquisarCondicaoPagamento$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/financeiro/CondicaoPagamento/PesquisarCondicaoPagamento$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/financeiro/CondicaoPagamento/PesquisarCondicaoPagamento$Callback.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/financeiro/CondicaoPagamento/PesquisarCondicaoPagamento$Callback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/financeiro/CondicaoPagamento/PesquisarCondicaoPagamento.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/financeiro/CondicaoPagamento/PesquisarCondicaoPagamento.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/financeiro/formaPagamento/PesquisarFormaPagamento$7$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/financeiro/formaPagamento/PesquisarFormaPagamento$7$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/financeiro/formaPagamento/PesquisarFormaPagamento$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/financeiro/formaPagamento/PesquisarFormaPagamento$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/financeiro/formaPagamento/PesquisarFormaPagamento$Callback.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/financeiro/formaPagamento/PesquisarFormaPagamento$Callback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/financeiro/formaPagamento/PesquisarFormaPagamento.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/financeiro/formaPagamento/PesquisarFormaPagamento.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/grupo/PesquisarGrupo$7$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/grupo/PesquisarGrupo$7$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/grupo/PesquisarGrupo$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/grupo/PesquisarGrupo$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/grupo/PesquisarGrupo$Callback.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/grupo/PesquisarGrupo$Callback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/grupo/PesquisarGrupo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/grupo/PesquisarGrupo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/pessoas/clientes/NovoClienteForm$10$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/pessoas/clientes/NovoClienteForm$10$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/pessoas/clientes/NovoClienteForm$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/pessoas/clientes/NovoClienteForm$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/pessoas/clientes/NovoClienteForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/pessoas/clientes/NovoClienteForm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/pessoas/fornecedores/CadastroFornecedorForm$10$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/pessoas/fornecedores/CadastroFornecedorForm$10$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/pessoas/fornecedores/CadastroFornecedorForm$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/pessoas/fornecedores/CadastroFornecedorForm$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/pessoas/fornecedores/CadastroFornecedorForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/pessoas/fornecedores/CadastroFornecedorForm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/produtos/CadastroProdutos$12$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/produtos/CadastroProdutos$12$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/produtos/CadastroProdutos$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/produtos/CadastroProdutos$12.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/produtos/CadastroProdutos$Callback.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/produtos/CadastroProdutos$Callback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/produtos/PesquisarProduto$7$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/produtos/PesquisarProduto$7$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/produtos/PesquisarProduto$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/produtos/PesquisarProduto$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/produtos/PesquisarProduto$Callback.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/produtos/PesquisarProduto$Callback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gui/produtos/PesquisarProduto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/gui/produtos/PesquisarProduto.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lib/dao/imp/comercial/compras/CompraDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lib/dao/imp/comercial/compras/CompraDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lib/dao/imp/financeiro/ParcelaDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lib/dao/imp/financeiro/ParcelaDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lib/dao/imp/financeiro/formaPagamentoDAO/FormaPagamentoDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lib/dao/imp/financeiro/formaPagamentoDAO/FormaPagamentoDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/lib/service/CondicaoPagamentoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lib/service/CondicaoPagamentoService.class" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5550">
+              <caret line="336" column="49" selection-start-line="336" selection-start-column="49" selection-end-line="336" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/gui/servicos/CadastroServicoForm.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="870">
+              <caret line="172" column="12" selection-start-line="172" selection-start-column="12" selection-end-line="172" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/gui/marca/CadastrarMarcaForm.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="513">
+              <caret line="55" column="33" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/gui/operador/CadastrarFuncionario.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-289">
+              <caret line="38" column="73" selection-start-line="38" selection-start-column="73" selection-end-line="38" selection-end-column="73" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/comercial/Compra.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1105">
+              <caret line="67" column="16" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>formas de pag</find>
+      <find>initt</find>
+      <find>Yes</find>
+      <find>btnAltCondicaoa</find>
+      <find>exc</find>
+      <find>edt</find>
+      <find>edtcodgr</find>
+      <find>.finda</find>
+      <find>findan</find>
+      <find>alteraritemac</find>
+      <find>getposicao</find>
+      <find>getlast</find>
+      <find>forma_pagamento</find>
+      <find>buildPorce</find>
+      <find>getpos</find>
+      <find>buil</find>
+      <find>edtValorItem.setValue</find>
+      <find>edtCustoTotal.setval</find>
+      <find>calendar</find>
+      <find>buildnumeroin</find>
+      <find>btnadditema</find>
+      <find>btnsalvara</find>
+      <find>carre</find>
+      <find>prope</find>
+      <find>salvara</find>
+      <find>pa</find>
+      <find>this.compra.setConstasPagar</find>
+      <find>ara</find>
+      <find>aractio</find>
+      <find>salvarac</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+      <replace>fornecedor</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/main/java/gui/comercial/compra/ConsultaCompraForm.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/gui/enderecos/cidades/PesquisarCidade.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/enderecos/cidades/ConsultaCidades.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/dao/imp/endereco/estado/EstadoDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/service/EstadoService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/enderecos/estados/ConsultaEstados.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/service/ProdutoService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/dao/imp/grupo/GrupoDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/grupo/CadastrarGrupoForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/marca/ConsultarMarca.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/marca/PesquisarMarca.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/service/GrupoService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/grupo/ConsultaGrupoForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/dao/imp/marca/MarcaDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/produtos/ConsultaProdutosForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/dao/imp/produto/ProdutoDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/pessoas/clientes/NovoClienteForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/service/FormaPagamentoService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/dao/imp/financeiro/formaPagamentoDAO/FormaPagamentoDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/financeiro/CondicaoPagamento/CadastroCondicaoPagamentoForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/dao/imp/financeiro/ParcelaDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/service/CondicaoPagamentoService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/financeiro/CondicaoPagamento/ConsultaCondicoesPagamentoForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/financeiro/CondicaoPagamento/PesquisarCondicaoPagamento.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/model/financeiro/CondicaoPagamento/CondicaoPagamento.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/model/servico/Servico.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/model/pessoa/fornecedor/Fornecedor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/model/financeiro/parcela/Parcela.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelParcela.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/dao/imp/financeiro/condicaoPagamentoDAO/CondicaoPagamentoDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/model/financeiro/StatusMensalidade.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/model/financeiro/StatusConta.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/model/comercial/ContaPagar.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/model/financeiro/formaPagamento/FormaPagamento.java" />
+        <option value="$PROJECT_DIR$/src/main/java/util/s.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelContas.java" />
+        <option value="$PROJECT_DIR$/src/main/java/util/Util.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/swing/SwingFormatterFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/comercial/compra/ConsultaCompraForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/model/comercial/Compra.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/model/comercial/ItemProduto.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/service/FuncionarioService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelCompra.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/service/CompraService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/grupo/PesquisarGrupo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/produtos/CadastroProdutos.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/produtos/PesquisarProduto.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/enderecos/pais/PesquisarPais.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/enderecos/estados/CadastroEstado.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/enderecos/estados/PesquisarEstado.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/dao/imp/comercial/compras/CompraDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/comercial/compra/CadastroCompraForm.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="Projeto_Estoque" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="69" />
+    <option name="y" value="6" />
+    <option name="width" value="974" />
+    <option name="height" value="898" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <flattenPackages ProjectPane="false" />
+      <hideEmptyPackages ProjectPane="true" />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Projeto_Estoque" type="b2602c69:ProjectViewProjectNode" />
+              <item name="projetoPraticaProfissional" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Projeto_Estoque" type="b2602c69:ProjectViewProjectNode" />
+              <item name="projetoPraticaProfissional" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Projeto_Estoque" type="b2602c69:ProjectViewProjectNode" />
+              <item name="projetoPraticaProfissional" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Projeto_Estoque" type="b2602c69:ProjectViewProjectNode" />
+              <item name="projetoPraticaProfissional" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Projeto_Estoque" type="b2602c69:ProjectViewProjectNode" />
+              <item name="projetoPraticaProfissional" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="gui" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="projeto_estoque" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1569205982938" />
+    <property name="last_opened_file_path" value="D:/Downloads/projetoBarbearia-master/projetoBarbearia-master" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="gui.modeltable" />
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Projeto_Estoque" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main (2)" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="848be81c-7757-4fa8-85a9-f2c7be755fdc" name="Default Changelist" comment="" />
+      <created>1551055251844</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1551055251844</updated>
+    </task>
+    <task id="LOCAL-00001" summary="commit Inicial">
+      <created>1566620169387</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1566620169387</updated>
+    </task>
+    <task id="LOCAL-00002" summary="commit Inicial">
+      <created>1567211168993</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1567211168994</updated>
+    </task>
+    <task id="LOCAL-00003" summary="commit Inicial">
+      <created>1567267319655</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1567267319655</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13645834" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8740849" weight="0.047393367" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.5241581" weight="0.59557664" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.328594" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" auto_hide="true" id="Event Log" order="8" sideWeight="0.47584188" side_tool="true" weight="0.23380727" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.42532942" weight="0.047393367" />
+      <window_info anchor="bottom" id="Thumbnails" order="11" weight="0.047393367" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24947916" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" weight="0.329429" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+    </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" weight="0.21961933" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8740849" weight="0.061375663" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.83821374" visible="true" weight="0.047393367" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.328594" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" auto_hide="true" id="Event Log" order="8" sideWeight="0.16178624" side_tool="true" weight="0.11058452" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.42532942" weight="0.54818326" />
+      <window_info anchor="bottom" id="Thumbnails" order="11" weight="0.047393367" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24947916" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" weight="0.329429" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+    </layout-to-restore>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="commit Inicial" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit Inicial" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/gui/pesquisa/PesquisarProduto.java</url>
+          <line>184</line>
+          <properties />
+          <option name="timeStamp" value="193" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/gui/produtos/ConsultaProdutosForm.java</url>
+          <line>196</line>
+          <properties />
+          <option name="timeStamp" value="220" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/gui/grupo/PesquisarGrupo.java</url>
+          <line>198</line>
+          <properties />
+          <option name="timeStamp" value="228" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/lib/dao/imp/comercial/compras/CompraDao.java</url>
+          <line>61</line>
+          <properties />
+          <option name="timeStamp" value="241" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/gui/comercial/compra/CadastroCompraForm.java</url>
+          <line>814</line>
+          <properties />
+          <option name="timeStamp" value="247" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/pessoas/clientes/NovoClienteForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="917" column="58" lean-forward="true" selection-start-line="917" selection-start-column="58" selection-end-line="917" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/interno/Funcionario.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="46" column="24" lean-forward="true" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/enderecos/cidades/PesquisarCidade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="489">
+          <caret line="242" selection-start-line="224" selection-start-column="4" selection-end-line="242" />
+          <folding>
+            <element signature="method#btnpesquisarActionPerformed#0;class#PesquisarCidade#0" />
+            <element signature="method#btnselecionarActionPerformed#0;class#PesquisarCidade#0" />
+            <element signature="method#btnVisualizarActionPerformed#0;class#PesquisarCidade#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/dao/imp/produto/ProdutoDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="28" column="9" lean-forward="true" selection-start-line="19" selection-start-column="4" selection-end-line="28" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/service/FormaPagamentoService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="44" column="62" selection-start-line="44" selection-start-column="62" selection-end-line="44" selection-end-column="62" />
+          <folding>
+            <element signature="e#2069#2070#0" expanded="true" />
+            <element signature="e#2133#2134#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/dao/imp/financeiro/formaPagamentoDAO/FormaPagamentoDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="64" column="65" selection-start-line="64" selection-start-column="65" selection-end-line="64" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/awt/Dialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="1028" column="16" selection-start-line="1028" selection-start-column="16" selection-end-line="1028" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/swing/DialogPadrao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="37" column="29" lean-forward="true" selection-start-line="37" selection-start-column="29" selection-end-line="37" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/service/ParcelaService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="19" column="22" lean-forward="true" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/financeiro/CondicaoPagamento/ConsultaCondicoesPagamentoForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="176" column="99" selection-start-line="176" selection-start-column="99" selection-end-line="176" selection-end-column="99" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/dao/imp/financeiro/ParcelaDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-238">
+          <caret line="20" column="44" lean-forward="true" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/financeiro/CondicaoPagamento/CadastroCondicaoPagamentoForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="422" column="66" lean-forward="true" selection-start-line="422" selection-start-column="66" selection-end-line="422" selection-end-column="66" />
+          <folding>
+            <element signature="e#2717#2806#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelCondicaoPagamento.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-187">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/service/CondicaoPagamentoService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="48" column="39" lean-forward="true" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
+          <folding>
+            <element signature="e#3474#3475#0" expanded="true" />
+            <element signature="e#3544#3545#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelParcelaSimples.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="521">
+          <caret line="70" lean-forward="true" selection-start-line="7" selection-start-column="38" selection-end-line="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/servico/Servico.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/financeiro/parcela/Parcela.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="725">
+          <caret line="67" column="4" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/pessoa/fornecedor/Fornecedor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/pessoa/Pessoa.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="9" column="39" lean-forward="true" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelParcela.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#216#217#0" expanded="true" />
+            <element signature="e#257#258#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelEstado.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="521">
+          <caret line="82" lean-forward="true" selection-start-line="7" selection-start-column="29" selection-end-line="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/financeiro/CondicaoPagamento/CondicaoPagamento.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+          <folding>
+            <element signature="e#532#533#0" expanded="true" />
+            <element signature="e#559#560#0" expanded="true" />
+            <element signature="e#673#674#0" expanded="true" />
+            <element signature="e#704#705#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/dao/imp/financeiro/condicaoPagamentoDAO/CondicaoPagamentoDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2040">
+          <caret line="134" column="25" selection-start-line="134" selection-start-column="25" selection-end-line="134" selection-end-column="25" />
+          <folding>
+            <element signature="method#update#0;class#CondicaoPagamentoDAO#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/util/moeda.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="25" column="13" lean-forward="true" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelItemProduto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="45" column="23" lean-forward="true" selection-start-line="45" selection-start-column="23" selection-end-line="45" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/financeiro/StatusConta.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/financeiro/formaPagamento/FormaPagamento.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="38" column="15" selection-start-line="38" selection-start-column="15" selection-end-line="38" selection-end-column="15" />
+          <folding>
+            <element signature="e#581#582#0" expanded="true" />
+            <element signature="e#611#612#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/produto/Produto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+          <folding>
+            <element signature="e#1274#1275#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelContas.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="48" column="66" selection-start-line="48" selection-start-column="66" selection-end-line="48" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#582#583#0" expanded="true" />
+            <element signature="e#606#607#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/util/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="71" selection-start-line="16" selection-start-column="71" selection-end-line="16" selection-end-column="71" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/service/ClienteService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="16" column="75" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="16" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/swing/SwingFormatterFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="237" column="15" selection-start-line="237" selection-start-column="15" selection-end-line="237" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/comercial/ContaPagar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/service/CompraService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="37" column="31" selection-start-line="37" selection-start-column="31" selection-end-line="37" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#643#644#0" expanded="true" />
+            <element signature="e#691#692#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/comercial/compra/ConsultaCompraForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-223">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelCompra.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-618">
+          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/comercial/ItemProduto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="50" column="31" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
+          <folding>
+            <element signature="e#999#1000#0" expanded="true" />
+            <element signature="e#1062#1063#0" expanded="true" />
+            <element signature="e#1255#1256#0" expanded="true" />
+            <element signature="e#1299#1300#0" expanded="true" />
+            <element signature="e#1335#1336#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/service/FuncionarioService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="59" column="30" selection-start-line="59" selection-start-column="30" selection-end-line="59" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelCidade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="521">
+          <caret line="75" selection-start-line="7" selection-start-column="31" selection-end-line="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/grupo/PesquisarGrupo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="257" column="5" lean-forward="true" selection-start-line="257" selection-start-column="5" selection-end-line="257" selection-end-column="5" />
+          <folding>
+            <element signature="e#2684#2685#0" expanded="true" />
+            <element signature="e#2748#2749#0" expanded="true" />
+            <element signature="e#3035#3036#0" expanded="true" />
+            <element signature="e#3100#3101#0" expanded="true" />
+            <element signature="e#3640#3641#0" expanded="true" />
+            <element signature="e#3699#3700#0" expanded="true" />
+            <element signature="e#3974#3975#0" expanded="true" />
+            <element signature="e#4036#4037#0" expanded="true" />
+            <element signature="e#4338#4339#0" expanded="true" />
+            <element signature="e#4409#4410#0" expanded="true" />
+            <element signature="e#4696#4697#0" expanded="true" />
+            <element signature="e#4761#4762#0" expanded="true" />
+            <element signature="e#14775#14862#0" expanded="true" />
+            <element signature="e#16415#16639#0" expanded="true" />
+            <element signature="e#16638#16639#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/produtos/CadastroProdutos.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="69" column="5" lean-forward="true" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
+          <folding>
+            <element signature="e#1126#1845#0" />
+            <element signature="e#1851#1922#0" />
+            <element signature="e#2006#2441#0" />
+            <element signature="e#3680#4540#0" />
+            <element signature="e#36343#36954#0" />
+            <element signature="e#37233#37272#0" />
+            <element signature="e#37380#38073#1" />
+            <element signature="e#38123#38979#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/produtos/PesquisarProduto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1032">
+          <caret line="250" column="32" selection-start-line="250" selection-start-column="32" selection-end-line="250" selection-end-column="32" />
+          <folding>
+            <element signature="method#initTabela#0;class#PesquisarProduto#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelPais.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/enderecos/pais/PesquisarPais.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="488">
+          <caret line="57" column="7" lean-forward="true" selection-start-line="57" selection-start-column="7" selection-end-line="57" selection-end-column="7" />
+          <folding>
+            <element signature="method#btnNovoActionPerformed#0;class#PesquisarPais#0" />
+            <element signature="method#btnAlterarActionPerformed#0;class#PesquisarPais#0" />
+            <element signature="method#btnExcluirActionPerformed#0;class#PesquisarPais#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/enderecos/estados/CadastroEstado.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="44" column="19" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="19" />
+          <folding>
+            <element signature="e#3652#3653#0" expanded="true" />
+            <element signature="e#3714#3715#0" expanded="true" />
+            <element signature="e#3832#3997#0" expanded="true" />
+            <element signature="e#3996#3997#0" expanded="true" />
+            <element signature="e#10229#10230#0" expanded="true" />
+            <element signature="e#10290#10291#0" expanded="true" />
+            <element signature="e#10569#10570#0" expanded="true" />
+            <element signature="e#10632#10633#0" expanded="true" />
+            <element signature="e#11287#11288#0" expanded="true" />
+            <element signature="e#11349#11350#0" expanded="true" />
+            <element signature="e#11735#11736#0" expanded="true" />
+            <element signature="e#11800#11801#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/comercial/compra/CadastroCompraForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="773" column="42" lean-forward="true" selection-start-line="773" selection-start-column="42" selection-end-line="773" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/financeiro/CondicaoPagamento/PesquisarCondicaoPagamento.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2040">
+          <caret line="143" selection-start-line="143" selection-end-line="143" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5368#5369#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/comercial/Compra.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1105">
+          <caret line="67" column="16" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/enderecos/estados/PesquisarEstado.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1853">
+          <caret line="245" column="46" selection-start-line="245" selection-start-column="46" selection-end-line="245" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/dao/imp/comercial/compras/CompraDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="81" column="5" selection-start-line="81" selection-start-column="5" selection-end-line="81" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/postgresql/postgresql/9.0-801.jdbc4/postgresql-9.0-801.jdbc4-sources.jar!/org/postgresql/jdbc2/AbstractJdbc2Statement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4471">
+          <caret line="301" selection-start-line="301" selection-end-line="301" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>Projeto_Estoque:jar</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>10</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>Projeto_Estoque</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.5</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
