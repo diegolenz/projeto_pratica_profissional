@@ -43,7 +43,7 @@ public class TableModelItemProduto extends AbstractTableModel {
             case 3:
                 return p.getQuantidade();
             case 4:
-                return p.getValor();
+                return p.getValorUnitario();
             case 5:
                 return p.getDescontoUnitario();
             case 6:

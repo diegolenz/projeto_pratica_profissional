@@ -10,7 +10,17 @@ public class ItemProduto extends Produto{
 
     private Double acrescimoUnitario;
 
+    private Double valorUnitario;
+
     private Compra compra;
+
+    private Double valorTotal ;
+
+    private Double valorRateio ;
+
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
 
     public Double getQuantidade() {
         return quantidade;
@@ -37,11 +47,19 @@ public class ItemProduto extends Produto{
     }
 
     public Double getValorTotal() {
-        return (getValor() * getQuantidade()) + (getAcrescimoUnitario() * getQuantidade()) - (getDescontoUnitario() * getQuantidade()) ;
+        return (getValorUnitario() * getQuantidade()) + (getAcrescimoUnitario() * getQuantidade()) - (getDescontoUnitario() * getQuantidade()) ;
     }
 
     public Double getTotaisAcrescimos(){
         return getAcrescimoUnitario() * getQuantidade();
+    }
+
+    public Double getTotaisCustoUn(){
+        return getValorUnitario() * getQuantidade();
+    }
+
+    public Double getTotal(){
+        return getTotaisCustoUn() - getTotaisDescontos() + getTotaisAcrescimos();
     }
 
     public Double getTotaisDescontos(){
@@ -70,5 +88,19 @@ public class ItemProduto extends Produto{
         this.setQuantidadeMinima(p.getQuantidadeMinima());
     }
 
+    public Double getValorRateio() {
+        return valorRateio;
+    }
 
+    public void setValorRateio(Double valorRateio) {
+        this.valorRateio = valorRateio;
+    }
+
+    public Double getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(Double valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
 }

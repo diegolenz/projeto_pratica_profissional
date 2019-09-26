@@ -14,19 +14,24 @@ import gui.pessoas.fornecedores.PesquisarFornecedor;
 import gui.produtos.PesquisarProduto;
 import gui.swing.DialogPadrao;
 import gui.swing.SwingFormatterFactory;
+import javafx.scene.input.KeyCode;
 import jdk.nashorn.internal.scripts.JO;
 import lib.model.comercial.Compra;
 import lib.model.comercial.ContaPagar;
 import lib.model.comercial.ItemProduto;
+import lib.model.comercial.frete.TipoFrete;
+import lib.model.financeiro.CondicaoPagamento.CondicaoPagamento;
 import lib.model.financeiro.parcela.Parcela;
 import lib.model.interno.ModuloSistema;
 import lib.model.interno.NivelAcessoModulo;
 import lib.model.pessoa.fornecedor.Fornecedor;
+import lib.model.produto.Produto;
 import lib.service.CompraService;
+import lib.service.CondicaoPagamentoService;
+import lib.service.FornecedorService;
+import lib.service.ProdutoService;
 
-import javax.mail.FetchProfile;
 import javax.swing.*;
-import javax.swing.text.html.Option;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -39,9 +44,7 @@ public class CadastroCompraForm extends DialogPadrao {
 
     private Compra compra;
     private ItemProduto itemProdutoSelecionado;
-    private List<ItemProduto> itens;
     private TableModelItemProduto tableModelProduto;
-    //   private TableModelParcelaSimples tableModelParcelaSimples;
     private TableModelContas tableModelContas;
     private List<ContaPagar> contas;
 
@@ -50,13 +53,44 @@ public class CadastroCompraForm extends DialogPadrao {
      */
     public CadastroCompraForm(Window parent, boolean modal, Compra compra) {
         super(parent, modal, ModuloSistema.FINANCEIRO, NivelAcessoModulo.LEITURA_GRAVACAO);
-        itens = new ArrayList<>();
         initComponents();
         this.compra = compra;
         tableModelProduto = new TableModelItemProduto();
         tableModelContas = new TableModelContas();
         contas = new ArrayList<>();
-        // this.tblItens.setModel(tableModelProduto);
+        this.initDados();
+    }
+
+    public void carregar(){
+        edtFornecedor.setText(compra.getFornecedor().getNome());
+        edtCodFornecedor.setText(compra.getFornecedor().getId().toString());
+        edtNumeroSerie.setText(compra.getNumSerieNota().toString());
+        edtNumeroNota.setText(compra.getNumeroNota().toString());
+        edtModeloNota.setText(compra.getModeloNota());
+        edtDtEmissão.setDate(compra.getDtEmisssao());
+        edtDtChegada.setDate(compra.getDtChegada());
+        tableModelProduto.setList(compra.getItensProdutos().toArray());
+        edtValorSeguro.setValue(compra.getValorSeguro());
+        edtValorFrete.setValue(compra.getValorFrete());
+        edtCustoTotal.setValue(compra.getTotalCompra());
+        edtOutrasDespesas.setValue(compra.getOutrasDespesas());
+        edtCodCondicaoPagamento.setText(compra.getCondicaoPagamento().getId().toString());
+        edtCondicaoPagamento.setText(compra.getCondicaoPagamento().getNome());
+        tableModelContas.setList(compra.getContas().toArray());
+        tblContasApagar.setModel(tableModelContas);
+        tblItens.setModel(tableModelProduto);
+        if (compra.getTipoFrete().equals(TipoFrete.CIF))
+            rdTipoFreteCIF.setSelected(true);
+        else
+            rdFreteFOB.setSelected(true);
+        lblDescricaoForm.setText("Visualizar compra");
+
+    }
+
+    public void initDados() {
+        this.edtDtChegada.setDate(new Date());
+        this.edtDtEmissão.setDate(new Date());
+        this.rdTipoFreteCIF.setSelected(true);
 
     }
 
@@ -138,20 +172,20 @@ public class CadastroCompraForm extends DialogPadrao {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
         edtTotalDescontos = new javax.swing.JFormattedTextField();
         edtTotalAcrescimos = new javax.swing.JFormattedTextField();
         edtCustoTotal = new javax.swing.JFormattedTextField();
         edtCodCondicaoPagamento = new javax.swing.JFormattedTextField();
+        jPanel2 = new javax.swing.JPanel();
+        rdTipoFreteCIF = new javax.swing.JRadioButton();
+        rdFreteFOB = new javax.swing.JRadioButton();
         jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        lblValorFrete = new javax.swing.JLabel();
         edtValorSeguro = new javax.swing.JFormattedTextField();
+        lblSeguro = new javax.swing.JLabel();
+        edtOutrasDespesas = new javax.swing.JFormattedTextField();
+        lblOutrasDespesas = new javax.swing.JLabel();
         edtValorFrete = new javax.swing.JFormattedTextField();
-        jFormattedTextField4 = new javax.swing.JFormattedTextField();
         jLabel22 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -186,8 +220,13 @@ public class CadastroCompraForm extends DialogPadrao {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        edtDtChegada.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        edtDtEmissão.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
         edtModeloNota.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        tblItens.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(tblItens);
         if (tblItens.getColumnModel().getColumnCount() > 0) {
             tblItens.getColumnModel().getColumn(0).setPreferredWidth(5);
@@ -208,16 +247,6 @@ public class CadastroCompraForm extends DialogPadrao {
 
         edtFornecedor.setEditable(false);
         edtFornecedor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        edtFornecedor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                edtFornecedorFocusLost(evt);
-            }
-        });
-        edtFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                edtFornecedorKeyPressed(evt);
-            }
-        });
 
         btnRemoverItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/erro_icon.png"))); // NOI18N
         btnRemoverItem.addActionListener(new java.awt.event.ActionListener() {
@@ -261,9 +290,9 @@ public class CadastroCompraForm extends DialogPadrao {
         jLabel7.setText("Fornecedor *");
 
         edtCodFornecedor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        edtCodFornecedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtCodFornecedorActionPerformed(evt);
+        edtCodFornecedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                edtCodFornecedorKeyPressed(evt);
             }
         });
 
@@ -304,9 +333,9 @@ public class CadastroCompraForm extends DialogPadrao {
         jLabel20.setText("Valor Total");
 
         edtCodProduto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        edtCodProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtCodProdutoActionPerformed(evt);
+        edtCodProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                edtCodProdutoKeyPressed(evt);
             }
         });
 
@@ -315,12 +344,6 @@ public class CadastroCompraForm extends DialogPadrao {
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${itemProdutoSelecionado.nome}"), edtNome, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
-
-        edtNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtNomeActionPerformed(evt);
-            }
-        });
 
         btnPesquisarItem.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         btnPesquisarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pesquisar.png"))); // NOI18N
@@ -332,17 +355,12 @@ public class CadastroCompraForm extends DialogPadrao {
 
         edtUnMedida.setEditable(false);
         edtUnMedida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        edtUnMedida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtUnMedidaActionPerformed(evt);
-            }
-        });
 
         edtQuantItem.setFormatterFactory(  SwingFormatterFactory.buildNumeroReal(0D, null));
         edtQuantItem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         edtQuantItem.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                edtQuantItemPropertyChange(evt);
+                calculaValorTotalPorItem(evt);
             }
         });
 
@@ -354,7 +372,7 @@ public class CadastroCompraForm extends DialogPadrao {
 
         edtValorItem.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                edtValorItemPropertyChange(evt);
+                calculaValorTotalPorItem(evt);
             }
         });
 
@@ -364,15 +382,21 @@ public class CadastroCompraForm extends DialogPadrao {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${itemProdutoSelecionado.descontoUnitario}"), edtDescItem, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
+        edtDescItem.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                calculaValorTotalPorItem(evt);
+            }
+        });
+
         edtAcrescUn.setFormatterFactory(  SwingFormatterFactory.buildMoeda(0D, null));
         edtAcrescUn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${itemProdutoSelecionado.acrescimoUnitario}"), edtAcrescUn, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
-        edtAcrescUn.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                edtAcrescUnFocusLost(evt);
+        edtAcrescUn.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                calculaValorTotalPorItem(evt);
             }
         });
 
@@ -415,9 +439,6 @@ public class CadastroCompraForm extends DialogPadrao {
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setText("Custo");
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel21.setText("Editar item");
-
         edtTotalDescontos.setEditable(false);
         edtTotalDescontos.setFormatterFactory(  SwingFormatterFactory.buildNumeroReal(0D, 1000000D)
         );
@@ -432,120 +453,170 @@ public class CadastroCompraForm extends DialogPadrao {
         edtCustoTotal.setFormatterFactory(  SwingFormatterFactory.buildMoeda(0D, null));
         edtCustoTotal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        edtCodCondicaoPagamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                edtCodCondicaoPagamentoKeyPressed(evt);
+            }
+        });
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        rdTipoFreteCIF.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rdTipoFreteCIF);
+        rdTipoFreteCIF.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rdTipoFreteCIF.setText("CIF");
+        rdTipoFreteCIF.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rdTipoFreteCIFItemStateChanged(evt);
+            }
+        });
+
+        rdFreteFOB.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rdFreteFOB);
+        rdFreteFOB.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rdFreteFOB.setText("FOB");
+
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel23.setText("Tipo frete");
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel24.setText("Valor frete");
+        lblValorFrete.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblValorFrete.setText("Valor frete");
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel25.setText("Outras despesas");
-
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel26.setText("Valor seguro");
-
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButton1.setText("CIF");
-
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jRadioButton2.setText("FOB");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+        edtValorSeguro.setFormatterFactory(  SwingFormatterFactory.buildMoeda(0D, null));
+        edtValorSeguro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        edtValorSeguro.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                atualizaValoTotalCompra(evt);
             }
         });
+
+        lblSeguro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblSeguro.setText("Valor seguro");
+
+        edtOutrasDespesas.setFormatterFactory(  SwingFormatterFactory.buildMoeda(0D, null));
+        edtOutrasDespesas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        edtOutrasDespesas.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                atualizaValoTotalCompra(evt);
+            }
+        });
+
+        lblOutrasDespesas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblOutrasDespesas.setText("Outras despesas");
+
+        edtValorFrete.setFormatterFactory(  SwingFormatterFactory.buildMoeda(0D, null));
+        edtValorFrete.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        edtValorFrete.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                atualizaValoTotalCompra(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel23)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(rdTipoFreteCIF)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rdFreteFOB)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblValorFrete)
+                    .addComponent(edtValorFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(edtValorSeguro, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSeguro))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblOutrasDespesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(edtOutrasDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblValorFrete)
+                            .addComponent(lblSeguro)
+                            .addComponent(lblOutrasDespesas))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(edtValorSeguro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edtValorFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edtOutrasDespesas, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel23)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rdTipoFreteCIF, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdFreteFOB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel10))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(edtCodProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnPesquisarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(edtUnMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(edtQuantItem, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(edtValorItem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(edtDescItem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(edtAcrescUn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(14, 14, 14)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(edtCustoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnAddItem, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnAlterarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnRemoverItem, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(edtNumeroNota, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(11, 11, 11)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel1)
-                                .addComponent(edtNumeroSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel3)
-                                .addComponent(edtModeloNota, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(118, 118, 118)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(edtTotalDescontos, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
                             .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel6)
-                                .addComponent(edtCodFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7)
-                                .addComponent(edtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnAlterarFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(26, 26, 26)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addGap(12, 12, 12))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(edtDtEmissão, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addComponent(edtTotalAcrescimos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(edtDtChegada, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(lblDescricaoForm1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(edtCustoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addContainerGap())
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 940, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(edtNumeroNota, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(11, 11, 11)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel1)
+                                    .addComponent(edtNumeroSerie, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3)
+                                    .addComponent(edtModeloNota, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel6)
+                                    .addComponent(edtCodFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(edtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAlterarFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(52, 52, 52)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(edtDtEmissão, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(edtDtChegada, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -557,140 +628,139 @@ public class CadastroCompraForm extends DialogPadrao {
                                         .addComponent(edtCondicaoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                 .addComponent(btnAltCondicao, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel23)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jRadioButton1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jRadioButton2)))
-                                .addGap(28, 28, 28)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel24)
-                                    .addComponent(edtValorFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(14, 14, 14)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(edtValorSeguro, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel26))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jFormattedTextField4))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edtTotalDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                            .addComponent(edtTotalAcrescimos))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(edtCustoTotal)
-                                .addGap(5, 5, 5))))
-                    .addComponent(jLabel21)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 922, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                            .addComponent(lblDescricaoForm1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jLabel10))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(edtCodProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnPesquisarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(edtUnMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(edtQuantItem, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(edtValorItem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(edtDescItem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(edtAcrescUn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(14, 14, 14)
+                                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(edtCustoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnAddItem, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnAlterarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnRemoverItem, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(36, 36, 36))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(edtModeloNota, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                            .addComponent(edtNumeroSerie)
-                            .addComponent(edtNumeroNota)
-                            .addComponent(edtFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                            .addComponent(edtCodFornecedor)))
-                    .addComponent(btnAlterarFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(edtDtEmissão, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(edtDtChegada, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel21)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel10)
-                                .addComponent(jLabel9))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel12)
-                                .addComponent(jLabel11)
-                                .addComponent(jLabel15)
-                                .addComponent(jLabel13)
-                                .addComponent(jLabel14)
-                                .addComponent(jLabel16)))
-                        .addGap(5, 5, 5)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edtValorItem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edtQuantItem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edtDescItem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edtAcrescUn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edtCustoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edtCodProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                            .addComponent(edtUnMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(edtModeloNota, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                                    .addComponent(edtNumeroSerie)
+                                    .addComponent(edtNumeroNota)
+                                    .addComponent(edtFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                                    .addComponent(edtCodFornecedor)))
+                            .addComponent(btnAlterarFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(edtDtEmissão, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(edtDtChegada, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel10)
+                                        .addComponent(jLabel9))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel12)
+                                        .addComponent(jLabel11)
+                                        .addComponent(jLabel15)
+                                        .addComponent(jLabel13)
+                                        .addComponent(jLabel14)
+                                        .addComponent(jLabel16)))
+                                .addGap(5, 5, 5)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edtValorItem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edtQuantItem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edtDescItem, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edtAcrescUn, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edtCustoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(edtCodProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                                    .addComponent(edtUnMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(btnRemoverItem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnPesquisarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAddItem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAlterarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel23)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel26)
-                    .addComponent(jLabel25))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtValorSeguro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtValorFrete, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                            .addComponent(btnAlterarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel19))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(edtCustoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edtTotalAcrescimos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edtTotalDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel18)
-                                .addComponent(jLabel19)
-                                .addComponent(jLabel17))
-                            .addComponent(jLabel20))
+                        .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(edtCondicaoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(edtCodCondicaoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(edtTotalDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(edtCustoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(edtTotalAcrescimos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(edtCondicaoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edtCodCondicaoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(btnAltCondicao, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDescricaoForm1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -714,6 +784,7 @@ public class CadastroCompraForm extends DialogPadrao {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(42, 42, 42)
@@ -722,8 +793,7 @@ public class CadastroCompraForm extends DialogPadrao {
                                 .addComponent(btnSalvar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnCancelar))
-                            .addComponent(jLabel22)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1016, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel22))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -732,8 +802,8 @@ public class CadastroCompraForm extends DialogPadrao {
                 .addContainerGap()
                 .addComponent(lblDescricaoForm)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -750,32 +820,52 @@ public class CadastroCompraForm extends DialogPadrao {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-
     public void bloqueiaEDT() {
-        this.edtAcrescUn.setEditable(false);
+        this.edtAcrescUn.setVisible(false);
+        this.edtValorItem.setVisible(false);
         this.edtCondicaoPagamento.setEditable(false);
-        this.edtDescItem.setEditable(false);
-        this.edtNome.setEditable(false);
+        this.edtDescItem.setVisible(false);
+        this.edtNome.setVisible(false);
         this.edtFuncionario.setEditable(false);
         this.edtDtChegada.setEnabled(false);
         this.edtNumeroNota.setEnabled(false);
-        this.edtCustoProduto.setEditable(false);
+        this.edtDtEmissão.setEnabled(false);
+        this.edtTotalAcrescimos.setEditable(false);
+        this.edtTotalDescontos.setEditable(false);
+        edtNumeroSerie.setEditable(false);
+        this.edtCustoProduto.setVisible(false);
+        this.edtValorFrete.setEditable(false);
+        this.edtOutrasDespesas.setEditable(false);
+        this.edtValorSeguro.setEditable(false);
         this.edtModeloNota.setEditable(false);
-        this.edtAcrescUn.setEditable(false);
+        this.edtAcrescUn.setVisible(false);
+        this.edtUnMedida.setVisible(false);
+        this.rdTipoFreteCIF.setEnabled(false);
+        this.setEnabled(false);
+        btnAddItem.setVisible(false);
+        btnAltCondicao.setVisible(false);
+        btnAlterarFornecedor.setVisible(false);
+        btnRemoverItem.setVisible(false);
+        btnCancelar.setVisible(false);
+        btnSalvar.setVisible(false);
+        btnPesquisarItem.setVisible(false);
+        btnAlterarItem.setVisible(false);
     }
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        if (JOptionPane.showInternalConfirmDialog(this, "Nenhum dado da compra será salvo, deseja realmente cancelar",
+                "Atenção", JOptionPane.YES_NO_OPTION) == 0) {
+            dispose();
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private boolean carregaCompra() {
-        this.compra.setItensProdutos(itens);
+    private boolean carregaValidaCompra() {
         if (this.edtNumeroSerie.getValue() == null) {
             JOptionPane.showMessageDialog(this, "Numero da nota é obrigatório");
             this.edtNumeroNota.requestFocus();
             return false;
         }
-        if (edtNumeroSerie.getValue()== null) {
+        if (edtNumeroSerie.getValue() == null) {
             JOptionPane.showMessageDialog(this, "Numero de série nota é obrigatório");
             this.edtNumeroSerie.requestFocus();
             return false;
@@ -783,6 +873,12 @@ public class CadastroCompraForm extends DialogPadrao {
         if (edtModeloNota.getText() == null) {
             JOptionPane.showMessageDialog(this, "Modelo da nota é obrigatório");
             this.edtModeloNota.requestFocus();
+            return false;
+        }
+
+        if (compra.getFornecedor() == null) {
+            JOptionPane.showMessageDialog(this, "Fornecedor não informado");
+            edtCodFornecedor.requestFocus();
             return false;
         }
 
@@ -796,11 +892,6 @@ public class CadastroCompraForm extends DialogPadrao {
             this.edtCodCondicaoPagamento.requestFocus();
             return false;
         }
-        if (compra.getConstasPagar().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "A compra não possui nenhuma conta a pagar");
-            this.edtCodCondicaoPagamento.requestFocus();
-            return false;
-        }
         if (edtDtEmissão.getDate() == null) {
             JOptionPane.showMessageDialog(this, "A compra não possui data de emissão");
             this.edtDtEmissão.requestFocus();
@@ -811,42 +902,55 @@ public class CadastroCompraForm extends DialogPadrao {
             this.edtDtChegada.requestFocus();
             return false;
         }
+        if (edtDtEmissão.getDate().compareTo(edtDtChegada.getDate()) < 0) {
+            JOptionPane.showMessageDialog(this, "A data de chegada deve ser igual ou maior que a data de emissão");
+            this.edtDtChegada.requestFocus();
+            return false;
+        }
 
-        if (contas.isEmpty()){
+        if (contas.isEmpty()) {
             JOptionPane.showMessageDialog(this, "A compra não possui contas a pagar");
             this.edtCodCondicaoPagamento.requestFocus();
             return false;
         }
+        if (rdTipoFreteCIF.isSelected()) {
+            this.compra.setTipoFrete(TipoFrete.CIF);
+            this.compra.setValorFrete(0D);
+            this.compra.setValorSeguro(0D);
+            this.compra.setOutrasDespesas(0D);
+        } else {
+            this.compra.setTipoFrete(TipoFrete.FOB);
+            this.compra.setValorFrete((Double) edtValorFrete.getValue());
+            this.compra.setValorSeguro((Double) edtValorSeguro.getValue());
+            this.compra.setOutrasDespesas((Double) edtOutrasDespesas.getValue());
+        }
 
-        this.compra.setConstasPagar(contas);
+        compra.setAtivo(true);
+
+        this.compra.setContas(contas);
         this.compra.setModeloNota(edtModeloNota.getText());
         this.compra.setNumeroNota(Integer.parseInt(edtNumeroNota.getValue().toString()));
         this.compra.setNumSerieNota(Integer.parseInt(edtNumeroSerie.getValue().toString()));
         this.compra.setDtEmisssao(edtDtEmissão.getDate());
         this.compra.setDtChegada(edtDtChegada.getDate());
+        this.buildItens();
         return true;
     }
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (!this.carregaCompra())
+        if (!this.carregaValidaCompra())
             return;
 
         try {
             new CompraService().save(compra);
+            JOptionPane.showMessageDialog(this, "Compra salva com sucesso");
+            dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Falha ao salvar dados: \n" + ex.getMessage());
             return;
         }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void edtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtNomeActionPerformed
-
-    private void edtFornecedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtFornecedorKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtFornecedorKeyPressed
 
     private void btnPesquisarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarItemActionPerformed
         PesquisarProduto.Callback callback = (p) -> {
@@ -856,7 +960,7 @@ public class CadastroCompraForm extends DialogPadrao {
                 }
                 return;
             } else {
-                Optional<ItemProduto> item = itens.stream().filter(itemProduto -> itemProduto.getId().equals(p.getId())).findAny();
+                Optional<ItemProduto> item = compra.getItensProdutos().stream().filter(itemProduto -> itemProduto.getId().equals(p.getId())).findAny();
                 if (item.isPresent()) {
                     if (JOptionPane.showConfirmDialog(this, "Item selecionado já existe na venda, deseja edita-lo ?",
                             "Atenção", JOptionPane.YES_NO_OPTION) == 1) {
@@ -876,18 +980,50 @@ public class CadastroCompraForm extends DialogPadrao {
             this.edtCodProduto.setText(p.getId().toString());
             this.edtValorItem.setValue(p.getPrecoCompra());
             this.edtQuantItem.setValue(1D);
-            this.itens.add(itemProdutoSelecionado);
+            this.compra.getItensProdutos().add(itemProdutoSelecionado);
         };
         new PesquisarProduto(this, true, callback).show();
     }//GEN-LAST:event_btnPesquisarItemActionPerformed
+
+    private void btnAddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItemActionPerformed
+        if (itemProdutoSelecionado == null) {
+            JOptionPane.showMessageDialog(this, "Nenhum produto foi selecionado");
+            return;
+        }
+        if ((Double) edtQuantItem.getValue() < 1D) {
+            JOptionPane.showMessageDialog(this, " A quantidade do produto deve ser no minimo 1");
+            this.edtQuantItem.requestFocus();
+            return;
+        }
+        Optional<ItemProduto> itemOptional = compra.getItensProdutos().stream().filter(item -> item.getId().equals(itemProdutoSelecionado.getId())).findAny();
+        if (itemOptional.isPresent()) {
+            compra.getItensProdutos().remove(itemOptional.get());
+        }
+
+        itemProdutoSelecionado.setQuantidade((Double) edtQuantItem.getValue());
+        itemProdutoSelecionado.setDescontoUnitario((Double) edtDescItem.getValue());
+        itemProdutoSelecionado.setAcrescimoUnitario((Double) edtAcrescUn.getValue());
+        itemProdutoSelecionado.setValorUnitario((Double) edtValorItem.getValue());
+
+        if (!compra.getItensProdutos().contains(itemProdutoSelecionado))
+            this.compra.getItensProdutos().add(itemProdutoSelecionado);
+
+        tableModelProduto.setList(compra.getItensProdutos().toArray());
+        tblItens.setModel(tableModelProduto);
+
+        this.edtTotalDescontos.setValue(getTotalDescontos());
+        this.edtTotalAcrescimos.setValue(getTotalAcresimos());
+        this.edtCustoTotal.setValue(compra.getTotalCompra());
+
+    }//GEN-LAST:event_btnAddItemActionPerformed
 
     private void btnRemoverItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverItemActionPerformed
         if (tblItens.getSelectedRow() < 0) {
             JOptionPane.showConfirmDialog(this, "Selecione um item para editar");
             return;
         }
-        this.itens.remove(tblItens.getSelectedRow());
-        tableModelProduto.setList(itens.toArray());
+        this.compra.getItensProdutos().remove(tblItens.getSelectedRow());
+        tableModelProduto.setList(compra.getItensProdutos().toArray());
     }//GEN-LAST:event_btnRemoverItemActionPerformed
 
     private void btnAlterarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarItemActionPerformed
@@ -895,13 +1031,13 @@ public class CadastroCompraForm extends DialogPadrao {
             JOptionPane.showMessageDialog(this, "Selecione um item para editar");
             return;
         }
-        this.itemProdutoSelecionado = itens.get(tblItens.getSelectedRow());
+        this.itemProdutoSelecionado = compra.getItensProdutos().get(tblItens.getSelectedRow());
         this.edtNome.setText(itemProdutoSelecionado.getNome());
-        this.edtValorItem.setValue(itemProdutoSelecionado.getPrecoCompra());
+        this.edtValorItem.setValue(itemProdutoSelecionado.getValorUnitario());
         this.edtCustoProduto.setValue(itemProdutoSelecionado.getValor());
         this.edtUnMedida.setText(itemProdutoSelecionado.getUnidadeMedida());
         this.edtCodProduto.setText(itemProdutoSelecionado.getId().toString());
-        this.itens.add(itemProdutoSelecionado);
+        this.compra.getItensProdutos().add(itemProdutoSelecionado);
     }//GEN-LAST:event_btnAlterarItemActionPerformed
 
     private void btnAlterarFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarFornecedorActionPerformed
@@ -910,7 +1046,7 @@ public class CadastroCompraForm extends DialogPadrao {
                 return;
             }
             this.compra.setFornecedor((Fornecedor) p);
-            this.edtFornecedor.setText( p.getNome());
+            this.edtFornecedor.setText(p.getNome());
             this.edtCodFornecedor.setText(p.getId().toString());
         };
         new PesquisarFornecedor(this, true, callback).show();
@@ -921,16 +1057,20 @@ public class CadastroCompraForm extends DialogPadrao {
             if (condicao == null) {
                 return;
             }
+            if (this.compra.getCondicaoPagamento() != null)
+                if (this.compra.getCondicaoPagamento() == condicao)
+                    return;
             this.compra.setCondicaoPagamento(condicao);
             edtCondicaoPagamento.setText(condicao.getNome());
             edtCodCondicaoPagamento.setValue(condicao.getId());
-            this.buildParcelas();
+            this.buildContas();
         });
         new PesquisarCondicaoPagamento(this, true, callback).show();
 
     }//GEN-LAST:event_btnAltCondicaoActionPerformed
 
-    public void buildParcelas() {
+    //controi as contas a pagar
+    public void buildContas() {
         List<Parcela> parcelas = compra.getCondicaoPagamento().getParcelas();
         Double valorTotal = (Double) edtCustoTotal.getValue();
         Integer qtd = parcelas.size();
@@ -943,117 +1083,143 @@ public class CadastroCompraForm extends DialogPadrao {
             data.setTime(new Date());
             data.add(Calendar.DATE, parcela.getDias());
             conta.setDataVencimento(data.getTime());
+            conta.setCompra(compra);
             conta.setParcela(parcela);
             conta.setValor(valor -
                     (compra.getCondicaoPagamento().getDesconto() * valor / 100) +
                     (compra.getCondicaoPagamento().getMulta() * valor / 100) +
                     (compra.getCondicaoPagamento().getJuros() * valor / 100)
             );
-            contas.add(conta);
+            this.contas.add(conta);
         });
         this.tableModelContas.setList(contas.toArray());
         this.tblContasApagar.setModel(tableModelContas);
     }
 
-    private void edtFornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_edtFornecedorFocusLost
-        edtFornecedor.setText(compra.getFornecedor().getId() + " " + compra.getFornecedor().getNome());
-    }//GEN-LAST:event_edtFornecedorFocusLost
+    //metodo que adiciona os itens a compra e adiciona o vlor do rateio
+    public void buildItens() {
+        this.compra.getItensProdutos().stream().forEach(itemProduto -> itemProduto.setCompra(this.compra));
+        this.compra.buildRateioItens();
+    }
 
-    private void btnAddItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItemActionPerformed
-        if (itemProdutoSelecionado == null) {
-            JOptionPane.showMessageDialog(this, "Nenhum produto foi selecionado");
-            return;
+    private void rdTipoFreteCIFItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdTipoFreteCIFItemStateChanged
+        if (rdTipoFreteCIF.isSelected()) {
+            edtValorFrete.setVisible(false);
+            edtValorSeguro.setVisible(false);
+            edtOutrasDespesas.setVisible(false);
+            lblOutrasDespesas.setVisible(false);
+            lblSeguro.setVisible(false);
+            lblValorFrete.setVisible(false);
+            compra.setTipoFrete(TipoFrete.CIF);
+        } else {
+            compra.setTipoFrete(TipoFrete.FOB);
+            edtValorFrete.setVisible(true);
+            edtValorSeguro.setVisible(true);
+            edtOutrasDespesas.setVisible(true);
+            lblOutrasDespesas.setVisible(true);
+            lblSeguro.setVisible(true);
+            lblValorFrete.setVisible(true);
         }
-        if ((Double) edtQuantItem.getValue() < 1D) {
-            JOptionPane.showMessageDialog(this, " A quantidade do produto deve ser no minimo 1");
-            this.edtQuantItem.requestFocus();
-            return;
+    }//GEN-LAST:event_rdTipoFreteCIFItemStateChanged
+
+    private void edtCodProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtCodProdutoKeyPressed
+        if (evt.getKeyCode() == KeyCode.ENTER.impl_getCode()) {
+            Produto p = null;
+            try {
+                p = ((Produto) new ProdutoService().getByID(Integer.parseInt(edtCodProduto.getText())));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+            if (p == null) {
+                if (itemProdutoSelecionado != null) {
+                    edtCodProduto.setText(this.itemProdutoSelecionado.getId().toString());
+                }
+                return;
+            } else {
+                Integer id = p.getId();
+                Optional<ItemProduto> item = compra.getItensProdutos().stream().filter(itemProduto -> itemProduto.getId().equals(id)).findAny();
+                if (item.isPresent()) {
+                    if (JOptionPane.showConfirmDialog(this, "Item selecionado já existe na venda, deseja edita-lo ?",
+                            "Atenção", JOptionPane.YES_NO_OPTION) == 1) {
+                        return;
+                    } else {
+                        itemProdutoSelecionado = item.get();
+                    }
+                } else {
+                    this.itemProdutoSelecionado = new ItemProduto();
+                    this.itemProdutoSelecionado.buildItem(p);
+                }
+            }
+            this.edtNome.setText(p.getNome());
+            this.edtCustoProduto.setValue(p.getPrecoCompra());
+            this.edtUnMedida.setText(p.getUnidadeMedida());
+            this.edtCodProduto.setText(p.getId().toString());
+            this.edtValorItem.setValue(p.getPrecoCompra());
+            this.edtQuantItem.setValue(1D);
+            this.compra.getItensProdutos().add(itemProdutoSelecionado);
         }
-        Optional<ItemProduto> itemOptional = itens.stream().filter(item -> item.getId().equals(itemProdutoSelecionado.getId())).findAny();
-        if (itemOptional.isPresent()) {
-            itens.remove(itemOptional.get());
+        ;
+
+    }//GEN-LAST:event_edtCodProdutoKeyPressed
+
+    private void edtCodFornecedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtCodFornecedorKeyPressed
+        if (evt.getKeyCode() == KeyCode.ENTER.impl_getCode()) {
+            Fornecedor fornecedor = null;
+            try {
+                fornecedor = ((Fornecedor) new FornecedorService().getByID(Integer.parseInt(edtCodFornecedor.getText())));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+            if (fornecedor != null) {
+                this.edtFornecedor.setText(fornecedor.getNome());
+                this.compra.setFornecedor(fornecedor);
+            }
         }
+    }//GEN-LAST:event_edtCodFornecedorKeyPressed
 
-        itemProdutoSelecionado.setQuantidade((Double) edtQuantItem.getValue());
-        itemProdutoSelecionado.setDescontoUnitario((Double) edtDescItem.getValue());
-        itemProdutoSelecionado.setAcrescimoUnitario((Double) edtAcrescUn.getValue());
+    private void edtCodCondicaoPagamentoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtCodCondicaoPagamentoKeyPressed
+        if (evt.getKeyCode() == KeyCode.ENTER.impl_getCode()) {
+            CondicaoPagamento condicaoPagamento = null;
+            try {
+                condicaoPagamento = ((CondicaoPagamento) new CondicaoPagamentoService().getByID(Integer.parseInt(edtCodCondicaoPagamento.getText())));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+            if (condicaoPagamento != null) {
+                this.edtNome.setText(condicaoPagamento.getNome());
+                this.compra.setCondicaoPagamento(condicaoPagamento);
+            }
+        }
+    }//GEN-LAST:event_edtCodCondicaoPagamentoKeyPressed
 
-        if (!itens.contains(itemProdutoSelecionado))
-            this.itens.add(itemProdutoSelecionado);
-
-        tableModelProduto.setList(itens.toArray());
-        tblItens.setModel(tableModelProduto);
-
-        this.edtTotalDescontos.setValue(getTotalDescontos());
-        this.edtTotalAcrescimos.setValue(getTotalAcresimos());
-        this.edtCustoTotal.setValue(getTotalCompra());
-
-    }//GEN-LAST:event_btnAddItemActionPerformed
-
-    private void edtAcrescUnFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_edtAcrescUnFocusLost
-        //  itemProdutoSelecionado.setAcrescimoUnitario(edt);
-    }//GEN-LAST:event_edtAcrescUnFocusLost
-
-    private void edtCodFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCodFornecedorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtCodFornecedorActionPerformed
-
-    private void edtCodProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCodProdutoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtCodProdutoActionPerformed
-
-    private void edtUnMedidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtUnMedidaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtUnMedidaActionPerformed
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
-
-    private void edtValorItemPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_edtValorItemPropertyChange
+    private void calculaValorTotalPorItem(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calculaValorTotalPorItem
         Double qtd = (Double) edtQuantItem.getValue();
-        Double valorItem =(Double) edtValorItem.getValue();
+        Double valorItem = (Double) edtValorItem.getValue();
         Double descUn = (Double) edtDescItem.getValue();
-        Double acresUn =(Double) edtAcrescUn.getValue();
+        Double acresUn = (Double) edtAcrescUn.getValue();
         edtCustoProduto.setValue((valorItem * qtd) - (descUn * qtd) + (acresUn * qtd));
-    }//GEN-LAST:event_edtValorItemPropertyChange
+    }//GEN-LAST:event_calculaValorTotalPorItem
 
-    private void edtQuantItemPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_edtQuantItemPropertyChange
-        Double qtd = (Double) edtQuantItem.getValue();
-        Double valorItem =(Double) edtValorItem.getValue();
-        Double descUn = (Double) edtDescItem.getValue();
-        Double acresUn =(Double) edtAcrescUn.getValue();
-        edtCustoProduto.setValue((valorItem * qtd) - (descUn * qtd) + (acresUn * qtd));
-    }//GEN-LAST:event_edtQuantItemPropertyChange
-
-
-    public ItemProduto getItemProdutoSelecionado() {
-        return itemProdutoSelecionado;
-    }
-
-    public void setItemProdutoSelecionado(ItemProduto itemProdutoSelecionado) {
-        this.itemProdutoSelecionado = itemProdutoSelecionado;
-    }
-
-    public List<ItemProduto> getItens() {
-        return itens;
-    }
-
-    public void setItens(List<ItemProduto> itens) {
-        this.itens = itens;
-    }
+    private void atualizaValoTotalCompra(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_atualizaValoTotalCompra
+        if (compra == null)
+            return;
+        compra.setValorFrete((Double) edtValorFrete.getValue());
+        compra.setValorSeguro((Double) edtValorSeguro.getValue());
+        compra.setOutrasDespesas((Double) edtOutrasDespesas.getValue());
+        this.edtCustoTotal.setValue(compra.getTotalCompra());
+    }//GEN-LAST:event_atualizaValoTotalCompra
 
     public Double getTotalDescontos() {
-        return itens.stream().mapToDouble(value -> value.getTotaisDescontos()).sum();
+        return compra.getItensProdutos().stream().mapToDouble(value -> value.getTotaisDescontos()).sum();
     }
 
     public Double getTotalAcresimos() {
-        return itens.stream().mapToDouble(value -> value.getTotaisAcrescimos()).sum();
+        return compra.getItensProdutos().stream().mapToDouble(value -> value.getTotaisAcrescimos()).sum();
     }
 
-    public Double getTotalCompra() {
-        return itens.stream().mapToDouble(ItemProduto::getPrecoCompra).sum();
-    }
+  /*  public Double getTotalCompra() {
+        return itens.stream().mapToDouble(ItemProduto::getValorTotal).sum();
+    } */
 
     /**
      * @param args the command line arguments
@@ -1125,6 +1291,7 @@ public class CadastroCompraForm extends DialogPadrao {
     private javax.swing.JTextField edtNome;
     private javax.swing.JFormattedTextField edtNumeroNota;
     private javax.swing.JFormattedTextField edtNumeroSerie;
+    private javax.swing.JFormattedTextField edtOutrasDespesas;
     private javax.swing.JFormattedTextField edtQuantItem;
     private javax.swing.JFormattedTextField edtTotalAcrescimos;
     private javax.swing.JFormattedTextField edtTotalDescontos;
@@ -1132,7 +1299,6 @@ public class CadastroCompraForm extends DialogPadrao {
     private javax.swing.JFormattedTextField edtValorFrete;
     private javax.swing.JFormattedTextField edtValorItem;
     private javax.swing.JFormattedTextField edtValorSeguro;
-    private javax.swing.JFormattedTextField jFormattedTextField4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1146,12 +1312,8 @@ public class CadastroCompraForm extends DialogPadrao {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1160,13 +1322,17 @@ public class CadastroCompraForm extends DialogPadrao {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblDescricaoForm;
     private javax.swing.JLabel lblDescricaoForm1;
+    private javax.swing.JLabel lblOutrasDespesas;
+    private javax.swing.JLabel lblSeguro;
+    private javax.swing.JLabel lblValorFrete;
+    private javax.swing.JRadioButton rdFreteFOB;
+    private javax.swing.JRadioButton rdTipoFreteCIF;
     private javax.swing.JTable tblContasApagar;
     private javax.swing.JTable tblItens;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;

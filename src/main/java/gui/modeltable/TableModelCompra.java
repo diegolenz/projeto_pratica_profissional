@@ -48,13 +48,13 @@ public class TableModelCompra extends AbstractTableModel {
             case 3:
                 return p.getFornecedor().getNome();
             case 4:
-                return p.getFuncionario() == null ? "oaatszap" : p.getFuncionario().getNome();
+                return p.getFuncionario() == null ? "Suporte" : p.getFuncionario().getNome();
             case 5:
                 return util.Util.builDataSimples( p.getDtEmisssao());
             case 6:
                 return util.Util.builDataSimples(p.getDtChegada());
             case 7:
-                return  p.isAtivo() ? "Ativo" : "Desativado";
+                return  "ativo";//p.isAtivo() ? "Ativo" : "Desativado";
         }
         return "";
     }

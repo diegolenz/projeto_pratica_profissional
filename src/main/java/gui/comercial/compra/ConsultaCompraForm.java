@@ -157,6 +157,7 @@ public class ConsultaCompraForm extends SociusTab implements WindowPadrao {
 
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
         CadastroCompraForm cadastroCompraForm =  new CadastroCompraForm(getWindowParent(), true, compras.get(this.jTable1.getSelectedRow()));
+        cadastroCompraForm.carregar();
         cadastroCompraForm.bloqueiaEDT();
         cadastroCompraForm.show();
     }//GEN-LAST:event_btnVisualizarActionPerformed
@@ -167,11 +168,13 @@ public class ConsultaCompraForm extends SociusTab implements WindowPadrao {
 
     private void BtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPesquisarActionPerformed
         try {
+            compras.clear();
             compras.addAll(new CompraService().getAll(""));
         }catch (Exception e){
             JOptionPane.showMessageDialog(this,"Falha ao retornar dados" + e);
         }
         tableModelCompra.setList(compras.toArray());
+        jTable1.setModel(tableModelCompra);
         if (compras.isEmpty()) {
             if (evt != null) {
                 JOptionPane.showMessageDialog(this, "Nenhum resultado encontrado");

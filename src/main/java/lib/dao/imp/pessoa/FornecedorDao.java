@@ -169,7 +169,7 @@ public class FornecedorDao extends AbstractDao {
             fornecedor.setAtivo( rs.getBoolean("ativo"));
             fornecedor.setDataUltAlteracao(rs.getDate("data_ultima_alteracao"));
             fornecedor.setDataCadastro(rs.getDate("data_cadastro"));
-            getPessoaByID(rs.getInt("fornecedor_id"), fornecedor);
+            getPessoaByID(rs.getInt("id"), fornecedor);
         }
         return fornecedor;
     }
