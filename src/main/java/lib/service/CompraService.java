@@ -47,9 +47,6 @@ public class CompraService {
     }
 
 
-    public void deleteByID(Compra compra) throws Exception {
-        compraDAO.deleteByID(compra.getNumeroNota(), compra.getNumSerieNota(), compra.getModeloNota());
-    }
 
 
 }

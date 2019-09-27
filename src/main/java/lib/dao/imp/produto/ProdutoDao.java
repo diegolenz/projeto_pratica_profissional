@@ -1,5 +1,6 @@
 package lib.dao.imp.produto;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +112,8 @@ public class ProdutoDao<T> extends AbstractDao<T>{
 
 	public Object getByID(Integer id)throws Exception{
 		String sql = "Select * from produto where id ="+id+" ;";
-		ResultSet rs = this.st.executeQuery(sql);
+		PreparedStatement preparedStatement=st.getConnection().prepareStatement(sql);
+		ResultSet rs = preparedStatement.executeQuery();
 		Produto produto=null;
 		while (rs.next()){
 			produto=new Produto();

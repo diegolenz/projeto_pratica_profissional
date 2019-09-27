@@ -55,7 +55,7 @@ public class Compra {
     }
 
     public void setItensProdutos(List<ItemProduto> itensProdutos) {
-        itensProdutos = itensProdutos;
+        this.itensProdutos = itensProdutos;
     }
 
     public Integer getNumeroNota() {
