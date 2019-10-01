@@ -1,16 +1,19 @@
 package lib.dao.imp.pessoa;
 
 import lib.dao.AbstractDao;
+import lib.model.financeiro.CondicaoPagamento.CondicaoPagamento;
 import lib.model.pessoa.Sexo;
 import lib.model.pessoa.TipoPessoa;
 import lib.model.pessoa.fornecedor.Fornecedor;
 import lib.service.CidadeService;
+import lib.service.CondicaoPagamentoService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FornecedorDao extends AbstractDao {
 
@@ -28,11 +31,37 @@ public class FornecedorDao extends AbstractDao {
        return id;
     }
 
+    public void saveCondicoesPagamento(List<CondicaoPagamento> condicoes, Integer id)throws SQLException{
+        for (CondicaoPagamento condicaoPagamento : condicoes) {
+            String sql = "INSERT INTO condicao_pagamento_fornecedor ( fornecedor_id, condicao_id) values (" +
+                    "" + id + ", " + condicaoPagamento.getId() + " );";
+            st.execute(sql);
+        }
+    }
+
+    private List<CondicaoPagamento> getCondicaoByFornecedor(Integer id)throws Exception{
+        PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM condicao_pagamento_fornecedor WHERE fornecedor_id = "+id+";");
+        ResultSet rs = preparedStatement.executeQuery();
+        List<CondicaoPagamento> condicaoPagamentos = new ArrayList<>();
+        while (rs.next()){
+            condicaoPagamentos.add(new CondicaoPagamentoService().getByID(rs.getInt("condicao_id")));
+        }
+        return condicaoPagamentos;
+    }
+
+    public void deleteCondicoes(List<CondicaoPagamento> condicoes, Integer fornecedorId)throws Exception{
+        String sql = "";
+        for (CondicaoPagamento condicaoPagamento : condicoes){
+            sql = "DELETE FROM condicao_pagamento_fornecedor WHERE condicao_id = " + condicaoPagamento.getId() + " and fornecedor_id = " + fornecedorId + " ;";
+            this.st.execute(sql);
+        }
+    }
+
     public void save(Object obj) throws Exception {
         Fornecedor fornecedor = (Fornecedor) obj;
-        String date = "NULL";
+        String date = "";
         if (fornecedor.getDataNascimento() !=null)
-            date = "'" + fornecedor.getDataNascimento().toString() +"'";
+            date =  fornecedor.getDataNascimento().toString() ;
 
         // Insere informações da pessoa
         String sql = "INSERT INTO pessoa (" +
@@ -55,8 +84,8 @@ public class FornecedorDao extends AbstractDao {
                 ") values (" +
                 "'" +    fornecedor.getNome() +
                 "','" +  fornecedor.getCpfCnpj() +
-                "', " + date +
-                ", '" + fornecedor.getEmail() +
+                "', '" + date +
+                "', '" + fornecedor.getEmail() +
                 "', " +  fornecedor.getSexo().ordinal() +
                 ", '" +  fornecedor.getNomeFantasia_Apelido() +
                 "', '" + fornecedor.getRgIe() +
@@ -72,7 +101,6 @@ public class FornecedorDao extends AbstractDao {
                 "' ); ";
 
         this.st.executeUpdate(sql);
-
         //Insere fornecedor referenciando a ultima pessoa inserida no banco
         String sqlFornecedor =
                 "INSERT INTO fornecedor (ativo, data_cadastro, data_ultima_alteracao, pessoa_id) values ("+
@@ -82,6 +110,7 @@ public class FornecedorDao extends AbstractDao {
                         getUltimoIDPessoa() +
                 " );";
         this.st.executeUpdate(sqlFornecedor);
+        this.saveCondicoesPagamento(fornecedor.getCondicoesPagamentos(),getUltimoIDPessoa());
     }
 
     public void deleteByID(Object id) throws Exception {
@@ -108,7 +137,7 @@ public class FornecedorDao extends AbstractDao {
             fornecedor.setDataUltAlteracao(rs.getDate("data_ultima_alteracao"));
             fornecedor.setDataCadastro(rs.getDate("data_cadastro"));
             getPessoaByID(rs.getInt("pessoa_id"), fornecedor);
-
+            fornecedor.setCondicoesPagamentos(getCondicaoByFornecedor(fornecedor.getId()));
             fornecedors.add(fornecedor);
         }
         return fornecedors;
@@ -116,9 +145,7 @@ public class FornecedorDao extends AbstractDao {
 
     public void update(Object obj) throws SQLException {
         fornecedor = (Fornecedor) obj;
-        String date = "NULL";
-        if (fornecedor.getDataNascimento() !=null)
-            date = "'" + fornecedor.getDataNascimento().toString() +"'";
+
         String sql = "UPDATE pessoa SET nome = '" + fornecedor.getNome() +
                 "', sexo = " + fornecedor.getSexo().ordinal() +
                 ",  nome_fantasia_apelido = '" + fornecedor.getNomeFantasia_Apelido() +
@@ -126,8 +153,12 @@ public class FornecedorDao extends AbstractDao {
                 "', telefone = '" + fornecedor.getTelefone()  +
                 "', telefone_alternativo = '" + fornecedor.getTelefoneAlternativo() +
                 "', tipo = " + fornecedor.getTipo().ordinal() +
-                ", data_nascimento = '" + date +
-                "', email = '" + fornecedor.getEmail() +
+                ",";
+        if (fornecedor.getDataNascimento() != null){
+            sql += "  data_nascimento = '" + fornecedor.getDataNascimento() + "', ";
+        }
+        sql +=
+                " email = '" + fornecedor.getEmail() +
                 "', logradouro = '" + fornecedor.getLogradouro() +
                 "', complemento = '" + fornecedor.getComplemento() +
                 "', cep ='"+ fornecedor.getCep() +
@@ -138,6 +169,7 @@ public class FornecedorDao extends AbstractDao {
         sql = "UPDATE fornecedor SET ativo = "+fornecedor.getAtivo() +
                 ",  data_cadastro = '" + fornecedor.getDataCadastro() +
                 "', data_ultima_alteracao = '"+ fornecedor.getDataUltAlteracao() + "' where id = " + fornecedor.getId() +" ;";
+
         this.st.executeUpdate(sql);
     }
 
@@ -169,6 +201,7 @@ public class FornecedorDao extends AbstractDao {
             fornecedor.setAtivo( rs.getBoolean("ativo"));
             fornecedor.setDataUltAlteracao(rs.getDate("data_ultima_alteracao"));
             fornecedor.setDataCadastro(rs.getDate("data_cadastro"));
+            fornecedor.setCondicoesPagamentos(getCondicaoByFornecedor(fornecedor.getId()));
             getPessoaByID(rs.getInt("id"), fornecedor);
         }
         return fornecedor;

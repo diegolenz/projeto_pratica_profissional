@@ -4,6 +4,8 @@ package lib.service;
 import lib.dao.imp.produto.ProdutoDao;
 import lib.model.produto.Produto;
 import org.springframework.util.Assert;
+
+import java.util.Date;
 import java.util.List;
 
 public class ProdutoService {
@@ -29,6 +31,8 @@ public class ProdutoService {
         Assert.isTrue(produto.getUnidadeMedida().length() > 1, "Campo Unidade de medida é um campo obrigatório e deve ser preenchido " +
                 "com mais de 1 caracter");
         Assert.isTrue(!produto.getUnidadeMedida().trim().isEmpty(), "Campo Unidade de medida é um campo obrigatório");
+        produto.setDataUltimaAlteracao(new Date());
+        produto.setDataCadastro(new Date());
         produtoDao.save(produto);
     }
 
@@ -40,6 +44,7 @@ public class ProdutoService {
         Assert.notNull(produto.getUnidadeMedida(), "Campo Unidade de medida é obrigatório");
         Assert.isTrue(!produto.getUnidadeMedida().trim().isEmpty(), "Campo Unidade de Medida invalido");
         Assert.isTrue(produto.getUnidadeMedida().length() > 1, "Campo Unidade de medida invalido, minimo dois caracteres");
+        produto.setDataUltimaAlteracao(new Date());
         produtoDao.update(produto);
     }
 

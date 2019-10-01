@@ -2,9 +2,6 @@ package lib.service;
 
 import lib.dao.imp.comercial.compras.CompraDao;
 import lib.model.comercial.Compra;
-import org.springframework.util.Assert;
-
-import java.util.Date;
 import java.util.List;
 
 public class CompraService {
@@ -36,6 +33,10 @@ public class CompraService {
 
     public List getAll(String termo) throws Exception {
         return compraDAO.getAll(termo);
+    }
+
+    public Compra getByNumSerieModelo(Integer n, String m, Integer s) throws Exception {
+        return (Compra) compraDAO.getByID(m,n,s);
     }
 
     public List getAllComprasAtivos(String termo) throws Exception {

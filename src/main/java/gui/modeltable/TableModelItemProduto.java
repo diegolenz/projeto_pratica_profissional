@@ -66,7 +66,7 @@ public class TableModelItemProduto extends AbstractTableModel {
             case 3:
                 return "Quantidade";
             case 4:
-                return "Custo";
+                return "Valor UN";
             case 5:
                 return "Descontos";
             case 6:

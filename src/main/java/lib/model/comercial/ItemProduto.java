@@ -55,7 +55,7 @@ public class ItemProduto extends Produto{
     }
 
     public Double getTotaisCustoUn(){
-        return getValorUnitario() * getQuantidade();
+        return (getValorUnitario() * getQuantidade()) - (getDescontoUnitario() * getQuantidade()) + (getAcrescimoUnitario() * getQuantidade());
     }
 
     public Double getTotal(){
@@ -83,9 +83,15 @@ public class ItemProduto extends Produto{
         this.setDataCadastro(p.getDataCadastro());
         this.setDataUltimaAlteracao(p.getDataUltimaAlteracao());
         this.setValor(p.getValor());
+        this.setPrecoCompra(p.getPrecoCompra());
+      //  this.setValorUnitario(p.getPrecoCompra());
+        this.setUnidadeMedida(p.getUnidadeMedida());
         this.setCodigoBarras(p.getCodigoBarras());
         this.setQuantidadeEstoque(p.getQuantidadeEstoque());
         this.setQuantidadeMinima(p.getQuantidadeMinima());
+        this.setAtivo(p.getAtivo());
+        this.setReferencia(p.getReferencia());
+        this.setDataUltimaAlteracao(p.getDataUltimaAlteracao());
     }
 
     public Double getValorRateio() {

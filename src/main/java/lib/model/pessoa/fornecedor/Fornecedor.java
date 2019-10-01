@@ -3,6 +3,7 @@ package lib.model.pessoa.fornecedor;
 import lib.model.financeiro.CondicaoPagamento.CondicaoPagamento;
 import lib.model.pessoa.Pessoa;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class Fornecedor extends Pessoa {
 
     private Date dataUltAlteracao;
 
-    private List<CondicaoPagamento> condicaoPagamentos;
+    private List<CondicaoPagamento> condicoesPagamentos;
 
     private Boolean ativo;
 
@@ -31,12 +32,15 @@ public class Fornecedor extends Pessoa {
         this.dataUltAlteracao = dataUltAlteracao;
     }
 
-    public List<CondicaoPagamento> getCondicaoPagamentos() {
-        return condicaoPagamentos;
+    public List<CondicaoPagamento> getCondicoesPagamentos() {
+        if (condicoesPagamentos == null)
+            condicoesPagamentos = new ArrayList<>();
+        return condicoesPagamentos;
     }
 
-    public void setCondicaoPagamentos(List<CondicaoPagamento> condicaoPagamentos) {
-        this.condicaoPagamentos = condicaoPagamentos;
+
+    public void setCondicoesPagamentos(List<CondicaoPagamento> condicoesPagamentos) {
+        this.condicoesPagamentos = condicoesPagamentos;
     }
 
     public Boolean getAtivo() {

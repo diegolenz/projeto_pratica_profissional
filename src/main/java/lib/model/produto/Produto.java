@@ -1,7 +1,9 @@
 package lib.model.produto;
 
+import lib.model.comercial.ItemProduto;
 import lib.model.grupo.Grupo;
 import lib.model.marca.Marca;
+import lib.model.pessoa.fornecedor.Fornecedor;
 
 import java.util.Date;
 
@@ -21,6 +23,8 @@ public class Produto {
 
     private Date dataCadastro;
 
+    private Date dataUltimaCompra;
+
     private String codigoBarras;
 
     private Marca marca;
@@ -32,6 +36,8 @@ public class Produto {
     private String referencia;
 
     private Double precoCompra;
+
+    private Fornecedor ultimoFornecedor;
 
     private Boolean ativo;
 
@@ -95,6 +101,26 @@ public class Produto {
         return precoCompra;
     }
 
+    public Produto buildProduto(ItemProduto itemProduto){
+        Produto p = new Produto();
+        p.setId(itemProduto.getId());
+        p.setNome(itemProduto.getNome());
+        p.setUnidadeMedida(itemProduto.getUnidadeMedida());
+        p.setMarca(itemProduto.getMarca());
+        p.setGrupo(itemProduto.getGrupo());
+        p.setValor(itemProduto.getValor());
+        p.setPrecoCompra(itemProduto.getPrecoCompra());
+        p.setReferencia(itemProduto.getReferencia());
+        p.setDataCadastro(itemProduto.getDataCadastro());
+        p.setCodigoBarras(itemProduto.getCodigoBarras());
+        p.setQuantidadeMinima(itemProduto.getQuantidadeMinima());
+        p.setQuantidadeEstoque(itemProduto.getQuantidadeEstoque());
+        p.setDataCadastro(itemProduto.getDataCadastro());
+        p.setDataUltimaAlteracao(itemProduto.getDataUltimaAlteracao());
+        p.setAtivo(itemProduto.getAtivo());
+        return p;
+    }
+
     public void setPrecoCompra(Double precoCompra) {
         this.precoCompra = precoCompra;
     }
@@ -146,5 +172,21 @@ public class Produto {
 
     public void setCodigoBarras(String codigoBarras) {
         this.codigoBarras = codigoBarras;
+    }
+
+    public Fornecedor getUltimoFornecedor() {
+        return ultimoFornecedor;
+    }
+
+    public void setUltimoFornecedor(Fornecedor ultimoFornecedor) {
+        this.ultimoFornecedor = ultimoFornecedor;
+    }
+
+    public Date getDataUltimaCompra() {
+        return dataUltimaCompra;
+    }
+
+    public void setDataUltimaCompra(Date dataUltimaCompra) {
+        this.dataUltimaCompra = dataUltimaCompra;
     }
 }

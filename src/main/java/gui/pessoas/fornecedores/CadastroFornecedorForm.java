@@ -7,10 +7,13 @@
 package gui.pessoas.fornecedores;
 
 import gui.enderecos.cidades.PesquisarCidade;
+import gui.financeiro.CondicaoPagamento.PesquisarCondicaoPagamento;
+import gui.modeltable.TableModelCondicaoPagamento;
 import gui.swing.DialogPadrao;
 import gui.swing.SwingFormatterFactory;
 import javafx.scene.input.KeyCode;
 import lib.model.endereco.cidade.Cidade;
+import lib.model.financeiro.CondicaoPagamento.CondicaoPagamento;
 import lib.model.interno.ModuloSistema;
 import lib.model.interno.NivelAcessoModulo;
 import lib.model.pessoa.Sexo;
@@ -23,7 +26,9 @@ import util.validacao.ValidacaoEmail;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Diego
@@ -31,6 +36,10 @@ import java.util.Date;
 public class CadastroFornecedorForm extends DialogPadrao {
     private Fornecedor pessoa;
     private Sexo ultimoSexoSelecionado;
+    private TableModelCondicaoPagamento tableModelCondicaoPagamento;
+    private List<CondicaoPagamento> condicoesRemovidas;
+    private List<CondicaoPagamento> novasCondicoes;
+    private List<CondicaoPagamento> condicaoPagamentos;
 
 
     /**
@@ -40,7 +49,11 @@ public class CadastroFornecedorForm extends DialogPadrao {
         super(parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.LEITURA_GRAVACAO);
         initComponents();
         this.pessoa = pessoa;
-
+        tableModelCondicaoPagamento = new TableModelCondicaoPagamento();
+        this.tblCondicoesPagamentos.setModel(tableModelCondicaoPagamento);
+        this.condicaoPagamentos = new ArrayList<>();
+        this.condicoesRemovidas = new ArrayList<>();
+        this.novasCondicoes = new ArrayList<>();
         if (this.pessoa.getId() != null)
             lblDescricaoTela1.setText("Alterar fornecedor");
         else {
@@ -116,6 +129,10 @@ public class CadastroFornecedorForm extends DialogPadrao {
             rdDesativado.setSelected(true);
         }
 
+        tableModelCondicaoPagamento.setList(pessoa.getCondicoesPagamentos().toArray());
+        tblCondicoesPagamentos.setModel(tableModelCondicaoPagamento);
+        condicaoPagamentos.addAll(pessoa.getCondicoesPagamentos());
+
         cmbtipocad.setSelectedItem(pessoa.getTipo());
     }
 
@@ -155,6 +172,7 @@ public class CadastroFornecedorForm extends DialogPadrao {
         pessoa.setDataUltAlteracao(new Date());
 
         pessoa.setAtivo(true);
+        pessoa.setCondicoesPagamentos(condicaoPagamentos);
 
     }
 
@@ -220,9 +238,13 @@ public class CadastroFornecedorForm extends DialogPadrao {
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        tblCondicoesPagamentos = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblContatos = new javax.swing.JTable();
+        btnRemoverCondicao = new javax.swing.JButton();
+        btnAddCondicao = new javax.swing.JButton();
+        btnRemoverContato = new javax.swing.JButton();
+        btnAddContato = new javax.swing.JButton();
         lblDescricaoTela1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btncancelar = new javax.swing.JButton();
@@ -415,10 +437,11 @@ public class CadastroFornecedorForm extends DialogPadrao {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Condições de pagamento");
 
-        jLabel7.setText("Contatos adicionais");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Contatos");
 
-        jTable2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblCondicoesPagamentos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblCondicoesPagamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {}
             },
@@ -426,9 +449,50 @@ public class CadastroFornecedorForm extends DialogPadrao {
 
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblCondicoesPagamentos);
 
-        jScrollPane3.setViewportView(jList1);
+        tblContatos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tblContatos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tblContatos);
+
+        btnRemoverCondicao.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnRemoverCondicao.setText("-");
+        btnRemoverCondicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverCondicaoActionPerformed(evt);
+            }
+        });
+
+        btnAddCondicao.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnAddCondicao.setText("+");
+        btnAddCondicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCondicaoActionPerformed(evt);
+            }
+        });
+
+        btnRemoverContato.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnRemoverContato.setText("-");
+        btnRemoverContato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverContatoActionPerformed(evt);
+            }
+        });
+
+        btnAddContato.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        btnAddContato.setText("+");
+        btnAddContato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddContatoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -436,51 +500,26 @@ public class CadastroFornecedorForm extends DialogPadrao {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(edtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(edtNumeroResidencial, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAddCondicao)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRemoverCondicao))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(edtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(edtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
-                            .addComponent(edtbairro, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(541, 541, 541)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAddContato)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRemoverContato))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(196, 196, 196)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblNomeCompleto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtApelidoNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblApelido, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE))
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(rdSexoMasculino, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(rdSexoFeminino, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
@@ -504,7 +543,50 @@ public class CadastroFornecedorForm extends DialogPadrao {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(edtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(edtLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(edtNumeroResidencial, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(edtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(edtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(edtbairro, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(541, 541, 541)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(196, 196, 196)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblNomeCompleto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtApelidoNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblApelido, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(rdSexoMasculino, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(rdSexoFeminino, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -530,15 +612,7 @@ public class CadastroFornecedorForm extends DialogPadrao {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDtNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(255, 255, 255)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jScrollPane3))))
+                            .addComponent(txtDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -620,14 +694,20 @@ public class CadastroFornecedorForm extends DialogPadrao {
                         .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtTelCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnRemoverCondicao, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAddCondicao, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel4))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnRemoverContato, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAddContato, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -716,7 +796,7 @@ public class CadastroFornecedorForm extends DialogPadrao {
                             .addComponent(btnsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -830,12 +910,17 @@ public class CadastroFornecedorForm extends DialogPadrao {
         }
 
         try {
+            FornecedorService fornecedorService = new FornecedorService();
             if (pessoa.getId() == null) {
-                new FornecedorService().save(pessoa);
+                fornecedorService.save(pessoa);
             } else {
-                new FornecedorService().update(pessoa);
-            }
+                fornecedorService.update(pessoa);
+                if (!condicoesRemovidas.isEmpty())
+                    fornecedorService.deleteCondicoes(condicoesRemovidas, pessoa.getId());
+                if (!novasCondicoes.isEmpty())
+                    fornecedorService.salvarCondicoes(novasCondicoes, pessoa.getId());
 
+            }
             JOptionPane.showMessageDialog(this, "salvo com sucesso");
             dispose();
         } catch (
@@ -898,6 +983,45 @@ public class CadastroFornecedorForm extends DialogPadrao {
         rdSexoMasculino.setSelected(false);
     }//GEN-LAST:event_rdSexoFemininoActionPerformed
 
+    private void btnAddCondicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCondicaoActionPerformed
+        PesquisarCondicaoPagamento.Callback callback = (condicao) -> {
+            if (condicao == null){
+                return ;
+            }
+            if (condicaoPagamentos.contains(condicao)){
+                JOptionPane.showMessageDialog(this, "Condição já selecionada");
+                return;
+            }
+            condicaoPagamentos.add(condicao);
+            if (!pessoa.getCondicoesPagamentos().contains(condicao))
+                novasCondicoes.add(condicao);
+            this.tableModelCondicaoPagamento.setList(condicaoPagamentos.toArray());
+            this.tblCondicoesPagamentos.setModel(tableModelCondicaoPagamento);
+        };
+
+        new PesquisarCondicaoPagamento(this, true, callback ).show();
+    }//GEN-LAST:event_btnAddCondicaoActionPerformed
+
+    private void btnRemoverCondicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverCondicaoActionPerformed
+        CondicaoPagamento condicaoPagamento = this.condicaoPagamentos.remove(this.tblCondicoesPagamentos.getSelectedRow());
+       condicaoPagamentos.remove(condicaoPagamento);
+        if (pessoa.getCondicoesPagamentos().contains(condicaoPagamento)){
+            if (condicoesRemovidas == null)
+                condicaoPagamento = new CondicaoPagamento();
+            condicoesRemovidas.add(condicaoPagamento);
+        }
+        this.tableModelCondicaoPagamento.setList(condicaoPagamentos.toArray());
+        this.tblCondicoesPagamentos.setModel(tableModelCondicaoPagamento);
+    }//GEN-LAST:event_btnRemoverCondicaoActionPerformed
+
+    private void btnAddContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddContatoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddContatoActionPerformed
+
+    private void btnRemoverContatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverContatoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRemoverContatoActionPerformed
+
     private Fornecedor getPessoa() {
         return pessoa;
     }
@@ -916,6 +1040,7 @@ public class CadastroFornecedorForm extends DialogPadrao {
             lblCpfCnpj.setText("CPF *");
             lblDtNascimento.setText("Data de nascimento");
             lblRgIE.setText("RG");
+            lblSexo.setVisible(true);
             try {
                 edtCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
                 txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -939,6 +1064,7 @@ public class CadastroFornecedorForm extends DialogPadrao {
             lblCpfCnpj.setText("Documento *");
             lblDtNascimento.setText("Data de nascimento");
             lblRgIE.setText("Documento");
+            lblSexo.setVisible(true);
 
             edtCep.setFormatterFactory(null);
             txtCpf.setFormatterFactory(null);
@@ -976,6 +1102,7 @@ public class CadastroFornecedorForm extends DialogPadrao {
             rdSexoFeminino.setVisible(false);
             rdSexoMasculino.setVisible(false);
             rdSexoMasculino.setEnabled(false);
+            lblSexo.setVisible(false);
             if (rdSexoFeminino.isSelected())
                 ultimoSexoSelecionado = Sexo.FEMININO;
             else ultimoSexoSelecionado = Sexo.MASCULINO;
@@ -1030,7 +1157,11 @@ public class CadastroFornecedorForm extends DialogPadrao {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddCondicao;
+    private javax.swing.JButton btnAddContato;
     private javax.swing.JButton btnAltCidade;
+    private javax.swing.JButton btnRemoverCondicao;
+    private javax.swing.JButton btnRemoverContato;
     private javax.swing.JButton btncancelar;
     private javax.swing.JButton btnsalvar;
     private javax.swing.JComboBox<String> cmbtipocad;
@@ -1066,11 +1197,9 @@ public class CadastroFornecedorForm extends DialogPadrao {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblApelido;
     private javax.swing.JLabel lblCpfCnpj;
     private javax.swing.JLabel lblDescricaoTela1;
@@ -1082,6 +1211,8 @@ public class CadastroFornecedorForm extends DialogPadrao {
     private javax.swing.JRadioButton rdDesativado;
     private javax.swing.JRadioButton rdSexoFeminino;
     private javax.swing.JRadioButton rdSexoMasculino;
+    private javax.swing.JTable tblCondicoesPagamentos;
+    private javax.swing.JTable tblContatos;
     private javax.swing.JTextField txtApelidoNomeFantasia;
     private javax.swing.JFormattedTextField txtCpf;
     private com.toedter.calendar.JDateChooser txtDtNasc;

@@ -1,6 +1,7 @@
 package lib.service;
 
 import lib.dao.imp.pessoa.FornecedorDao;
+import lib.model.financeiro.CondicaoPagamento.CondicaoPagamento;
 import lib.model.pessoa.Pessoa;
 import lib.model.pessoa.TipoPessoa;
 import lib.model.pessoa.fornecedor.Fornecedor;
@@ -71,9 +72,8 @@ public class FornecedorService {
         Assert.notNull(pessoa, "Pessoa não pode estar nula");
         Assert.notNull(pessoa.getNome(), "Nome é obrigatório");
         Assert.isTrue(pessoa.getTelefone().length()> 7, "Telefone de contato deve ter ao minimo 8 numeros");
-        Assert.isTrue(pessoa.getDataNascimento().compareTo(new Date()) < 0, "Data de nascimento/fundação deve ser menor que a data de hoje");
-        if (pessoa.getTipo().equals(TipoPessoa.FISICA))
-            Assert.isTrue(pessoa.getRgIe().length()>6, "Rg é um campo obrigatório e deve conter ao minimo 7 caracteres");
+        if (pessoa.getDataNascimento() != null)
+            Assert.isTrue(pessoa.getDataNascimento().compareTo(new Date()) < 0, "Data de nascimento/fundação deve ser menor que a data de hoje");
         Assert.notNull(pessoa.getCidade(), "Cidade é obrigatória");
         Assert.notNull(pessoa.getBairro(), "Bairro é obrigatório");
         Assert.notNull(pessoa.getNumeroResidencial(),"Numero é obrigatório");
@@ -117,6 +117,14 @@ public class FornecedorService {
 
     public void deleteByID(Pessoa pessoa) throws Exception {
         fornecedorDAO.deleteByID(pessoa.getId());
+    }
+
+    public void deleteCondicoes(List<CondicaoPagamento> condicoes, Integer id) throws Exception{
+        fornecedorDAO.deleteCondicoes(condicoes, id);
+    }
+
+    public void salvarCondicoes(List<CondicaoPagamento> condicoes, Integer id) throws Exception{
+        fornecedorDAO.saveCondicoesPagamento(condicoes, id);
     }
 
 

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Compra {
+
     public Compra() {
         this.valorFrete = 0D;
         this.valorSeguro = 0D;
@@ -45,7 +46,6 @@ public class Compra {
     private Double valorSeguro ;
 
     private Double outrasDespesas;
-
 
     public List<ItemProduto> getItensProdutos() {
         if (itensProdutos == null){
@@ -197,23 +197,21 @@ public class Compra {
 
     public void buildRateioItens(){
         if (tipoFrete.equals(TipoFrete.CIF))
-            return ;
+            return;
         Double valorFinal=0D;
         Double totalItens = itensProdutos.stream().mapToDouble(ItemProduto::getTotaisCustoUn).sum();
         for (ItemProduto itemProduto : itensProdutos){
-            Double valor = 0D;
-            Double perc = itemProduto.getValorUnitario() * itemProduto.getQuantidade() / totalItens;
-            valor = getTotalDespesas() * perc;
-            valor = valor / itemProduto.getQuantidade();
-            valorFinal =  valorFinal+ valor;
+            Double perc = ((itemProduto.getValorUnitario() + itemProduto.getAcrescimoUnitario() - itemProduto.getDescontoUnitario()) * itemProduto.getQuantidade()) / totalItens;
+            valorFinal = getTotalDespesas() * perc;
+            valorFinal = valorFinal / itemProduto.getQuantidade();
             itemProduto.setValorRateio(valorFinal);
-            itemProduto.setValorTotal(itemProduto.getValorUnitario() + valorFinal);
+           // itemProduto.setValorTotal(itemProduto.getValorUnitario() + valorFinal);
         }
 
     }
 
     public Double getTotalCompra(){
-        Double custo = getTotaisCustoUn() - getTotaisDescontos() + getTotaisAcrescimos() + getTotalDespesas();
+        Double custo = getTotaisCustoUn() - getTotaisDescontos() + getTotaisAcrescimos() ;
         return custo;
     }
 

@@ -2,19 +2,13 @@ package lib.dao.imp.comercial.compras;
 
 import lib.dao.AbstractDao;
 import lib.dao.imp.financeiro.ParcelaDAO;
-import lib.dao.imp.financeiro.formaPagamentoDAO.FormaPagamentoDAO;
 import lib.model.comercial.Compra;
 import lib.model.comercial.ContaPagar;
 import lib.model.comercial.ItemProduto;
 import lib.model.comercial.frete.TipoFrete;
-import lib.model.financeiro.CondicaoPagamento.CondicaoPagamento;
-import lib.model.financeiro.formaPagamento.FormaPagamento;
-import lib.model.financeiro.parcela.Parcela;
-import lib.model.interno.Funcionario;
 import lib.model.produto.Produto;
 import lib.service.CondicaoPagamentoService;
 import lib.service.FornecedorService;
-import lib.service.FuncionarioService;
 import lib.service.ProdutoService;
 
 import java.sql.PreparedStatement;
@@ -196,11 +190,12 @@ public class CompraDao extends AbstractDao {
         String sql = "Select * from compra where numero = "+numero+" and serie = "+ serie +" and modelo = '" +modelo+"' ;";
         PreparedStatement preparedStatement=st.getConnection().prepareStatement(sql);
         ResultSet rs =  preparedStatement.executeQuery();
-        Compra compra=new Compra();
+        Compra compra = null;
         while (rs.next()){
-            compra.setNumeroNota(rs.getInt("numero_nota"));
-            compra.setModeloNota(rs.getString("modelo_nota"));
-            compra.setNumSerieNota(rs.getInt("serie_nota"));
+            compra=new Compra();
+            compra.setNumeroNota(rs.getInt("numero"));
+            compra.setModeloNota(rs.getString("modelo"));
+            compra.setNumSerieNota(rs.getInt("serie"));
             compra.setDtChegada(rs.getDate("data_chegada"));
             compra.setDtEmisssao(rs.getDate("data_emissao"));
             compra.setOutrasDespesas(rs.getDouble("outras_despesas"));

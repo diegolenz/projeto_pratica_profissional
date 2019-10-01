@@ -53,7 +53,7 @@ public class ConsultaCompraForm extends SociusTab implements WindowPadrao {
         cmbOpcao = new javax.swing.JComboBox<>();
         btnVisualizar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setName("Consulta"); // NOI18N
@@ -98,11 +98,11 @@ public class ConsultaCompraForm extends SociusTab implements WindowPadrao {
             }
         });
 
-        btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnCancelar.setText("Cancelar compra");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -120,7 +120,7 @@ public class ConsultaCompraForm extends SociusTab implements WindowPadrao {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVisualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExcluir))
+                        .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cmbOpcao, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -144,7 +144,7 @@ public class ConsultaCompraForm extends SociusTab implements WindowPadrao {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVisualizar)
                     .addComponent(btnNovo)
-                    .addComponent(btnExcluir))
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -162,9 +162,9 @@ public class ConsultaCompraForm extends SociusTab implements WindowPadrao {
         cadastroCompraForm.show();
     }//GEN-LAST:event_btnVisualizarActionPerformed
 
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
 
-    }//GEN-LAST:event_btnExcluirActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void BtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPesquisarActionPerformed
         try {
@@ -186,7 +186,7 @@ public class ConsultaCompraForm extends SociusTab implements WindowPadrao {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnPesquisar;
-    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnVisualizar;
     private javax.swing.JComboBox<String> cmbOpcao;
