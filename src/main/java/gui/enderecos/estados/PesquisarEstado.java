@@ -218,10 +218,6 @@ public class PesquisarEstado extends DialogPadrao {
         }
     }
 
-    private void cmbselecionapesquisaActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
        new CadastroEstado(this, true, new Estado()).show();
     }//GEN-LAST:event_btnNovoActionPerformed

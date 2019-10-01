@@ -4,7 +4,9 @@ import lib.dao.imp.endereco.cidade.CidadeDao;
 import lib.model.endereco.cidade.Cidade;
 import org.castor.core.util.Assert;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class CidadeService {
 
@@ -54,8 +56,11 @@ public class CidadeService {
         return cidadeDao.getByNomeEstado(nome);
     }
 
-  public Cidade getLast(){
-        return getLast();
+  public Cidade getLast()throws Exception {
+      Optional<Cidade> cidade = cidadeDao.getLast();
+      if (cidade.isPresent())
+          return cidade.get();
+      else return null;
   }
 
     public CidadeService() {

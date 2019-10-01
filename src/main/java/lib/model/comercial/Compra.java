@@ -211,7 +211,7 @@ public class Compra {
     }
 
     public Double getTotalCompra(){
-        Double custo = getTotaisCustoUn() - getTotaisDescontos() + getTotaisAcrescimos() ;
+        Double custo = getTotaisCustoUn() + getOutrasDespesas() + getValorSeguro() + getValorFrete() ;
         return custo;
     }
 

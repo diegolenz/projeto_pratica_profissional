@@ -55,7 +55,8 @@ public class ItemProduto extends Produto{
     }
 
     public Double getTotaisCustoUn(){
-        return (getValorUnitario() * getQuantidade()) - (getDescontoUnitario() * getQuantidade()) + (getAcrescimoUnitario() * getQuantidade());
+        Double v = (getValorUnitario() * getQuantidade()) - (getDescontoUnitario() * getQuantidade()) + (getAcrescimoUnitario() * getQuantidade());
+        return v;
     }
 
     public Double getTotal(){

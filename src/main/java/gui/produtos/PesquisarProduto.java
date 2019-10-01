@@ -210,7 +210,32 @@ public class PesquisarProduto extends DialogPadrao {
 
         modelo.setList(produtos.toArray());
         tabela.setModel(modelo);
-    }                                            
+        if (produtos.isEmpty() && evt != null){
+            JOptionPane.showMessageDialog(this, "Nenhum resultado encontrado");
+        } else if (!produtos.isEmpty()){
+            tabela.setRowSelectionInterval(0,0);
+        }
+    }
+
+    private Integer getPosicao(Produto produto){
+        try {
+            if (produto.getId() == null)
+                produto = new ProdutoService().getLast();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Integer tam = produtos.size();
+        Integer pos = 0;
+        boolean achou =false;
+        while ( pos < tam && !achou ){
+            if (produtos.get(pos).getId().equals(produto.getId())) {
+                achou = true;
+            } else
+                pos++;
+        }
+        return pos;
+    }
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {
         CadastroProdutos.Callback callback = (produto -> {
@@ -219,7 +244,7 @@ public class PesquisarProduto extends DialogPadrao {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,"Falha ao retornar dados");
             }
-            Integer pos = produtos.indexOf(produto);
+            Integer pos = getPosicao(produto);
             tabela.setRowSelectionInterval(pos,pos);
         });
         new CadastroProdutos(this, true, new Produto(), callback).show();
@@ -237,7 +262,7 @@ public class PesquisarProduto extends DialogPadrao {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,"Falha ao retornar dados");
             }
-            Integer pos = produtos.indexOf(produto);
+            Integer pos =getPosicao(produto);
             tabela.setRowSelectionInterval(pos,pos);
         });
         new CadastroProdutos(this, true,  produto, callback).show();

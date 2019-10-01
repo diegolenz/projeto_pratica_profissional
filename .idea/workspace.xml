@@ -7,27 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="848be81c-7757-4fa8-85a9-f2c7be755fdc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/comercial/compra/CadastroCompraForm.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/comercial/compra/CadastroCompraForm.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/comercial/compra/CadastroCompraForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/comercial/compra/CadastroCompraForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/comercial/compra/ConsultaCompraForm.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/comercial/compra/ConsultaCompraForm.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/comercial/compra/ConsultaCompraForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/comercial/compra/ConsultaCompraForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelItemProduto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelItemProduto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/pessoas/fornecedores/CadastroFornecedorForm.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/pessoas/fornecedores/CadastroFornecedorForm.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/pessoas/fornecedores/CadastroFornecedorForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/pessoas/fornecedores/CadastroFornecedorForm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/produtos/CadastroProdutos.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/produtos/CadastroProdutos.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/produtos/CadastroProdutos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/produtos/CadastroProdutos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lib/dao/imp/comercial/compras/CompraDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lib/dao/imp/comercial/compras/CompraDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lib/dao/imp/pessoa/FornecedorDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lib/dao/imp/pessoa/FornecedorDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lib/dao/imp/produto/ProdutoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lib/dao/imp/produto/ProdutoDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/enderecos/estados/PesquisarEstado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/enderecos/estados/PesquisarEstado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/produtos/PesquisarProduto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/produtos/PesquisarProduto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lib/model/comercial/Compra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lib/model/comercial/Compra.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lib/model/comercial/ItemProduto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lib/model/comercial/ItemProduto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lib/model/pessoa/fornecedor/Fornecedor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lib/model/pessoa/fornecedor/Fornecedor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lib/model/produto/Produto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lib/model/produto/Produto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lib/service/CompraService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lib/service/CompraService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lib/service/FornecedorService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lib/service/FornecedorService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lib/service/ProdutoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lib/service/ProdutoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lib/service/CidadeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lib/service/CidadeService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,86 +23,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/gui/comercial/compra/CadastroCompraForm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="915" column="78" lean-forward="true" selection-start-line="915" selection-start-column="78" selection-end-line="915" selection-end-column="78" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1997#3390#0" />
-                <element signature="e#3396#3615#0" />
-                <element signature="e#9071#9072#0" expanded="true" />
-                <element signature="e#9134#9135#0" expanded="true" />
-                <element signature="e#9405#9406#0" expanded="true" />
-                <element signature="e#9466#9467#0" expanded="true" />
-                <element signature="e#10444#10445#0" expanded="true" />
-                <element signature="e#10491#10492#0" expanded="true" />
-                <element signature="e#11566#11567#0" expanded="true" />
-                <element signature="e#11638#11639#0" expanded="true" />
-                <element signature="e#12035#12036#0" expanded="true" />
-                <element signature="e#12101#12102#0" expanded="true" />
-                <element signature="e#12401#12402#0" expanded="true" />
-                <element signature="e#12467#12468#0" expanded="true" />
-                <element signature="e#12886#12887#0" expanded="true" />
-                <element signature="e#12933#12934#0" expanded="true" />
-                <element signature="e#13471#13472#0" expanded="true" />
-                <element signature="e#13518#13519#0" expanded="true" />
-                <element signature="e#14341#14513#0" expanded="true" />
-                <element signature="e#14512#14513#0" expanded="true" />
-                <element signature="e#15759#15760#0" expanded="true" />
-                <element signature="e#15825#15826#0" expanded="true" />
-                <element signature="e#16068#16237#0" expanded="true" />
-                <element signature="e#16236#16237#0" expanded="true" />
-                <element signature="e#17058#17059#0" expanded="true" />
-                <element signature="e#17126#17127#0" expanded="true" />
-                <element signature="e#17590#17591#0" expanded="true" />
-                <element signature="e#17651#17652#0" expanded="true" />
-                <element signature="e#18331#18332#0" expanded="true" />
-                <element signature="e#18392#18393#0" expanded="true" />
-                <element signature="e#19079#19080#0" expanded="true" />
-                <element signature="e#19140#19141#0" expanded="true" />
-                <element signature="e#19828#19829#0" expanded="true" />
-                <element signature="e#19889#19890#0" expanded="true" />
-                <element signature="e#20791#20792#0" expanded="true" />
-                <element signature="e#20853#20854#0" expanded="true" />
-                <element signature="e#22483#22662#0" expanded="true" />
-                <element signature="e#22661#22662#0" expanded="true" />
-                <element signature="e#23009#23010#0" expanded="true" />
-                <element signature="e#23069#23070#0" expanded="true" />
-                <element signature="e#23554#23555#0" expanded="true" />
-                <element signature="e#23614#23615#0" expanded="true" />
-                <element signature="e#24077#24078#0" expanded="true" />
-                <element signature="e#24137#24138#0" expanded="true" />
-                <element signature="e#24871#24872#0" expanded="true" />
-                <element signature="e#24938#24939#0" expanded="true" />
-                <element signature="method#bloqueia#0;class#CadastroCompraForm#0" />
-                <element signature="method#desbloqueia#0;class#CadastroCompraForm#0" />
-                <element signature="e#52883#54843#0" />
-                <element signature="e#55320#58730#0" />
-                <element signature="e#58736#59879#0" />
-                <element signature="e#59885#60581#0" />
-                <element signature="e#60587#62315#0" />
-                <element signature="e#62321#64214#0" />
-                <element signature="e#64220#64743#0" />
-                <element signature="e#64749#65618#0" />
-                <element signature="e#65624#66187#0" />
-                <element signature="e#66193#66964#0" />
-                <element signature="e#66970#68548#0" />
-                <element signature="e#68554#68806#0" />
-                <element signature="e#68812#69804#0" />
-                <element signature="e#69810#70696#0" />
-                <element signature="e#70702#72749#0" />
-                <element signature="e#72755#73467#0" />
-                <element signature="e#73473#74735#0" />
-                <element signature="e#74741#75224#0" />
-                <element signature="e#82308#82532#0" expanded="true" />
-                <element signature="e#82531#82532#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/lib/service/CompraService.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -130,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/lib/dao/imp/comercial/compras/CompraDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="192" column="21" selection-start-line="192" selection-start-column="21" selection-end-line="192" selection-end-column="21" />
+            <state relative-caret-position="879">
+              <caret line="199" column="61" lean-forward="true" selection-start-line="199" selection-start-column="61" selection-end-line="199" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#saveItens#0;class#CompraDao#0" />
@@ -142,6 +47,91 @@
                 <element signature="method#getAllContasByCompra#0;class#CompraDao#0" />
                 <element signature="method#getAllItensByCompra#0;class#CompraDao#0" />
                 <element signature="method#getAllAtivos#0;class#CompraDao#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/gui/produtos/PesquisarProduto.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-258">
+              <caret line="211" column="32" lean-forward="true" selection-start-line="211" selection-start-column="32" selection-end-line="211" selection-end-column="32" />
+              <folding>
+                <element signature="method#initTabela#0;class#PesquisarProduto#0" />
+                <element signature="e#3875#3876#0" expanded="true" />
+                <element signature="e#3939#3940#0" expanded="true" />
+                <element signature="e#4149#4150#0" expanded="true" />
+                <element signature="e#4214#4215#0" expanded="true" />
+                <element signature="e#4683#4684#0" expanded="true" />
+                <element signature="e#4742#4743#0" expanded="true" />
+                <element signature="e#4941#4942#0" expanded="true" />
+                <element signature="e#5002#5003#0" expanded="true" />
+                <element signature="e#5212#5213#0" expanded="true" />
+                <element signature="e#5277#5278#0" expanded="true" />
+                <element signature="e#5496#5497#0" expanded="true" />
+                <element signature="e#5567#5568#0" expanded="true" />
+                <element signature="method#getPosicao#0;class#PesquisarProduto#0" />
+                <element signature="e#16462#16686#0" expanded="true" />
+                <element signature="e#16685#16686#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lib/service/CidadeService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="199">
+              <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/gui/enderecos/estados/PesquisarEstado.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="145">
+              <caret line="182" column="77" selection-start-line="182" selection-start-column="77" selection-end-line="182" selection-end-column="77" />
+              <folding>
+                <element signature="method#btnpesquisarActionPerformed#0;class#PesquisarEstado#0" />
+                <element signature="method#btnselecionarActionPerformed#0;class#PesquisarEstado#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/gui/marca/PesquisarMarca.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="281">
+              <caret line="207" column="8" lean-forward="true" selection-start-line="203" selection-start-column="6" selection-end-line="207" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/gui/produtos/ConsultaProdutosForm.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="226">
+              <caret line="198" column="32" lean-forward="true" selection-start-line="198" selection-start-column="32" selection-end-line="198" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/comercial/Compra.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2">
+              <caret line="181" column="6" selection-start-line="181" selection-start-column="6" selection-end-line="181" selection-end-column="6" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2874#2875#0" expanded="true" />
+                <element signature="e#2903#2904#0" expanded="true" />
+                <element signature="e#3538#3539#0" expanded="true" />
+                <element signature="e#3575#3576#0" expanded="true" />
+                <element signature="e#3635#3636#0" expanded="true" />
+                <element signature="e#3687#3688#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -204,7 +194,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/gui/marca/ConsultarMarca.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/marca/PesquisarMarca.java" />
         <option value="$PROJECT_DIR$/src/main/java/lib/service/GrupoService.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/grupo/ConsultaGrupoForm.java" />
@@ -232,18 +221,14 @@
         <option value="$PROJECT_DIR$/src/main/java/gui/swing/SwingFormatterFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/lib/service/FuncionarioService.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/grupo/PesquisarGrupo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/gui/produtos/PesquisarProduto.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/enderecos/pais/PesquisarPais.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/enderecos/estados/CadastroEstado.java" />
-        <option value="$PROJECT_DIR$/src/main/java/gui/enderecos/estados/PesquisarEstado.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelCompra.java" />
         <option value="$PROJECT_DIR$/src/main/java/lib/model/comercial/frete/tipoFrete.java" />
         <option value="$PROJECT_DIR$/src/main/java/lib/model/comercial/frete/TipoFrete.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/comercial/compra/ConsultaCompraForm.java" />
         <option value="$PROJECT_DIR$/src/main/java/util/Util.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelItemProduto.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lib/model/comercial/ItemProduto.java" />
-        <option value="$PROJECT_DIR$/src/main/java/lib/model/comercial/Compra.java" />
         <option value="$PROJECT_DIR$/src/main/java/lib/model/produto/Produto.java" />
         <option value="$PROJECT_DIR$/src/main/java/lib/service/ProdutoService.java" />
         <option value="$PROJECT_DIR$/src/main/java/lib/dao/imp/produto/ProdutoDao.java" />
@@ -253,8 +238,13 @@
         <option value="$PROJECT_DIR$/src/main/java/lib/dao/imp/pessoa/FornecedorDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/gui/pessoas/fornecedores/CadastroFornecedorForm.java" />
         <option value="$PROJECT_DIR$/src/main/java/lib/service/CompraService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/gui/comercial/compra/CadastroCompraForm.java" />
         <option value="$PROJECT_DIR$/src/main/java/lib/dao/imp/comercial/compras/CompraDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/model/comercial/ItemProduto.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/model/comercial/Compra.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/comercial/compra/CadastroCompraForm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/produtos/PesquisarProduto.java" />
+        <option value="$PROJECT_DIR$/src/main/java/lib/service/CidadeService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/gui/enderecos/estados/PesquisarEstado.java" />
       </list>
     </option>
   </component>
@@ -277,10 +267,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-291" />
-    <option name="y" value="96" />
-    <option name="width" value="1378" />
-    <option name="height" value="735" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -363,7 +353,7 @@
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="projeto_estoque" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1569907744096" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1569968915479" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
@@ -460,14 +450,14 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8740849" weight="0.08571429" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.5241581" visible="true" weight="0.2969984" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.5241581" weight="0.23380727" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.328594" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" auto_hide="true" id="Event Log" order="8" sideWeight="0.47584188" side_tool="true" weight="0.23380727" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.42532942" weight="0.12796208" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.42532942" weight="0.12698413" />
       <window_info anchor="bottom" id="Thumbnails" order="11" weight="0.047393367" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -527,6 +517,18 @@
           <properties />
           <option name="timeStamp" value="228" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/lib/model/comercial/Compra.java</url>
+          <line>213</line>
+          <properties />
+          <option name="timeStamp" value="401" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/lib/model/comercial/ItemProduto.java</url>
+          <line>57</line>
+          <properties />
+          <option name="timeStamp" value="411" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/gui/pessoas/fornecedores/CadastroFornecedorForm.java</url>
           <line>839</line>
@@ -539,36 +541,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelEstado.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
-          <caret line="82" lean-forward="true" selection-start-line="7" selection-start-column="29" selection-end-line="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/financeiro/CondicaoPagamento/CondicaoPagamento.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
-          <folding>
-            <element signature="e#532#533#0" expanded="true" />
-            <element signature="e#559#560#0" expanded="true" />
-            <element signature="e#673#674#0" expanded="true" />
-            <element signature="e#704#705#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lib/dao/imp/financeiro/condicaoPagamentoDAO/CondicaoPagamentoDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2040">
-          <caret line="134" column="25" selection-start-line="134" selection-start-column="25" selection-end-line="134" selection-end-column="25" />
-          <folding>
-            <element signature="method#update#0;class#CondicaoPagamentoDAO#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/util/moeda.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -613,16 +585,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/comercial/ContaPagar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/lib/service/FuncionarioService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
@@ -657,16 +619,6 @@
             <element signature="e#14775#14862#0" expanded="true" />
             <element signature="e#16415#16639#0" expanded="true" />
             <element signature="e#16638#16639#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/gui/produtos/PesquisarProduto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1032">
-          <caret line="250" column="32" selection-start-line="250" selection-start-column="32" selection-end-line="250" selection-end-column="32" />
-          <folding>
-            <element signature="method#initTabela#0;class#PesquisarProduto#0" />
           </folding>
         </state>
       </provider>
@@ -719,13 +671,6 @@
             <element signature="imports" expanded="true" />
             <element signature="e#5368#5369#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/gui/enderecos/estados/PesquisarEstado.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1853">
-          <caret line="245" column="46" selection-start-line="245" selection-start-column="46" selection-end-line="245" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -831,13 +776,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/gui/produtos/ConsultaProdutosForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="198" column="23" selection-start-line="198" selection-start-column="23" selection-end-line="198" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/gui/modeltable/TableModelProduto.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-221">
@@ -849,36 +787,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
           <caret line="50" column="19" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/comercial/ItemProduto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="86" column="8" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="8" />
-          <folding>
-            <element signature="e#478#479#0" expanded="true" />
-            <element signature="e#511#512#0" expanded="true" />
-            <element signature="e#2793#2794#0" expanded="true" />
-            <element signature="e#2827#2828#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/comercial/Compra.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="197" column="34" selection-start-line="197" selection-start-column="34" selection-end-line="197" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2874#2875#0" expanded="true" />
-            <element signature="e#2903#2904#0" expanded="true" />
-            <element signature="e#3538#3539#0" expanded="true" />
-            <element signature="e#3575#3576#0" expanded="true" />
-            <element signature="e#3635#3636#0" expanded="true" />
-            <element signature="e#3687#3688#0" expanded="true" />
-            <element signature="e#4453#5112#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1081,14 +989,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/service/CompraService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="38" column="36" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/comercial/ContaPagar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="101" column="18" selection-start-line="101" selection-start-column="18" selection-end-line="101" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2057#2058#0" expanded="true" />
+            <element signature="e#2085#2086#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/dao/imp/comercial/compras/CompraDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="879">
+          <caret line="199" column="61" lean-forward="true" selection-start-line="199" selection-start-column="61" selection-end-line="199" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#saveItens#0;class#CompraDao#0" />
+            <element signature="method#save#0;class#CompraDao#0" />
+            <element signature="method#getAllContasByCompra#0;class#CompraDao#0" />
+            <element signature="method#getAllItensByCompra#0;class#CompraDao#0" />
+            <element signature="method#getAllAtivos#0;class#CompraDao#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/comercial/Compra.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2">
+          <caret line="181" column="6" selection-start-line="181" selection-start-column="6" selection-end-line="181" selection-end-column="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2874#2875#0" expanded="true" />
+            <element signature="e#2903#2904#0" expanded="true" />
+            <element signature="e#3538#3539#0" expanded="true" />
+            <element signature="e#3575#3576#0" expanded="true" />
+            <element signature="e#3635#3636#0" expanded="true" />
+            <element signature="e#3687#3688#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/gui/comercial/compra/CadastroCompraForm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="915" column="78" lean-forward="true" selection-start-line="915" selection-start-column="78" selection-end-line="915" selection-end-column="78" />
+        <state relative-caret-position="1736">
+          <caret line="1271" column="62" lean-forward="true" selection-start-line="1271" selection-start-column="62" selection-end-line="1271" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1997#3390#0" />
-            <element signature="e#3396#3615#0" />
             <element signature="e#9071#9072#0" expanded="true" />
             <element signature="e#9134#9135#0" expanded="true" />
             <element signature="e#9405#9406#0" expanded="true" />
@@ -1153,33 +1113,90 @@
             <element signature="e#72755#73467#0" />
             <element signature="e#73473#74735#0" />
             <element signature="e#74741#75224#0" />
+            <element signature="e#87752#89877#0" />
             <element signature="e#82308#82532#0" expanded="true" />
             <element signature="e#82531#82532#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lib/service/CompraService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/model/comercial/ItemProduto.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="38" column="36" selection-start-line="38" selection-start-column="36" selection-end-line="38" selection-end-column="36" />
+        <state relative-caret-position="317">
+          <caret line="77" column="37" lean-forward="true" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="37" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#478#479#0" expanded="true" />
+            <element signature="e#511#512#0" expanded="true" />
+            <element signature="e#636#637#0" expanded="true" />
+            <element signature="e#675#676#0" expanded="true" />
+            <element signature="e#839#840#0" expanded="true" />
+            <element signature="e#879#880#0" expanded="true" />
+            <element signature="e#2969#2970#0" expanded="true" />
+            <element signature="e#3005#3006#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/lib/dao/imp/comercial/compras/CompraDao.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/marca/ConsultarMarca.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="192" column="21" selection-start-line="192" selection-start-column="21" selection-end-line="192" selection-end-column="21" />
+        <state relative-caret-position="-1071">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/produtos/ConsultaProdutosForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="198" column="32" lean-forward="true" selection-start-line="198" selection-start-column="32" selection-end-line="198" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/marca/PesquisarMarca.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="207" column="8" lean-forward="true" selection-start-line="203" selection-start-column="6" selection-end-line="207" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/produtos/PesquisarProduto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-258">
+          <caret line="211" column="32" lean-forward="true" selection-start-line="211" selection-start-column="32" selection-end-line="211" selection-end-column="32" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#saveItens#0;class#CompraDao#0" />
-            <element signature="method#save#0;class#CompraDao#0" />
-            <element signature="method#getAllContasByCompra#0;class#CompraDao#0" />
-            <element signature="method#getAllItensByCompra#0;class#CompraDao#0" />
-            <element signature="method#getAllAtivos#0;class#CompraDao#0" />
+            <element signature="method#initTabela#0;class#PesquisarProduto#0" />
+            <element signature="e#3875#3876#0" expanded="true" />
+            <element signature="e#3939#3940#0" expanded="true" />
+            <element signature="e#4149#4150#0" expanded="true" />
+            <element signature="e#4214#4215#0" expanded="true" />
+            <element signature="e#4683#4684#0" expanded="true" />
+            <element signature="e#4742#4743#0" expanded="true" />
+            <element signature="e#4941#4942#0" expanded="true" />
+            <element signature="e#5002#5003#0" expanded="true" />
+            <element signature="e#5212#5213#0" expanded="true" />
+            <element signature="e#5277#5278#0" expanded="true" />
+            <element signature="e#5496#5497#0" expanded="true" />
+            <element signature="e#5567#5568#0" expanded="true" />
+            <element signature="method#getPosicao#0;class#PesquisarProduto#0" />
+            <element signature="e#16462#16686#0" expanded="true" />
+            <element signature="e#16685#16686#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/lib/service/CidadeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/gui/enderecos/estados/PesquisarEstado.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="182" column="77" selection-start-line="182" selection-start-column="77" selection-end-line="182" selection-end-column="77" />
+          <folding>
+            <element signature="method#btnpesquisarActionPerformed#0;class#PesquisarEstado#0" />
+            <element signature="method#btnselecionarActionPerformed#0;class#PesquisarEstado#0" />
           </folding>
         </state>
       </provider>

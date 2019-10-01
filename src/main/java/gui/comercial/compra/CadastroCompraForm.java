@@ -28,6 +28,7 @@ import lib.service.CompraService;
 import lib.service.CondicaoPagamentoService;
 import lib.service.FornecedorService;
 import lib.service.ProdutoService;
+import util.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -834,31 +835,31 @@ public class CadastroCompraForm extends DialogPadrao {
         this.edtCodCondicaoPagamento.setEnabled(false);
         this.rdTipoFreteCIF.setEnabled(false);
         this.rdFreteFOB.setEnabled(false);
-        this.lblCodProd.setVisible(false);
-        this.lblAcrescUn.setVisible(false);
-        this.lblDescUn.setVisible(false);
-        this.lblUn.setVisible(false);
-        this.lblCustoProd.setVisible(false);
-        this.lblCusto.setVisible(false);
-        this.lblqtd.setVisible(false);
-        this.lblProd.setVisible(false);
-        this.edtCodProduto.setVisible(false);
-        this.edtQuantItem.setVisible(false);
-        this.edtDescItem.setVisible(false);
-        this.edtNome.setVisible(false);
-        this.edtCustoProduto.setVisible(false);
-        this.edtAcrescUn.setVisible(false);
-        this.edtUnMedida.setVisible(false);
-        this.edtAcrescUn.setVisible(false);
-        this.edtValorItem.setVisible(false);
-        btnAddItem.setVisible(false);
-        btnAltCondicao.setVisible(false);
-        btnAlterarFornecedor.setVisible(false);
-        btnRemoverItem.setVisible(false);
-        btnCancelar.setVisible(false);
-        btnSalvar.setVisible(false);
-        btnPesquisarItem.setVisible(false);
-        btnAlterarItem.setVisible(false);
+        this.lblCodProd.setEnabled(false);
+        this.lblAcrescUn.setEnabled(false);
+        this.lblDescUn.setEnabled(false);
+        this.lblUn.setEnabled(false);
+        this.lblCustoProd.setEnabled(false);
+        this.lblCusto.setEnabled(false);
+        this.lblqtd.setEnabled(false);
+        this.lblProd.setEnabled(false);
+        this.edtCodProduto.setEnabled(false);
+        this.edtQuantItem.setEnabled(false);
+        this.edtDescItem.setEnabled(false);
+        this.edtNome.setEnabled(false);
+        this.edtCustoProduto.setEnabled(false);
+        this.edtAcrescUn.setEnabled(false);
+        this.edtUnMedida.setEnabled(false);
+        this.edtAcrescUn.setEnabled(false);
+        this.edtValorItem.setEnabled(false);
+        btnAddItem.setEnabled(false);
+        btnAltCondicao.setEnabled(false);
+        btnAlterarFornecedor.setEnabled(false);
+        btnRemoverItem.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        btnSalvar.setEnabled(false);
+        btnPesquisarItem.setEnabled(false);
+        btnAlterarItem.setEnabled(false);
     }
 
     private void desbloqueia() {
@@ -877,31 +878,31 @@ public class CadastroCompraForm extends DialogPadrao {
         this.edtCodCondicaoPagamento.setEnabled(true);
         this.rdTipoFreteCIF.setEnabled(true);
         this.rdFreteFOB.setEnabled(true);
-        this.lblCodProd.setVisible(true);
-        this.lblAcrescUn.setVisible(true);
-        this.lblDescUn.setVisible(true);
-        this.lblUn.setVisible(true);
-        this.lblCustoProd.setVisible(true);
-        this.lblCusto.setVisible(true);
-        this.lblqtd.setVisible(true);
-        this.lblProd.setVisible(true);
-        this.edtCodProduto.setVisible(true);
-        this.edtQuantItem.setVisible(true);
-        this.edtDescItem.setVisible(true);
-        this.edtNome.setVisible(true);
-        this.edtCustoProduto.setVisible(true);
-        this.edtAcrescUn.setVisible(true);
-        this.edtUnMedida.setVisible(true);
-        this.edtAcrescUn.setVisible(true);
-        this.edtValorItem.setVisible(true);
-        btnAddItem.setVisible(true);
-        btnAltCondicao.setVisible(true);
-        btnAlterarFornecedor.setVisible(true);
-        btnRemoverItem.setVisible(true);
-        btnCancelar.setVisible(true);
-        btnSalvar.setVisible(true);
-        btnPesquisarItem.setVisible(true);
-        btnAlterarItem.setVisible(true);
+        this.lblCodProd.setEnabled(true);
+        this.lblAcrescUn.setEnabled(true);
+        this.lblDescUn.setEnabled(true);
+        this.lblUn.setEnabled(true);
+        this.lblCustoProd.setEnabled(true);
+        this.lblCusto.setEnabled(true);
+        this.lblqtd.setEnabled(true);
+        this.lblProd.setEnabled(true);
+        this.edtCodProduto.setEnabled(true);
+        this.edtQuantItem.setEnabled(true);
+        this.edtDescItem.setEnabled(true);
+        this.edtNome.setEnabled(true);
+        this.edtCustoProduto.setEnabled(true);
+        this.edtAcrescUn.setEnabled(true);
+        this.edtUnMedida.setEnabled(true);
+        this.edtAcrescUn.setEnabled(true);
+        this.edtValorItem.setEnabled(true);
+        btnAddItem.setEnabled(true);
+        btnAltCondicao.setEnabled(true);
+        btnAlterarFornecedor.setEnabled(true);
+        btnRemoverItem.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        btnSalvar.setEnabled(true);
+        btnPesquisarItem.setEnabled(true);
+        btnAlterarItem.setEnabled(true);
     }
 
     private void validaNota(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_validaNota
@@ -1276,7 +1277,12 @@ public class CadastroCompraForm extends DialogPadrao {
         //compra.setValorSeguro((Double) edtValorSeguro.getValue());
         // compra.setOutrasDespesas((Double) edtOutrasDespesas.getValue());
 
-        Double total = compra.getTotaisCustoUn() + (Double) edtValorSeguro.getValue() + (Double) edtOutrasDespesas.getValue() + (Double) edtValorFrete.getValue();
+        Double seguro =Util.builDoubleDuasCasasDecimais ((Double ) edtValorSeguro.getValue());
+        Double frete = Util.builDoubleDuasCasasDecimais((Double) edtValorFrete.getValue()) ;
+        Double outrasDespesas =Util.builDoubleDuasCasasDecimais((Double)edtOutrasDespesas.getValue());
+        Double totaisCustoUn = Util.builDoubleDuasCasasDecimais(compra.getTotaisCustoUn());
+
+        Double total = Util.builDoubleDuasCasasDecimais(totaisCustoUn + frete + outrasDespesas + seguro); //compra.getTotaisCustoUn() + (Double) edtValorSeguro.getValue() + (Double) edtOutrasDespesas.getValue() + (Double) edtValorFrete.getValue();
 
         edtTotalDescontos.setValue(compra.getTotaisDescontos());
         edtTotalAcrescimos.setValue(compra.getTotaisAcrescimos());
