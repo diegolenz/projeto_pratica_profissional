@@ -2,9 +2,9 @@ package lib.service;
 
 import lib.dao.imp.endereco.cidade.CidadeDao;
 import lib.model.endereco.cidade.Cidade;
-import org.castor.core.util.Assert;
+import org.springframework.util.Assert;
 
-import java.sql.SQLException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +16,8 @@ public class CidadeService {
         Assert.notNull(cidade, "cidade não pode estar nulo");
         Assert.notNull(cidade.getNome(), "Campo Nome precisa ser preenchido");
         Assert.notNull(cidade.getEstado(), "Estado não pode estar nulo");
+        Optional<Cidade> paisOptional = Optional.ofNullable(cidadeDao.getByNomeAndEstadoExato(cidade));
+        Assert.isTrue(!paisOptional.isPresent(), "Ja existe um a cidade com esse mesmo nome no mesmo estado, o cadastro de estado não não deve conter nomes duplicados em um mesmo país ");
         cidadeDao.save(cidade);
     }
 
@@ -27,8 +29,8 @@ public class CidadeService {
         cidadeDao.update(cidade);
     }
 
-    public List getAll() throws Exception {
-        return cidadeDao.getAll();
+    public List<Cidade> getAll(String termo) throws Exception {
+        return cidadeDao.getAll( termo);
     }
 
     public List getAllAtivos(String termo) throws Exception {

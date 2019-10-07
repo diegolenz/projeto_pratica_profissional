@@ -17,6 +17,7 @@ import lib.service.CidadeService;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -67,8 +68,10 @@ public class PesquisarCidade extends DialogPadrao {
         btnNovo = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
-        cmbSelPesquisa = new javax.swing.JComboBox<>();
         btnVisualizar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        cmbStatusCidade = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pesquisar cidade");
@@ -76,7 +79,8 @@ public class PesquisarCidade extends DialogPadrao {
         setLocationByPlatform(true);
         setModal(true);
 
-        btnpesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pesquisar.png"))); // NOI18N
+        btnpesquisar.setBackground(new java.awt.Color(255, 255, 255));
+        btnpesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnpesquisar.setText("Pesquisar");
         btnpesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,19 +127,18 @@ public class PesquisarCidade extends DialogPadrao {
             }
         });
 
-        cmbSelPesquisa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome ou código", "Estado" }));
-        cmbSelPesquisa.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                cmbSelPesquisaPropertyChange(evt);
-            }
-        });
-
         btnVisualizar.setText("Visualizar");
         btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVisualizarActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Nome ou código da cidade");
+
+        jLabel2.setText("Status");
+
+        cmbStatusCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Ativados", "Desativados" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,13 +147,7 @@ public class PesquisarCidade extends DialogPadrao {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 822, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cmbSelPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(edtpesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnpesquisar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 887, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnNovo)
@@ -161,19 +158,37 @@ public class PesquisarCidade extends DialogPadrao {
                         .addGap(7, 7, 7)
                         .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnselecionar)))
+                        .addComponent(btnselecionar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 522, Short.MAX_VALUE))
+                            .addComponent(edtpesquisa))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbStatusCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnpesquisar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnpesquisar)
-                    .addComponent(cmbSelPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(edtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbStatusCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnselecionar)
@@ -191,10 +206,12 @@ public class PesquisarCidade extends DialogPadrao {
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
         modelo = new TableModelCidade();
         try {
-            if (cmbSelPesquisa.getSelectedIndex() == 0)
-                list = new CidadeService().getAllAtivos(edtpesquisa.getText());
-            else
-                list = new CidadeService().getByNomeEstado(edtpesquisa.getText());
+            if (cmbStatusCidade.getSelectedIndex() == 0)
+                list =  new CidadeService().getAll(edtpesquisa.getText());
+            if (cmbStatusCidade.getSelectedIndex() == 1)
+                list =  new CidadeService().getAllAtivos(edtpesquisa.getText());
+            if (cmbStatusCidade.getSelectedIndex() == 2)
+                list =  new CidadeService().getAll(edtpesquisa.getText()).stream().filter(o ->  !o.getAtivo()).collect(Collectors.toList());
         } catch (Exception e){
             JOptionPane.showMessageDialog(this,  e.getMessage());
         }
@@ -245,7 +262,7 @@ public class PesquisarCidade extends DialogPadrao {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         CadastroCidade.Callback callback = (cidade -> {
                 try {
-                    list = new CidadeService().getAll();
+                    list = new CidadeService().getAll(edtpesquisa.getText());
                 } catch (Exception ex){
                     System.out.println(ex);
                 }
@@ -262,7 +279,7 @@ public class PesquisarCidade extends DialogPadrao {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         CadastroCidade.Callback callback = (cidade -> {
             try {
-                list = new CidadeService().getAll();
+                list = new CidadeService().getAll(edtpesquisa.getText());
             } catch (Exception ex){
                 System.out.println(ex);
             }
@@ -316,9 +333,6 @@ public class PesquisarCidade extends DialogPadrao {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void cmbSelPesquisaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cmbSelPesquisaPropertyChange
-    }//GEN-LAST:event_cmbSelPesquisaPropertyChange
-
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
         if (tabela.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Selecione um registro para continuar");
@@ -326,7 +340,7 @@ public class PesquisarCidade extends DialogPadrao {
         }
         CadastroCidade.Callback callback = (cidade -> {
             try {
-                list = new CidadeService().getAll();
+                list = new CidadeService().getAll(edtpesquisa.getText());
             } catch (Exception ex){
                 System.out.println(ex);
             }
@@ -393,8 +407,10 @@ public class PesquisarCidade extends DialogPadrao {
     private javax.swing.JButton btnVisualizar;
     private javax.swing.JToggleButton btnpesquisar;
     private javax.swing.JButton btnselecionar;
-    private javax.swing.JComboBox<String> cmbSelPesquisa;
+    private javax.swing.JComboBox<String> cmbStatusCidade;
     private javax.swing.JFormattedTextField edtpesquisa;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables

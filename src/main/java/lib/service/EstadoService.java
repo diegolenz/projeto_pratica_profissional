@@ -5,7 +5,9 @@ import lib.model.endereco.estado.Estado;
 import org.springframework.util.Assert;
 
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class EstadoService {
 
@@ -16,6 +18,8 @@ public class EstadoService {
         Assert.notNull(estado.getNome(), "Campo Nome precisa ser preenchido");
         Assert.notNull(estado.getSigla(), "Campo sigla é obrigatório");
         Assert.notNull(estado.getPais(), "Selecione um país");
+        Optional<Estado> paisOptional = Optional.ofNullable(estadoDao.getByNomeAndPaisExato(estado));
+        Assert.isTrue(!paisOptional.isPresent(), "Ja existe um estado com esse mesmo nome no mesmo país, o cadastro de estado não não deve conter nomes duplicados em um mesmo país ");
         estadoDao.save(estado);
     }
 
@@ -28,7 +32,7 @@ public class EstadoService {
         estadoDao.update(estado);
     }
 
-    public List getAll(String termos) throws Exception {
+    public List<Estado> getAll(String termos) throws Exception {
         return estadoDao.getAll(termos);
     }
 
@@ -39,7 +43,7 @@ public class EstadoService {
     }
 
 
-    public Estado getEstadoByID(Integer id) throws Exception {
+    public Estado getEstadoByID(Integer id) throws SQLException {
         Assert.notNull(id, "ID passado como parametro não pode estar nulo");
         Estado estado = estadoDao.getByID(id);
      //   Assert.notNull(estado, "Não foi encontrado nenhum estado com esse código");

@@ -4,6 +4,7 @@ import lib.model.comercial.frete.TipoFrete;
 import lib.model.financeiro.CondicaoPagamento.CondicaoPagamento;
 import lib.model.interno.Funcionario;
 import lib.model.pessoa.fornecedor.Fornecedor;
+import util.Util;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,6 +47,8 @@ public class Compra {
     private Double valorSeguro ;
 
     private Double outrasDespesas;
+
+    private String motivoCancelamento;
 
     public List<ItemProduto> getItensProdutos() {
         if (itensProdutos == null){
@@ -204,7 +207,7 @@ public class Compra {
             Double perc = ((itemProduto.getValorUnitario() + itemProduto.getAcrescimoUnitario() - itemProduto.getDescontoUnitario()) * itemProduto.getQuantidade()) / totalItens;
             valorFinal = getTotalDespesas() * perc;
             valorFinal = valorFinal / itemProduto.getQuantidade();
-            itemProduto.setValorRateio(valorFinal);
+            itemProduto.setValorRateio(Util.builDoubleDuasCasasDecimais(valorFinal));
            // itemProduto.setValorTotal(itemProduto.getValorUnitario() + valorFinal);
         }
 
@@ -215,6 +218,11 @@ public class Compra {
         return custo;
     }
 
+    public String getMotivoCancelamento() {
+        return motivoCancelamento;
+    }
 
-
+    public void setMotivoCancelamento(String motivoCancelamento) {
+        this.motivoCancelamento = motivoCancelamento;
+    }
 }

@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -140,6 +141,7 @@ public class FornecedorDao extends AbstractDao {
             fornecedor.setCondicoesPagamentos(getCondicaoByFornecedor(fornecedor.getId()));
             fornecedors.add(fornecedor);
         }
+        fornecedors.sort(Comparator.comparing(Fornecedor::getNome));
         return fornecedors;
     }
 
@@ -194,7 +196,7 @@ public class FornecedorDao extends AbstractDao {
     public Fornecedor getByID(Integer id) throws Exception {
         PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM fornecedor WHERE ID = "+id+";");
         ResultSet rs = preparedStatement.executeQuery();
-        Fornecedor fornecedor=new Fornecedor();
+        Fornecedor fornecedor=null;
         while (rs.next()) {
             fornecedor=new Fornecedor();
             fornecedor.setId(rs.getInt("id"));
@@ -231,14 +233,18 @@ public class FornecedorDao extends AbstractDao {
             Integer sexo = rs.getInt("sexo");
             switch (sexo) {
                 case 0 : fornecedor.setSexo(Sexo.MASCULINO);
+                break;
                 case 1 : fornecedor.setSexo(Sexo.FEMININO);
+                break;
                 case 2 : fornecedor.setSexo(Sexo.OUTROS);
             }
 
             Integer tipo = rs.getInt("tipo");
             switch (tipo) {
                 case 0 : fornecedor.setTipo(TipoPessoa.FISICA);
+                break;
                 case 1 : fornecedor.setTipo(TipoPessoa.JURIDICA);
+                break;
                 case 2 : fornecedor.setTipo(TipoPessoa.ESTRANGEIRO);
             }
 
@@ -247,17 +253,11 @@ public class FornecedorDao extends AbstractDao {
     }
 
     public Fornecedor getByCpfCnpjExato(String cpf) throws Exception {
-        PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM fornecedor WHERE id = "+
-                "(SELECT id FROM pessoa WHERE cpf_cnpj = '"+cpf+"' );");
+        PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT id FROM pessoa WHERE cpf_cnpj = '"+cpf+"' ;");
         ResultSet rs = preparedStatement.executeQuery();
         Fornecedor fornecedor = null ;
         if (rs.next()) {
-            fornecedor=new Fornecedor();
-            fornecedor.setId(rs.getInt("id"));
-            fornecedor.setAtivo( rs.getBoolean("ativo"));
-            fornecedor.setDataUltAlteracao(rs.getDate("data_ultima_alteracao"));
-            fornecedor.setDataCadastro(rs.getDate("data_cadastro"));
-            getPessoaByID(fornecedor.getId(), fornecedor);
+            fornecedor = getByID(rs.getInt("id"));
         }
         return fornecedor;
     }

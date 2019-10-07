@@ -13,19 +13,20 @@ import lib.service.ProdutoService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CompraDao extends AbstractDao {
 
-    public void saveItens(List<ItemProduto> itensProduto)throws Exception{
+    public void saveItens(List<ItemProduto> itensProduto) throws SQLException {
         for (ItemProduto itemProduto : itensProduto) {
             String sql = "INSERT INTO item_produto (quantidade, valor_unitario, desconto_unitario, acrescimo_unitario, valor_rateio, valor_total, produto_id, " +
                     "serie_compra, " +
                     "numero_compra," +
                     "modelo_compra)" +
                     " VALUES ("
-                         + itemProduto.getQuantidade() +
+                    + itemProduto.getQuantidade() +
                     ", " + itemProduto.getValorUnitario() +
                     ", " + itemProduto.getDescontoUnitario() +
                     ", " + itemProduto.getAcrescimoUnitario() +
@@ -40,7 +41,7 @@ public class CompraDao extends AbstractDao {
         }
     }
 
-    public void save(Compra compra) throws Exception {
+    public void save(Compra compra) throws SQLException {
         String sql = "INSERT INTO compra (" +
                 " numero," +
                 " modelo," +
@@ -48,7 +49,7 @@ public class CompraDao extends AbstractDao {
                 " data_chegada," +
                 " data_emissao," +
                 " fornecedor_id," +
-             //   " funcionario_id," +
+                //   " funcionario_id," +
                 " valor_frete, " +
                 " valor_seguro," +
                 " outras_despesas, " +
@@ -58,51 +59,69 @@ public class CompraDao extends AbstractDao {
                 ") values ("
                 + compra.getNumeroNota() + ", '"
                 + compra.getModeloNota() + "', "
-                + compra.getNumSerieNota() +", '"
+                + compra.getNumSerieNota() + ", '"
                 + compra.getDtChegada() + "', '"
                 + compra.getDtEmisssao() + "', "
                 + compra.getFornecedor().getId() + ", "
-              //  + compra.getFuncionario().getId() + ", "
+                //  + compra.getFuncionario().getId() + ", "
                 + compra.getValorFrete() + ", "
                 + compra.getValorSeguro() + ", "
                 + compra.getOutrasDespesas() + ", "
                 + compra.getTipoFrete().ordinal() + ", "
-                + compra.isAtivo() +", "+
-                + compra.getCondicaoPagamento().getId()
-        + " ) ; ";
+                + compra.isAtivo() + ", " +
+                +compra.getCondicaoPagamento().getId()
+                + " ) ; ";
+
+        this.st.getConnection().setAutoCommit(false);
         this.st.executeUpdate(sql);
         this.saveContas(compra.getContas());
         this.saveItens(compra.getItensProdutos());
+
+        this.st.getConnection().commit();
+        this.st.getConnection().setAutoCommit(true);
+
     }
 
-    public void saveContas(List<ContaPagar> contas) throws  Exception{
+    public void cancelar(Compra compra) throws SQLException{
+        String sql = "update compra set ativo = false, motivo_cancelamento = '"+ compra.getMotivoCancelamento() + "' where modelo = '"+compra.getModeloNota()+"' and numero = "+ compra.getNumeroNota()+" and serie ="+ compra.getNumSerieNota()+" ;";
+        this.st.execute(sql);
+    }
+
+    public void commit()throws SQLException{
+        this.st.getConnection().commit();
+        this.st.clearBatch();
+        this.st.clearWarnings();
+    }
+
+    public void saveContas(List<ContaPagar> contas) throws SQLException {
         for (ContaPagar conta : contas) {
-            String sql = "INSERT INTO conta ( modelo_compra, serie_compra, numero_compra, valor, data_Lancamento, data_Vencimento) "
+            String sql = "INSERT INTO conta (modelo_compra , serie_compra, numero_compra, valor, data_Lancamento, data_Vencimento) "
                     + "values ('" +
                     conta.getCompra().getModeloNota() + "', " +
                     conta.getCompra().getNumSerieNota() + ", " +
                     conta.getCompra().getNumeroNota() + ", " +
                     conta.getValor() + ", " +
                     "'" + conta.getDataLancamento() + "', " +
-                    "' "+conta.getDataVencimento() + "' " +
-                  //  conta.getStatusConta().ordinal() + ", " +
+                    "' " + conta.getDataVencimento() + "' " +
+                    //  conta.getStatusConta().ordinal() + ", " +
                     ");";
             this.st.execute(sql);
         }
+        //return "Salvo com sucesso";
     }
 
-    public List<ContaPagar> getAllContasByCompra(Compra compra)throws Exception{
-        String sql = "SELECT * FROM conta WHERE modelo_compra = '" + compra.getModeloNota() + "' and numero_compra = " + compra.getNumeroNota() + " and serie_compra =" + compra.getNumSerieNota() +";";
-        PreparedStatement preparedStatement=st.getConnection().prepareStatement(sql);
+    public List<ContaPagar> getAllContasByCompra(Compra compra) throws Exception {
+        String sql = "SELECT * FROM conta WHERE modelo_compra = '" + compra.getModeloNota() + "' and numero_compra = " + compra.getNumeroNota() + " and serie_compra =" + compra.getNumSerieNota() + ";";
+        PreparedStatement preparedStatement = st.getConnection().prepareStatement(sql);
         ResultSet rs = preparedStatement.executeQuery();
         List<ContaPagar> contas = new ArrayList<>();
-        while (rs.next()){
+        while (rs.next()) {
             ContaPagar contaPagar = new ContaPagar();
             contaPagar.setParcela(new ParcelaDAO().getByID(rs.getInt("parcela_id")));
             contaPagar.setDataVencimento(rs.getDate("data_vencimento"));
             contaPagar.setDataLancamento(rs.getDate("data_lancamento"));
             contaPagar.setCompra(compra);
-           // contaPagar.setFormaPagamento((FormaPagamento) new FormaPagamentoDAO().getByID(rs.getInt("forma_pagamento_id")));
+            // contaPagar.setFormaPagamento((FormaPagamento) new FormaPagamentoDAO().getByID(rs.getInt("forma_pagamento_id")));
             contaPagar.setValor(rs.getDouble("valor"));
             //contaPagar.setValorRecebido(rs.getDouble("valor_recebido"));
             contaPagar.setPaga(rs.getBoolean("paga"));
@@ -111,12 +130,12 @@ public class CompraDao extends AbstractDao {
         return contas;
     }
 
-    public List<ItemProduto> getAllItensByCompra(Compra compra)throws Exception{
-        String sql = "SELECT * FROM item_produto WHERE modelo_compra = '" + compra.getModeloNota() + "' and numero_compra = " + compra.getNumeroNota() + " and serie_compra =" + compra.getNumSerieNota() +";";
-        PreparedStatement preparedStatement=st.getConnection().prepareStatement(sql);
+    public List<ItemProduto> getAllItensByCompra(Compra compra) throws Exception {
+        String sql = "SELECT * FROM item_produto WHERE modelo_compra = '" + compra.getModeloNota() + "' and numero_compra = " + compra.getNumeroNota() + " and serie_compra =" + compra.getNumSerieNota() + ";";
+        PreparedStatement preparedStatement = st.getConnection().prepareStatement(sql);
         ResultSet rs = preparedStatement.executeQuery();
         List<ItemProduto> itens = new ArrayList<>();
-        while (rs.next()){
+        while (rs.next()) {
             ItemProduto itemProduto = new ItemProduto();
             itemProduto.setId(rs.getInt("id"));
             itemProduto.setValorRateio(rs.getDouble("valor_rateio"));
@@ -132,19 +151,19 @@ public class CompraDao extends AbstractDao {
         return itens;
     }
 
-    public List getAll(String termoBusca)throws Exception {
+    public List getAll(String termoBusca) throws Exception {
         String sql = "";
         if (termoBusca.length() == 0)
-            sql="SELECT * FROM compra ;";
+            sql = "SELECT * FROM compra ;";
         else if ((!termoBusca.matches("[0-9]")))
-            sql = "Select * from compra where id = "+ termoBusca +";";
+            sql = "Select * from compra where id = " + termoBusca + ";";
         else
-            sql = "SELECT * FROM compra WHERE nome = "+ termoBusca +";";
+            sql = "SELECT * FROM compra WHERE nome = " + termoBusca + ";";
 
         ResultSet rs = this.st.executeQuery(sql);
         List compras = new ArrayList();
-        while (rs.next()){
-            Compra compra=new Compra();
+        while (rs.next()) {
+            Compra compra = new Compra();
             compra.setNumeroNota(rs.getInt("numero"));
             compra.setModeloNota(rs.getString("modelo"));
             compra.setNumSerieNota(rs.getInt("serie"));
@@ -157,21 +176,21 @@ public class CompraDao extends AbstractDao {
             compra.setDtChegada(rs.getDate("data_chegada"));
             compra.setDtEmisssao(rs.getDate("data_emissao"));
             compra.setFornecedor(new FornecedorService().getByID(rs.getInt("fornecedor_id")));
-           // compra.setFuncionario(new FuncionarioService().getByID(rs.getInt("funcionario_id")));
+            // compra.setFuncionario(new FuncionarioService().getByID(rs.getInt("funcionario_id")));
             compra.setContas(this.getAllContasByCompra(compra));
             compra.setItensProdutos(this.getAllItensByCompra(compra));
-          //  compra.setFuncionario(new );
+            //  compra.setFuncionario(new );
             compras.add(compra);
         }
         return compras;
     }
 
-    public List getAllAtivos() throws Exception{
-        String sql = "Select * from compras where ativo = "+1+" ;";
+    public List getAllAtivos() throws Exception {
+        String sql = "Select * from compras where ativo = " + 1 + " ;";
         ResultSet rs = this.st.executeQuery(sql);
         List compras = new ArrayList();
-        while (rs.next()){
-            Compra compra=new Compra();
+        while (rs.next()) {
+            Compra compra = new Compra();
             compra.setNumeroNota(rs.getInt("numeroa"));
             compra.setAtivo(rs.getBoolean("ativo"));
             compra.setModeloNota(rs.getString("modelo"));
@@ -186,13 +205,13 @@ public class CompraDao extends AbstractDao {
         return compras;
     }
 
-    public Object getByID(String modelo, Integer numero, Integer serie) throws Exception{
-        String sql = "Select * from compra where numero = "+numero+" and serie = "+ serie +" and modelo = '" +modelo+"' ;";
-        PreparedStatement preparedStatement=st.getConnection().prepareStatement(sql);
-        ResultSet rs =  preparedStatement.executeQuery();
+    public Object getByID(String modelo, Integer numero, Integer serie) throws Exception {
+        String sql = "Select * from compra where numero = " + numero + " and serie = " + serie + " and modelo = '" + modelo + "' ;";
+        PreparedStatement preparedStatement = st.getConnection().prepareStatement(sql);
+        ResultSet rs = preparedStatement.executeQuery();
         Compra compra = null;
-        while (rs.next()){
-            compra=new Compra();
+        while (rs.next()) {
+            compra = new Compra();
             compra.setNumeroNota(rs.getInt("numero"));
             compra.setModeloNota(rs.getString("modelo"));
             compra.setNumSerieNota(rs.getInt("serie"));
@@ -202,10 +221,10 @@ public class CompraDao extends AbstractDao {
             compra.setValorSeguro(rs.getDouble("valor_seguro"));
             compra.setValorFrete(rs.getDouble("valor_frete"));
             //compra.setFuncionario(new  rs.getInt("funcionario_id"));
-           // compra.setConstasPagar(rs.getc);
+            // compra.setConstasPagar(rs.getc);
             compra.setFornecedor(new FornecedorService().getByID(rs.getInt("fornecedor_id")));
-           // compra.setItensProdutos(new );
-          //  compra.setItensServicos();
+            // compra.setItensProdutos(new );
+            //  compra.setItensServicos();
         }
         return compra;
     }

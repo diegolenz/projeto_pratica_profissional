@@ -5,6 +5,7 @@
  */
 package gui.enderecos.estados;
 
+import gui.enderecos.pais.CadastroPais;
 import gui.enderecos.pais.PesquisarPais;
 import gui.swing.DialogPadrao;
 import javafx.scene.input.KeyCode;
@@ -28,9 +29,10 @@ public class CadastroEstado extends DialogPadrao {
     /**
      * Creates new form CadastroEstado
      */
-    public CadastroEstado (Window parent, boolean modal, Estado estado) {
+    public CadastroEstado (Window parent, boolean modal, Estado estado, Callback callback) {
         super( parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.LEITURA_GRAVACAO);
         initComponents();
+        this.callback = callback;
         estadoService=new EstadoService();
         this.estado = estado;
         if (this.estado.getId() != null)
@@ -45,6 +47,12 @@ public class CadastroEstado extends DialogPadrao {
     private List<Pais> paises;
     private EstadoService estadoService;
     private Pais paisSelecionado;
+    private CadastroEstado.Callback callback;
+
+    interface Callback {
+        void handle(Estado estado);
+    }
+
 
 
     /**
@@ -83,6 +91,7 @@ public class CadastroEstado extends DialogPadrao {
         jRadioButton1.setText("jRadioButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de estado");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -144,10 +153,8 @@ public class CadastroEstado extends DialogPadrao {
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(jLabel5))
-                            .addComponent(edtUF, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(edtUF, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -188,7 +195,7 @@ public class CadastroEstado extends DialogPadrao {
                                 .addComponent(edtCoPais, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(edtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(btnAltPAis))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         btnSalvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -215,6 +222,7 @@ public class CadastroEstado extends DialogPadrao {
         lblDescricaoForm.setText("Novo Estado");
 
         rdAtivado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rdAtivado.setSelected(true);
         rdAtivado.setText("Ativado");
         rdAtivado.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -340,6 +348,11 @@ public class CadastroEstado extends DialogPadrao {
         this.edtPais.setEditable(false);
         this.edtUF.setEditable(false);
         this.btnAltPAis.setEnabled(false);
+        rdDesativado.setEnabled(false);
+        rdAtivado.setEnabled(false);
+        btnAltPAis.setVisible(false);
+        btnCancelar.setVisible(false);
+        btnSalvar.setVisible(false);
     }
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,6 +390,7 @@ public class CadastroEstado extends DialogPadrao {
         }
 
         JOptionPane.showMessageDialog(this, "Salvo com sucesso");
+        callback.handle(estado);
         dispose();
     }                                         
 
@@ -416,7 +430,7 @@ public class CadastroEstado extends DialogPadrao {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CadastroEstado dialog = new CadastroEstado(new javax.swing.JFrame(), true, new Estado());
+                CadastroEstado dialog = new CadastroEstado(new javax.swing.JFrame(), true, new Estado(), null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

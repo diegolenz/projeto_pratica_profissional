@@ -266,13 +266,20 @@ public class ConsultaProdutosForm<T> extends SociusTab implements WindowPadrao {
         cadastroProdutos.carregarcampos();
         cadastroProdutos.bloqueiaedt();
         cadastroProdutos.show();
+        if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o produto selecionado ?", "Atenção", JOptionPane.YES_NO_OPTION)!= 0){
+            cadastroProdutos.dispose();
+            return;
+        }
         try {
             new ProdutoService().deleteByID(produtoselecionado.getId());
             JOptionPane.showMessageDialog(this, "Excluido com sucesso");
         } catch (Exception e) {
             if (JOptionPane.showConfirmDialog(this,"Não é possivel excluir o registro, deseja desativa-lo?", "ATENÇÂO", JOptionPane.YES_NO_OPTION)==0) {
-                if (!produtoselecionado.getAtivo())
+                if (!produtoselecionado.getAtivo()) {
                     JOptionPane.showMessageDialog(this, "Produto já está desativada");
+                    cadastroProdutos.dispose();
+                    return;
+                }
                 try {
                     new ProdutoService().update(produtoselecionado);
                     JOptionPane.showMessageDialog(this,

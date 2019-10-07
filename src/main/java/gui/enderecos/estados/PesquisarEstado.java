@@ -18,7 +18,9 @@ import lib.service.EstadoService;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -73,12 +75,17 @@ public class PesquisarEstado extends DialogPadrao {
         btnVisualizar = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        cmbStatus = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Consultar estados");
         setBackground(new java.awt.Color(255, 255, 255));
         setLocationByPlatform(true);
         setModal(true);
 
+        btnpesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnpesquisar.setText("Pesquisar");
         btnpesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,7 +93,8 @@ public class PesquisarEstado extends DialogPadrao {
             }
         });
 
-        btnselecionar.setText("selecionar");
+        btnselecionar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnselecionar.setText("Selecionar");
         btnselecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnselecionarActionPerformed(evt);
@@ -104,33 +112,45 @@ public class PesquisarEstado extends DialogPadrao {
         tabela.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tabela);
 
-        btnExcluir.setText("desativar");
+        btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
             }
         });
 
-        btnVisualizar.setText("visualizar");
+        btnVisualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnVisualizar.setText("Visualizar");
         btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVisualizarActionPerformed(evt);
             }
         });
 
-        btnAlterar.setText("alterar");
+        btnAlterar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
             }
         });
 
+        btnNovo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Estado");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Status");
+
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Ativados", "Desativados" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,7 +159,8 @@ public class PesquisarEstado extends DialogPadrao {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnNovo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -150,11 +171,19 @@ public class PesquisarEstado extends DialogPadrao {
                         .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnselecionar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(edtpesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 521, Short.MAX_VALUE))
+                            .addComponent(edtpesquisa))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -162,10 +191,15 @@ public class PesquisarEstado extends DialogPadrao {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnpesquisar))
+                    .addComponent(btnpesquisar)
+                    .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluir)
@@ -182,10 +216,12 @@ public class PesquisarEstado extends DialogPadrao {
 
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            if (this.pais == null)
-                list = estadoService.getAll(edtpesquisa.getText());
-            else
-                list = estadoService.getByPais(pais.getId());
+                if (cmbStatus.getSelectedIndex() == 0)
+                    list = estadoService.getAll(edtpesquisa.getText());
+                if (cmbStatus.getSelectedIndex() == 1)
+                    list = estadoService.getAllAtivos(edtpesquisa.getText());
+                if (cmbStatus.getSelectedIndex() == 2)
+                    list = estadoService.getAll(edtpesquisa.getText()).stream().filter(o -> !o.getAtivo()).collect(Collectors.toList());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,  e.getMessage());
         }
@@ -218,8 +254,39 @@ public class PesquisarEstado extends DialogPadrao {
         }
     }
 
+    private Integer getPosicao(Estado estado){
+        try {
+            estado = new EstadoService().getLast(estado);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Integer tam = this.list.size();
+        Integer pos = 0;
+        boolean achou =false;
+        while ( pos < tam && !achou ){
+            if (list.get(pos).getId().equals(estado.getId())) {
+                achou =true;
+            } else
+                pos++;
+        }
+        return pos;
+    }
+
+
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-       new CadastroEstado(this, true, new Estado()).show();
+        CadastroEstado.Callback callback = (estado -> {
+            try {
+                list = new  EstadoService().getAll("");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this,"Falha ao retornar dados");
+            }
+            modelo.setList(list.toArray());
+            tabela.setModel(modelo);
+            Integer pos = getPosicao(estado);
+            tabela.setRowSelectionInterval(pos,pos);
+        });
+       new CadastroEstado(this, true, new Estado(), callback).show();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
@@ -228,7 +295,18 @@ public class PesquisarEstado extends DialogPadrao {
             return;
         }
         Estado estSelecionado=list.get(tabela.getSelectedRow());
-        cadastroEstado=new CadastroEstado(this, true, estSelecionado);
+        CadastroEstado.Callback callback = (estado -> {
+            try {
+                list = new  EstadoService().getAll("");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this,"Falha ao retornar dados");
+            }
+            modelo.setList(list.toArray());
+            tabela.setModel(modelo);
+            Integer pos = getPosicao(estado);
+            tabela.setRowSelectionInterval(pos,pos);
+        });
+        cadastroEstado=new CadastroEstado(this, true, estSelecionado, callback);
         cadastroEstado.carregaEdt();
         cadastroEstado.show();
     }//GEN-LAST:event_btnAlterarActionPerformed
@@ -239,7 +317,7 @@ public class PesquisarEstado extends DialogPadrao {
             return;
         }
         Estado estSelecionado=list.get(tabela.getSelectedRow());
-        cadastroEstado=new CadastroEstado(this, true, estSelecionado);
+        cadastroEstado=new CadastroEstado(this, true, estSelecionado, null);
         cadastroEstado.carregaEdt();
         cadastroEstado.bloqueiaEdt();
         cadastroEstado.show();
@@ -251,30 +329,41 @@ public class PesquisarEstado extends DialogPadrao {
             return;
         }
         estadoSelecionada=list.get(tabela.getSelectedRow());
-        CadastroEstado cadastroEstado = new CadastroEstado(this, true, estadoSelecionada);
+        CadastroEstado cadastroEstado = new CadastroEstado(this, true, estadoSelecionada, null);
         cadastroEstado.carregaEdt();
+        cadastroEstado.bloqueiaEdt();
         cadastroEstado.show();
-        if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a marca selecionada ?", "ATENÇÃO", JOptionPane.YES_NO_OPTION)==1)
+        if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a marca selecionada ?", "ATENÇÃO", JOptionPane.YES_NO_OPTION)==1) {
+            cadastroEstado.dispose();
             return;
+        }
         try {
             new EstadoService().deleteByID(estadoSelecionada.getId());
             JOptionPane.showMessageDialog(this, "Excluido com sucesso");
-            return;
         } catch (Exception e) {
             if (JOptionPane.showConfirmDialog(this,"Não é possivel excluir o registro, deseja desativa-lo?", "ATENÇÂO", JOptionPane.YES_NO_OPTION)==0) {
-                if (!estadoSelecionada.getAtivo())
-                    JOptionPane.showMessageDialog(this, "Marca já está desativada");
+                if (!estadoSelecionada.getAtivo()) {
+                    JOptionPane.showMessageDialog(this, "Estado já está desativada");
+                    cadastroEstado.dispose();
+                    return;
+                }
                 try {
                     new EstadoService().update(estadoSelecionada);
                     JOptionPane.showMessageDialog(this,
                             "Desativado com sucesso"
                     );
-                    return;
+                    cadastroEstado.dispose();
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(this, "Não foi possivel desativar");
                 }
             }
         }
+        try {
+            list = new EstadoService().getAll(edtpesquisa.getText());
+        }catch (Exception ex){
+            JOptionPane.showConfirmDialog(this, "Falha ao retornar dados, contate o administrador do sistema");
+        }
+        cadastroEstado.dispose();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
@@ -326,7 +415,10 @@ public class PesquisarEstado extends DialogPadrao {
     private javax.swing.JButton btnVisualizar;
     private javax.swing.JToggleButton btnpesquisar;
     private javax.swing.JButton btnselecionar;
+    private javax.swing.JComboBox<String> cmbStatus;
     private javax.swing.JFormattedTextField edtpesquisa;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables

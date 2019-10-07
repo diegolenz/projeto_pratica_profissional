@@ -63,15 +63,11 @@ public class FornecedorService {
         fornecedorDAO.save(pessoa);
     }
 
-    public List<Fornecedor> getFornecedores(String termo) throws Exception {
-        fornecedorDAO = new FornecedorDao();
-        return fornecedorDAO.getAllFornecedores(termo);
-    }
 
     public void update(Pessoa pessoa) throws Exception {
         Assert.notNull(pessoa, "Pessoa não pode estar nula");
         Assert.notNull(pessoa.getNome(), "Nome é obrigatório");
-        Assert.isTrue(pessoa.getTelefone().length()> 7, "Telefone de contato deve ter ao minimo 8 numeros");
+      //  Assert.isTrue(pessoa.getTelefone().length()> 7, "Telefone de contato deve ter ao minimo 8 numeros");
         if (pessoa.getDataNascimento() != null)
             Assert.isTrue(pessoa.getDataNascimento().compareTo(new Date()) < 0, "Data de nascimento/fundação deve ser menor que a data de hoje");
         Assert.notNull(pessoa.getCidade(), "Cidade é obrigatória");
@@ -79,9 +75,10 @@ public class FornecedorService {
         Assert.notNull(pessoa.getNumeroResidencial(),"Numero é obrigatório");
         if (!pessoa.getTipo().equals(TipoPessoa.ESTRANGEIRO)) {
             Assert.notNull(pessoa.getCep(), "CEP é obrigatório");	Assert.notNull(pessoa.getCpfCnpj(),"CPF/CNPJ é obrigatório");
-            Assert.isTrue(CpfCnpjValidator.isCpfValido(pessoa.getCpfCnpj()), "CPF não é valido");
-            //Assert.notNull(pessoa.getDataNascimento(),"Data de nascimento/criação é obrigatório");
-
+            if (pessoa.getTipo().isPessoaFisica())
+                Assert.isTrue(CpfCnpjValidator.isCpfValido(pessoa.getCpfCnpj()), "CPF não é valido");
+            else
+                Assert.isTrue(CpfCnpjValidator.isCnpjValido(pessoa.getCpfCnpj()), "Cnpj não é valido");
         }
         Assert.notNull(pessoa.getNumeroResidencial(),"Numero é obrigatório");
         Pessoa pessoaRetorno = this.getByCpfCnpjExato(pessoa.getCpfCnpj());
@@ -103,15 +100,11 @@ public class FornecedorService {
         return fornecedorDAO.getAllFornecedores(termo);
     }
 
-    public List getAllFornecedores(String termo) throws Exception {
-        return fornecedorDAO.getAllFornecedores(termo);
-    }
-
 
     public Fornecedor getByID(Integer id) throws Exception {
         Assert.notNull(id, "ID passado como parametro não pode estar nulo");
         Fornecedor pessoa = fornecedorDAO.getByID(id);
-        Assert.notNull(pessoa, "Não foi encontrado nenhuma pessoa com esse código");
+      //  Assert.notNull(pessoa, "Não foi encontrado nenhuma pessoa com esse código");
         return pessoa;
     }
 

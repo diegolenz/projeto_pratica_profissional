@@ -50,11 +50,13 @@ public class CadastroProdutos extends DialogPadrao {
         initComponents();
        this.callback = callback;
         this.produto = produto;
-        if (produto.getId() != null)
-            this.carregarcampos();
-        if (this.produto.getId() != null)
+
+        if (this.produto.getId() != null) {
             lblDescricaoFomr.setText("Alterar produto");
-        else {
+            this.carregarcampos();
+        } else {
+            rdAtivado.setEnabled(false);
+            rdDesativado.setEnabled(false);
             rdAtivado.setSelected(true);
         }
         this.produtoService = new ProdutoService();
@@ -291,7 +293,7 @@ public class CadastroProdutos extends DialogPadrao {
         jLabel6.setText("Código de barras");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Custo *");
+        jLabel9.setText("Preço *");
 
         edtQuantidadeMinima.setFormatterFactory(  SwingFormatterFactory.buildNumeroReal(0D, 1000000D)
         );

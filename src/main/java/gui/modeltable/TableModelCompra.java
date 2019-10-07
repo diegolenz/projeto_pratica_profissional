@@ -54,7 +54,7 @@ public class TableModelCompra extends AbstractTableModel {
             case 6:
                 return util.Util.builDataSimples(p.getDtChegada());
             case 7:
-                return  "ativo";//p.isAtivo() ? "Ativo" : "Desativado";
+                return  p.isAtivo() ? "Ativa" : "Cancelada";
         }
         return "";
     }

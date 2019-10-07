@@ -10,8 +10,10 @@ import gui.modeltable.TableModelPessoa;
 import gui.swing.SociusTab;
 import gui.swing.WindowPadrao;
 import lib.dao.imp.endereco.pais.PaisDao;
+import lib.model.endereco.estado.Estado;
 import lib.model.endereco.pais.Pais;
 import lib.model.interno.ModuloSistema;
+import lib.service.EstadoService;
 import lib.service.PaisService;
 
 import javax.swing.*;
@@ -19,6 +21,7 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -35,8 +38,7 @@ public class ConsultaPaises extends SociusTab implements WindowPadrao {
         initComponents();
         paises= new ArrayList<>();
         paisService=new PaisService();
-        if (!paises.isEmpty())
-            jTable1.setRowSelectionInterval(0,0);
+        jButton1ActionPerformed(null);
     }
 
     /**
@@ -56,6 +58,9 @@ public class ConsultaPaises extends SociusTab implements WindowPadrao {
         btnAlterar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnVisualizar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        cmbStatus = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setName("Consulta"); // NOI18N
@@ -77,6 +82,8 @@ public class ConsultaPaises extends SociusTab implements WindowPadrao {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        edtPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         btnNovo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnNovo.setText("Novo");
@@ -110,17 +117,20 @@ public class ConsultaPaises extends SociusTab implements WindowPadrao {
             }
         });
 
+        jLabel1.setText("Pesquise por nome ou código do país");
+
+        jLabel2.setText("Status");
+
+        cmbStatus.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Ativados", "Desativados" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(edtPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 426, Short.MAX_VALUE)
                         .addComponent(btnNovo)
@@ -130,7 +140,18 @@ public class ConsultaPaises extends SociusTab implements WindowPadrao {
                         .addComponent(btnVisualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(edtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -138,10 +159,15 @@ public class ConsultaPaises extends SociusTab implements WindowPadrao {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(edtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(edtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo)
@@ -162,7 +188,13 @@ public class ConsultaPaises extends SociusTab implements WindowPadrao {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         modelo = new TableModelPais();
         try {
-            paises = paisService.getAllAtivos(edtPesquisa.getText());
+            if (cmbStatus.getSelectedIndex() == 0)
+                paises =   paisService.getAll(edtPesquisa.getText());
+            if (cmbStatus.getSelectedIndex() == 1)
+                paises =  paisService.getAllAtivos(edtPesquisa.getText());
+            if (cmbStatus.getSelectedIndex() == 2)
+                paises =  paisService.getAll(edtPesquisa.getText()).stream().filter(o ->  !o.getAtivo()).collect(Collectors.toList());
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this,  e.getMessage());
         } catch (Exception e) {
@@ -170,6 +202,27 @@ public class ConsultaPaises extends SociusTab implements WindowPadrao {
         }
         modelo.setList(paises.toArray());
         jTable1.setModel(modelo);
+        if (!paises.isEmpty())
+            jTable1.setRowSelectionInterval(0,0);
+    }
+
+    private Integer getPosicao(Pais estado){
+        try {
+            estado = new PaisService().getLast(estado);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Integer tam = this.paises.size();
+        Integer pos = 0;
+        boolean achou =false;
+        while ( pos < tam && !achou ){
+            if (paises.get(pos).getId().equals(estado.getId())) {
+                achou =true;
+            } else
+                pos++;
+        }
+        return pos;
     }
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,7 +232,9 @@ public class ConsultaPaises extends SociusTab implements WindowPadrao {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,"Falha ao retornar dados");
             }
-            Integer pos = paises.indexOf(produto);
+            modelo.setList(paises.toArray());
+            jTable1.setModel(modelo);
+            Integer pos = getPosicao(produto);
             jTable1.setRowSelectionInterval(pos,pos);
         });
         cadastroPais=new CadastroPais(getWindowParent(), true, new Pais(), callback);
@@ -198,7 +253,9 @@ public class ConsultaPaises extends SociusTab implements WindowPadrao {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,"Falha ao retornar dados");
             }
-            Integer pos = paises.indexOf(produto);
+            modelo.setList(paises.toArray());
+            jTable1.setModel(modelo);
+            Integer pos = getPosicao(produto);
             jTable1.setRowSelectionInterval(pos,pos);
         });
         Pais paisSelecionado=paises.get(jTable1.getSelectedRow());
@@ -221,27 +278,35 @@ public class ConsultaPaises extends SociusTab implements WindowPadrao {
             return;
         }
         Pais paisSelecionado=paises.get(jTable1.getSelectedRow());
-        try {
-            paisService.deleteByID(paisSelecionado.getId());
-            JOptionPane.showMessageDialog(this, "Excluido com sucesso");
-            return;
+        CadastroPais cadastroPais = new CadastroPais(getWindowParent(), true, paisSelecionado, null);
+        cadastroPais.bloqueiaEdt();
+        cadastroPais.show();
+        if (JOptionPane.showConfirmDialog(getWindowParent(),"Deseja realmente excluir o país selecionado", "Atenção", JOptionPane.YES_NO_OPTION) == 0) {
+            try {
+                paisService.deleteByID(paisSelecionado.getId());
+                JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+                return;
 
-        }catch (Exception e) {
-            if (JOptionPane.showConfirmDialog(this,"Não é possivel excluir o registro, deseja desativa-lo?", "ATENÇÂO", JOptionPane.YES_NO_OPTION)==0) {
-                if (!paisSelecionado.getAtivo())
-                    JOptionPane.showMessageDialog(this, "Pais já esta desativado");
-                try {
-                    paisService.update(paisSelecionado);
-                    JOptionPane.showMessageDialog(this,
-                            "Desativado com sucesso"
-                    );
-                    return;
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(this, "Não foi possivel desativar");
+            } catch (Exception e) {
+                if (JOptionPane.showConfirmDialog(this, "Não é possivel excluir o registro, deseja desativa-lo?", "ATENÇÂO", JOptionPane.YES_NO_OPTION) == 0) {
+                    if (!paisSelecionado.getAtivo()) {
+                        JOptionPane.showMessageDialog(this, "País já esta desativado");
+                    } else {
+                        try {
+                            paisSelecionado.setAtivo(false);
+                            paisService.update(paisSelecionado);
+                            JOptionPane.showMessageDialog(this,
+                                    "Desativado com sucesso"
+                            );
+                            return;
+                        } catch (Exception e1) {
+                            JOptionPane.showMessageDialog(this, "Não foi possivel desativar");
+                        }
+                    }
                 }
             }
         }
-
+        cadastroPais.dispose();
     }                                          
 
 
@@ -250,8 +315,11 @@ public class ConsultaPaises extends SociusTab implements WindowPadrao {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnVisualizar;
+    private javax.swing.JComboBox<String> cmbStatus;
     private javax.swing.JTextField edtPesquisa;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

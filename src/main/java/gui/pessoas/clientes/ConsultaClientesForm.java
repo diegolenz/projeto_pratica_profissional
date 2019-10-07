@@ -178,11 +178,13 @@ public class ConsultaClientesForm extends SociusTab implements WindowPadrao {
             return;
         }
         Cliente pessoaSelecionado=pessoas.get(jTable1.getSelectedRow());
+        NovoClienteForm novoClienteForm = new NovoClienteForm(getWindowParent(), true, pessoaSelecionado);
+        novoClienteForm.carregaredt();
+        novoClienteForm.bloqueiaedt();
+        novoClienteForm.show();
         try {
             new ClienteService().deleteByID(pessoaSelecionado);
             JOptionPane.showMessageDialog(this, "Excluido com sucesso");
-            return;
-
         }catch (Exception e) {
             if (JOptionPane.showConfirmDialog(this,"Não é possivel excluir o registro, deseja desativa-lo?", "ATENÇÂO", JOptionPane.YES_NO_OPTION)==0) {
                 if (!pessoaSelecionado.getAtivo())
@@ -192,12 +194,19 @@ public class ConsultaClientesForm extends SociusTab implements WindowPadrao {
                     JOptionPane.showMessageDialog(this,
                             "Desativado com sucesso"
                     );
-                    return;
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog(this, "Não foi possivel desativar");
                 }
             }
         }
+        try {
+            pessoas = new ClienteService().getAll(edtPesquisa.getText());
+        } catch (Exception e){
+            JOptionPane.showConfirmDialog(this,"Falha ao retornar dados, contate o adminstrador do sistema \n" + e.getMessage());
+        }
+        modelo.setList(pessoas.toArray());
+        jTable1.setModel(modelo);
+        novoClienteForm.dispose();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {

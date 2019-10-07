@@ -41,6 +41,16 @@ EstadoDao extends AbstractDao {
         this.st.executeUpdate(sql);
     }
 
+    public Estado getByNomeAndPaisExato(Estado estado)throws SQLException{
+        String sql = "select * from estado where upper(nome) = '"+ estado.getNome() +"' and pais_id = "+estado.getPais().getId() +" ;";
+        ResultSet resultSet = this.st.executeQuery(sql);
+        Estado estado1 = null;
+        if (resultSet.next()){
+            estado1 = getByID(resultSet.getInt("id"));
+        }
+        return estado1;
+    }
+
 
     public Optional<Estado> getLast()throws Exception{
         String sql = "Select id from estado order by ID desc limit 1;";
@@ -56,11 +66,12 @@ EstadoDao extends AbstractDao {
     public List getAll(String termo) throws Exception {
         String sql = "";
         if (termo.length() == 0)
-            sql = "SELECT * FROM estado  ;";
+            sql = "SELECT * FROM estado  ";
         else if ((termo.matches("[0-9]")))
-            sql = "Select * from estado where id like %"+ termo +"% ;";
+            sql = "Select * from estado where id like %"+ termo +"% ";
         else
-            sql = "SELECT * FROM estado WHERE nome like '%"+ termo +"%' ;";
+            sql = "SELECT * FROM estado WHERE UPPER(nome) like UPPER('%"+ termo +"%') ";
+        sql += " order by nome ;";
         ResultSet rs = this.st.executeQuery(sql);
         List<Estado> estados = new ArrayList<>();
 
@@ -80,11 +91,12 @@ EstadoDao extends AbstractDao {
 
         String sql = "";
         if (termo.length() == 0)
-            sql = "SELECT * FROM estado where ativo = true ;";
+            sql = "SELECT * FROM estado where ativo = true ";
         else if ((termo.matches("[0-9]")))
-            sql = "Select * from estado where id like %"+ termo +"% and ativo = true ;";
+            sql = "Select * from estado where id like %"+ termo +"% and ativo = true ";
         else
-            sql = "SELECT * FROM estado WHERE nome like '%"+ termo +"%' and ativo = true";
+            sql = "SELECT * FROM estado WHERE UPPER(nome) like UPPER('%"+ termo +"%') and ativo = true";
+        sql += " order by nome ;";
         ResultSet rs = this.st.executeQuery(sql);
         List<Estado> estados = new ArrayList<>();
 
@@ -123,7 +135,7 @@ EstadoDao extends AbstractDao {
         return estados;
     }
 
-    public Estado getByID(Integer id) throws Exception {
+    public Estado getByID(Integer id) throws SQLException {
         PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM estado WHERE ID = "+id+";");
         ResultSet rs = preparedStatement.executeQuery();
         Estado estado=new Estado();

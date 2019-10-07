@@ -59,7 +59,7 @@ public class ProdutoService {
 
     public Object getByID(Integer id)throws Exception{
         Produto produto = (Produto) produtoDao.getByID(id);
-        Assert.notNull(produto, "Nenhuma produto com esse id foi encontrada");
+        Assert.notNull(produto, "Nenhum produto foi encontrada");
         return produto;
     }
 

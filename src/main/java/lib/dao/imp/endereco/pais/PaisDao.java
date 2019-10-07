@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PaisDao extends AbstractDao {
 
@@ -22,6 +23,27 @@ public class PaisDao extends AbstractDao {
         this.st.executeUpdate(sql);
     }
 
+    public Optional<Pais> getLast()throws Exception{
+        String sql = "Select id from pais order by ID desc limit 1;";
+        ResultSet resultSet = this.st.executeQuery(sql);
+        Integer id = null;
+        if (resultSet.next()){
+            id = resultSet.getInt("id");
+        }
+        Optional<Pais> estado = Optional.ofNullable(this.getByID(id));
+        return estado;
+    }
+
+    public Pais getPaisByNomeExato(String nome)throws SQLException{
+        String sql = "select * from pais where upper(nome) = upper('"+nome+"')";
+        ResultSet rs = this.st.executeQuery(sql);
+        Pais pais = null;
+        if (rs.next()) {
+            pais = getByID(rs.getInt("id"));
+        }
+        return pais;
+    }
+
 
     public void deleteByID(Object id) throws Exception {
         String sql = "DELETE FROM pais WHERE id = "+id+" ;";
@@ -32,7 +54,7 @@ public class PaisDao extends AbstractDao {
     public List getAll(String termo) throws SQLException {
         String sql = "";
         if (termo.length() == 0)
-            sql = "SELECT * FROM pais where ;";
+            sql = "SELECT * FROM pais  ;";
         else if ((termo.matches("[0-9]")))
             sql = "Select * from pais where id like %"+ termo +"% ;";
         else
@@ -40,11 +62,7 @@ public class PaisDao extends AbstractDao {
         ResultSet rs = this.st.executeQuery(sql);
         List<Pais> paises=new ArrayList<>();
         while (rs.next()) {
-            Pais pais=new Pais();
-            pais.setId(rs.getInt("id"));
-            pais.setNome(rs.getString("nome"));
-            pais.setDdi(rs.getString("ddi"));
-            pais.setAtivo(rs.getBoolean("ativo"));
+            Pais pais = getByID(rs.getInt("id"));
             paises.add(pais);
         }
         return paises;
@@ -61,11 +79,7 @@ public class PaisDao extends AbstractDao {
         ResultSet rs = this.st.executeQuery(sql);
         List<Pais> paises=new ArrayList<>();
         while (rs.next()) {
-            Pais pais=new Pais();
-            pais.setId(rs.getInt("id"));
-            pais.setNome(rs.getString("nome"));
-            pais.setDdi(rs.getString("ddi"));
-            pais.setAtivo(rs.getBoolean("ativo"));
+            Pais pais = getByID(rs.getInt("id"));
             paises.add(pais);
         }
         return paises;

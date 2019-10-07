@@ -244,6 +244,8 @@ public class PesquisarProduto extends DialogPadrao {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,"Falha ao retornar dados");
             }
+            modelo.setList(produtos.toArray());
+            tabela.setModel(modelo);
             Integer pos = getPosicao(produto);
             tabela.setRowSelectionInterval(pos,pos);
         });
@@ -262,7 +264,9 @@ public class PesquisarProduto extends DialogPadrao {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,"Falha ao retornar dados");
             }
-            Integer pos =getPosicao(produto);
+            modelo.setList(produtos.toArray());
+            tabela.setModel(modelo);
+            Integer pos = getPosicao(produto);
             tabela.setRowSelectionInterval(pos,pos);
         });
         new CadastroProdutos(this, true,  produto, callback).show();

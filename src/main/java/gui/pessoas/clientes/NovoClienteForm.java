@@ -64,7 +64,7 @@ public class NovoClienteForm extends DialogPadrao {
         this.edtLogradouro.setEnabled(false);
         this.edtCodCidade.setEnabled(false);
         this.txtApelidoNomeFantasia.setEnabled(false);
-        this.btnsalvar.setEnabled(false);
+        this.btnsalvar.setVisible(false);
     }
 
     public void desbloqueiaedt() {
@@ -192,9 +192,6 @@ public class NovoClienteForm extends DialogPadrao {
         edtComplemento = new javax.swing.JTextField();
         txtTel = new javax.swing.JFormattedTextField();
         txtTelCelular = new javax.swing.JFormattedTextField();
-        rdAtivado = new javax.swing.JRadioButton();
-        jLabel3 = new javax.swing.JLabel();
-        rdDesativado = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         lblNomeCompleto = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -222,6 +219,9 @@ public class NovoClienteForm extends DialogPadrao {
         jLabel14 = new javax.swing.JLabel();
         lblDescricaoTela = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        rdAtivado = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
+        rdDesativado = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de pessoa");
@@ -347,27 +347,6 @@ public class NovoClienteForm extends DialogPadrao {
         }
         txtTelCelular.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        rdAtivado.setBackground(new java.awt.Color(255, 255, 255));
-        rdAtivado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        rdAtivado.setText("Ativado");
-        rdAtivado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdAtivadoActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Status :");
-
-        rdDesativado.setBackground(new java.awt.Color(255, 255, 255));
-        rdDesativado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        rdDesativado.setText("Desativado");
-        rdDesativado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdDesativadoActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Numero *");
 
@@ -411,7 +390,7 @@ public class NovoClienteForm extends DialogPadrao {
         lblRgIe.setText("RG");
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel19.setText("Telefone celular");
+        jLabel19.setText("Telefone celular *");
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel20.setText("Email");
@@ -438,7 +417,7 @@ public class NovoClienteForm extends DialogPadrao {
         });
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel22.setText("Telefone");
+        jLabel22.setText("Telefone *");
 
         txtDtNasc.setBackground(new java.awt.Color(255, 255, 255));
         txtDtNasc.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -457,13 +436,6 @@ public class NovoClienteForm extends DialogPadrao {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdAtivado)
-                        .addGap(0, 0, 0)
-                        .addComponent(rdDesativado))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(edtDtCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -514,21 +486,16 @@ public class NovoClienteForm extends DialogPadrao {
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtTelCelular)
-                                .addGap(12, 12, 12))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel22)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel22)
+                            .addComponent(txtTelCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtTel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtTel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCpfCnpj)
@@ -648,14 +615,7 @@ public class NovoClienteForm extends DialogPadrao {
                     .addComponent(txtTel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDtNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel3))
-                    .addComponent(rdAtivado)
-                    .addComponent(rdDesativado))
-                .addGap(150, 150, 150)
+                .addGap(193, 193, 193)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtDtUltAtualizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edtDtCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -673,6 +633,26 @@ public class NovoClienteForm extends DialogPadrao {
 
         jLabel2.setText("Obs : campos obrigatórios são assinalados com '*'");
 
+        rdAtivado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rdAtivado.setSelected(true);
+        rdAtivado.setText("Ativado");
+        rdAtivado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdAtivadoActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Status :");
+
+        rdDesativado.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rdDesativado.setText("Desativado");
+        rdDesativado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdDesativadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -681,9 +661,6 @@ public class NovoClienteForm extends DialogPadrao {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -691,15 +668,33 @@ public class NovoClienteForm extends DialogPadrao {
                                 .addComponent(btnsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDescricaoTela, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblDescricaoTela, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rdAtivado)
+                                .addGap(0, 0, 0)
+                                .addComponent(rdDesativado))
+                            .addComponent(jScrollPane3))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblDescricaoTela)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblDescricaoTela)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(4, 4, 4)
+                            .addComponent(jLabel3))
+                        .addComponent(rdAtivado)
+                        .addComponent(rdDesativado)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -760,9 +755,8 @@ public class NovoClienteForm extends DialogPadrao {
             this.edtCodCidade.requestFocus();
             return;
         }
-        if (pessoa.getTelefone().replaceAll("[^0-9]", "").trim().isEmpty() && pessoa.getTelefoneAlternativo().replaceAll("[^0-9]", "").trim().isEmpty() &&
-                pessoa.getEmail().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ao menos um contato deve ser informado, telefone, celular ou email");
+        if (pessoa.getTelefone().replaceAll("[^0-9]", "").trim().isEmpty() && pessoa.getTelefoneAlternativo().replaceAll("[^0-9]", "").trim().isEmpty() ) {
+            JOptionPane.showMessageDialog(this, "Ao menos um contato deve ser informado, telefone ou celular ");
             this.txtTel.requestFocus();
             return;
         }

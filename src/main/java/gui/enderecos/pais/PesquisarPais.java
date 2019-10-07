@@ -15,6 +15,7 @@ import lib.service.PaisService;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -40,7 +41,6 @@ public class PesquisarPais extends DialogPadrao {
         super(parent, modal, ModuloSistema.PESSOAS ,NivelAcessoModulo.SOMENTE_LEITURA);
         this.callback=callBack;
         modelo = new TableModelPais();
-
         this.paisService=new PaisService();
         initComponents();
         tabela.setModel(modelo);
@@ -73,11 +73,16 @@ public class PesquisarPais extends DialogPadrao {
         btnAlterar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
         btnvisualizar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        cmbStatus = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setLocationByPlatform(true);
         setModal(true);
+
+        edtpesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         btnpesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnpesquisar.setText("Pesquisar");
@@ -88,7 +93,7 @@ public class PesquisarPais extends DialogPadrao {
         });
 
         btnselecionar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnselecionar.setText("selecionar");
+        btnselecionar.setText("Selecionar");
         btnselecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnselecionarActionPerformed(evt);
@@ -107,7 +112,7 @@ public class PesquisarPais extends DialogPadrao {
         jScrollPane1.setViewportView(tabela);
 
         btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnExcluir.setText("excluir");
+        btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
@@ -115,7 +120,7 @@ public class PesquisarPais extends DialogPadrao {
         });
 
         btnAlterar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnAlterar.setText("alterar");
+        btnAlterar.setText("Alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
@@ -133,6 +138,15 @@ public class PesquisarPais extends DialogPadrao {
         btnvisualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnvisualizar.setText("Visualizar");
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Pesquise por nome ou código do país");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Status");
+
+        cmbStatus.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Ativados", "Desativados" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,11 +154,7 @@ public class PesquisarPais extends DialogPadrao {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(edtpesquisa)
-                        .addGap(2, 2, 2)
-                        .addComponent(btnpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 789, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnNovo)
@@ -155,7 +165,18 @@ public class PesquisarPais extends DialogPadrao {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnselecionar)))
+                        .addComponent(btnselecionar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(edtpesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmbStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -163,10 +184,15 @@ public class PesquisarPais extends DialogPadrao {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnpesquisar))
+                    .addComponent(btnpesquisar)
+                    .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnselecionar)
@@ -183,7 +209,12 @@ public class PesquisarPais extends DialogPadrao {
 
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
         try {
-            list= paisService.getAllAtivos(edtpesquisa.getText());
+            if (cmbStatus.getSelectedIndex() == 0)
+                list =  new PaisService().getAll(edtpesquisa.getText());
+            if (cmbStatus.getSelectedIndex() == 1)
+                list =  new PaisService().getAllAtivos(edtpesquisa.getText());
+            if (cmbStatus.getSelectedIndex() == 2)
+                list =  new PaisService().getAll(edtpesquisa.getText()).stream().filter(o ->  !o.getAtivo()).collect(Collectors.toList());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Não foi possivel o retorno dos dados : "+e.getMessage());
             return;
@@ -212,6 +243,25 @@ public class PesquisarPais extends DialogPadrao {
         }
     }
 
+    private Integer getPosicao(Pais estado){
+        try {
+            estado = new PaisService().getLast(estado);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Integer tam = this.list.size();
+        Integer pos = 0;
+        boolean achou =false;
+        while ( pos < tam && !achou ){
+            if (list.get(pos).getId().equals(estado.getId())) {
+                achou =true;
+            } else
+                pos++;
+        }
+        return pos;
+    }
+
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         CadastroPais.Callback callback = (produto -> {
             try {
@@ -219,7 +269,9 @@ public class PesquisarPais extends DialogPadrao {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,"Falha ao retornar dados");
             }
-            Integer pos = list.indexOf(produto);
+            modelo.setList(list.toArray());
+            tabela.setModel(modelo);
+            Integer pos = getPosicao(produto);
             tabela.setRowSelectionInterval(pos,pos);
         });
         new  CadastroPais(this, true, new Pais(), callback).show();
@@ -236,7 +288,9 @@ public class PesquisarPais extends DialogPadrao {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this,"Falha ao retornar dados");
             }
-            Integer pos = list.indexOf(produto);
+            modelo.setList(list.toArray());
+            tabela.setModel(modelo);
+            Integer pos = getPosicao(produto);
             tabela.setRowSelectionInterval(pos,pos);
         });
         Pais paisSelecionado=list.get(tabela.getSelectedRow());
@@ -251,26 +305,35 @@ public class PesquisarPais extends DialogPadrao {
             return;
         }
         Pais paisSelecionado=list.get(tabela.getSelectedRow());
-        try {
-            paisService.deleteByID(paisSelecionado.getId());
-            JOptionPane.showMessageDialog(this, "Excluido com sucesso");
-            return;
+        CadastroPais cadastroPais = new CadastroPais(this, true, paisSelecionado, null);
+        cadastroPais.bloqueiaEdt();
+        cadastroPais.show();
+        if (JOptionPane.showConfirmDialog(getWindowParent(),"Deseja realmente excluir o país selecionado", "Atenção", JOptionPane.YES_NO_OPTION) == 0) {
+            try {
+                paisService.deleteByID(paisSelecionado.getId());
+                JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+                return;
 
-        }catch (Exception e) {
-            if (JOptionPane.showConfirmDialog(this,"Não é possivel excluir o registro, deseja desativa-lo?", "ATENÇÂO", JOptionPane.YES_NO_OPTION)==0) {
-                if (!paisSelecionado.getAtivo())
-                    JOptionPane.showMessageDialog(this, "Pais já esta desativado");
-                try {
-                    paisService.update(paisSelecionado);
-                    JOptionPane.showMessageDialog(this,
-                            "Desativado com sucesso"
-                    );
-                    return;
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog(this, "Não foi possivel desativar");
+            } catch (Exception e) {
+                if (JOptionPane.showConfirmDialog(this, "Não é possivel excluir o registro, deseja desativa-lo?", "ATENÇÂO", JOptionPane.YES_NO_OPTION) == 0) {
+                    if (!paisSelecionado.getAtivo())
+                        JOptionPane.showMessageDialog(this, "Pais já esta desativado");
+                    else {
+                        try {
+                            paisSelecionado.setAtivo(false);
+                            paisService.update(paisSelecionado);
+                            JOptionPane.showMessageDialog(this,
+                                    "Desativado com sucesso"
+                            );
+                            return;
+                        } catch (Exception e1) {
+                            JOptionPane.showMessageDialog(this, "Não foi possivel desativar");
+                        }
+                    }
                 }
             }
         }
+        cadastroPais.dispose();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
@@ -322,7 +385,10 @@ public class PesquisarPais extends DialogPadrao {
     private javax.swing.JToggleButton btnpesquisar;
     private javax.swing.JButton btnselecionar;
     private javax.swing.JButton btnvisualizar;
+    private javax.swing.JComboBox<String> cmbStatus;
     private javax.swing.JFormattedTextField edtpesquisa;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables

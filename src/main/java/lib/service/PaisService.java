@@ -5,7 +5,9 @@ import lib.model.endereco.pais.Pais;
 import org.springframework.util.Assert;
 
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class PaisService {
 
@@ -15,6 +17,9 @@ public class PaisService {
         Assert.notNull(pais, "pais não pode estar nulo");
         Assert.notNull(pais.getNome(), "Campo Nome precisa ser preenchido");
         Assert.notNull(pais.getDdi(), "Campo DDI é obrigatório");
+        Optional<Pais> paisOptional = Optional.ofNullable(paisDao.getPaisByNomeExato(pais.getNome()));
+        Assert.isTrue(!paisOptional.isPresent(), "Ja existe um país com esse mesmo nome, o cadastro de país não não deve conter nomes duplicados \n" +
+                "pais encontrado = " + paisOptional.get().getId() + " " + paisOptional.get().getNome());
         paisDao.save(pais);
     }
 
@@ -23,10 +28,19 @@ public class PaisService {
         Assert.notNull(pais.getId(), "Código do pais não pode estar nulo");
         Assert.notNull(pais.getNome(), "Campo Nome precisa ser preenchido");
         Assert.notNull(pais.getDdi(), "Campo DDI é obrigatório");
+        Optional<Pais> paisOptional = Optional.ofNullable(paisDao.getPaisByNomeExato(pais.getNome()));
+        if (paisOptional.isPresent())
+        Assert.isTrue( paisOptional.get().getId() == pais.getId(), "Ja existe um país com esse mesmo nome, o cadastro de país não não deve conter nomes duplicados \n" +
+                "pais encontrado = " + paisOptional.get().getId() + " " + paisOptional.get().getNome());
         paisDao.update(pais);
     }
 
-    public List getAll(String termos) throws Exception {
+    public Pais getLast(Pais estado)throws Exception{
+        return paisDao.getLast().get();
+
+    }
+
+    public List<Pais> getAll(String termos) throws Exception {
         return paisDao.getAll(termos);
     }
 
@@ -42,7 +56,7 @@ public class PaisService {
 
     public void mudarStatus(Pais pais){ }
 
-    public Pais getPaisByID(Integer id) throws Exception {
+    public Pais getPaisByID(Integer id) throws SQLException {
         Assert.notNull(id, "ID passado como parametro não pode estar nulo");
         return paisDao.getByID(id);
     }

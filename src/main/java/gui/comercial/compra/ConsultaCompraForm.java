@@ -14,6 +14,7 @@ import lib.service.CompraService;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +92,7 @@ public class ConsultaCompraForm extends SociusTab implements WindowPadrao {
         });
 
         btnNovo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnNovo.setText("Novo");
+        btnNovo.setText("Nova compra");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoActionPerformed(evt);
@@ -163,7 +164,39 @@ public class ConsultaCompraForm extends SociusTab implements WindowPadrao {
     }//GEN-LAST:event_btnVisualizarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        Compra compraSelecionada = compras.get(this.jTable1.getSelectedRow());
+        if (!compraSelecionada.isAtivo()){
+            JOptionPane.showMessageDialog(getWindowParent(), "Compra ja cancelada");
+            return;
+        }
+        CadastroCompraForm cadastroCompraForm = new CadastroCompraForm(getWindowParent(), true, compraSelecionada);
+        cadastroCompraForm.carregar();
+        cadastroCompraForm.bloqueiaEDT();
+        cadastroCompraForm.show();
+        if (JOptionPane.showConfirmDialog(getWindowParent(), "A operação de cancelamento da compra resultará no etorno dos operações financeiras e de estoque \n Deseja realmente cancelar a compra selecionada ?",
+                "Atenção", JOptionPane.YES_NO_OPTION)==0){
+            String motivo = JOptionPane.showInputDialog(getWindowParent(), "Informe um motivo para o cancelamento com no minimo 10 caracteres");
+            if (motivo.trim().isEmpty()){
+                JOptionPane.showMessageDialog(getWindowParent(), "Operação de cancelamento de compra não cocluido \n Motivo informado invalido");
+                cadastroCompraForm.dispose();
+                return;
+            }
+            compraSelecionada.setMotivoCancelamento(motivo);
+            compraSelecionada.setAtivo(false);
+            try {
+                new CompraService().cancelamento(compraSelecionada);
+                JOptionPane.showMessageDialog(this, "Compra cancelada com sucesso");
+                cadastroCompraForm.dispose();
+                return;
+            } catch (SQLException e){
+                JOptionPane.showMessageDialog(this, "Falha ao cancelar compra: " + e.getMessage() + "\n causa : " +e.getCause());
+                cadastroCompraForm.dispose();
+                return;
+            }
 
+        }
+        JOptionPane.showMessageDialog(getWindowParent(), "Operação de cancelamento de compra cancelada");
+        cadastroCompraForm.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void BtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPesquisarActionPerformed

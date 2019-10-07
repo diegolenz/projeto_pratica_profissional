@@ -49,10 +49,26 @@ public class CidadeDao extends AbstractDao {
         this.st.executeUpdate(sql);
     }
 
+    public Cidade getByNomeAndEstadoExato(Cidade cidade)throws SQLException{
+        String sql = "select * from cidade where upper(nome) = upper('"+ cidade.getNome() +"') and estado_id = " + cidade.getEstado().getId() +" ;";
+        ResultSet resultSet = this.st.executeQuery(sql);
+        Cidade cidade1 = null;
+        if (resultSet.next()){
+            cidade1 = getByID(resultSet.getInt("id"));
+        }
+        return cidade1;
+    }
 
-    public List getAll() throws Exception {
 
-        ResultSet rs = this.st.executeQuery("SELECT * FROM cidade order by nome;");
+    public List getAll(String termo) throws Exception {
+        String sql = "";
+        if (termo.length() == 0)
+            sql = "SELECT * FROM cidade ;";
+        else if ((termo.matches("[0-9]")))
+            sql = "Select * from cidade where id = "+ termo +" ;";
+        else
+            sql = "SELECT * FROM cidade WHERE upper(nome) like upper('%"+ termo +"%') and ativo = true";
+        ResultSet rs = this.st.executeQuery(sql);
         List<Cidade> cidades = new ArrayList<>();
 
         while (rs.next()) {
@@ -105,7 +121,7 @@ public class CidadeDao extends AbstractDao {
        return this.getAllAtivos("");
     }
 
-    public Cidade getByID(Integer id) throws Exception {
+    public Cidade getByID(Integer id) throws SQLException {
         PreparedStatement preparedStatement=st.getConnection().
                 prepareStatement("SELECT * FROM cidade WHERE id = "+id+";");
         ResultSet rs = preparedStatement.executeQuery();

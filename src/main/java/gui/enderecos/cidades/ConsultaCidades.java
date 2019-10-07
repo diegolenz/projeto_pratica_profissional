@@ -22,6 +22,7 @@ import lib.service.CidadeService;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -61,10 +62,14 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
         btnAlterar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
         btnVisualizar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        cmbStatus = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setName("Consulta"); // NOI18N
 
+        jTable1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -75,6 +80,7 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("pesquisar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,12 +88,9 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
             }
         });
 
-        edtPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtPesquisaActionPerformed(evt);
-            }
-        });
+        edtPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnExcluir.setText("excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +98,7 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
             }
         });
 
+        btnAlterar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnAlterar.setText("alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +106,7 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
             }
         });
 
+        btnNovo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +114,7 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
             }
         });
 
+        btnVisualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVisualizar.setText("Visualizar");
         btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,17 +122,21 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
             }
         });
 
+        jLabel1.setText("Nome ou código da cidade");
+
+        jLabel2.setText("Status");
+
+        cmbStatus.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Ativados", "Desativados" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(edtPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnNovo)
@@ -136,18 +146,33 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
                         .addComponent(btnVisualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluir))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(edtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(edtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluir)
@@ -159,10 +184,6 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
 
         getAccessibleContext().setAccessibleName("");
     }// </editor-fold>//GEN-END:initComponents
-
-    private void edtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtPesquisaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtPesquisaActionPerformed
 
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
         if (jTable1.getSelectedRow() < 0) {
@@ -180,7 +201,13 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         modelo = new TableModelCidade();
         try {
-            cidades = new CidadeService().getAllAtivos(edtPesquisa.getText());
+            if (cmbStatus.getSelectedIndex() == 0)
+                cidades =  new CidadeService().getAll(edtPesquisa.getText());
+            if (cmbStatus.getSelectedIndex() == 1)
+                cidades =  new CidadeService().getAllAtivos(edtPesquisa.getText());
+            if (cmbStatus.getSelectedIndex() == 2)
+                cidades =  new CidadeService().getAll(edtPesquisa.getText()).stream().filter(o ->  !o.getAtivo()).collect(Collectors.toList());
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this,  e.getMessage());
         }
@@ -198,31 +225,42 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
             return;
         }
         Cidade cidadeSelecionado=cidades.get(jTable1.getSelectedRow());
-        try {
-            new CidadeService().deleteByID(cidadeSelecionado.getId());
-            JOptionPane.showMessageDialog(this, "Excluido com sucesso");
-            return;
-        }catch (Exception e) {
-            if (JOptionPane.showConfirmDialog(this,"Não é possivel excluir o registro, deseja desativa-lo?", "ATENÇÂO", JOptionPane.YES_NO_OPTION)==0)
-                if (!cidadeSelecionado.getAtivo())
-                    JOptionPane.showMessageDialog(this, "Cidade já esta desativado");
+        CadastroCidade cadastroCidade = new CadastroCidade(getWindowParent(), true, cidadeSelecionado, null);
+        cadastroCidade.carregaEdt();
+        cadastroCidade.bloqueiaEdt();
+        if (JOptionPane.showConfirmDialog(getWindowParent(), "Deseja realmente excluir a cidade selecionada ?", "Atenção", JOptionPane.YES_NO_OPTION)==0) {
             try {
-                new CidadeService().update(cidadeSelecionado);
-                JOptionPane.showMessageDialog(this,
-                        "Desativado com sucesso"
-                );
+                new CidadeService().deleteByID(cidadeSelecionado.getId());
+                JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+                cadastroCidade.dispose();
                 return;
-            } catch (Exception e1) {
-                JOptionPane.showMessageDialog(this, "Não foi possivel desativar");
+            } catch (Exception e) {
+                if (JOptionPane.showConfirmDialog(this, "Não é possivel excluir o registro, deseja desativa-lo?", "ATENÇÂO", JOptionPane.YES_NO_OPTION) == 0)
+                    if (!cidadeSelecionado.getAtivo()) {
+                        JOptionPane.showMessageDialog(this, "Cidade já esta desativada");
+                        cadastroCidade.dispose();
+                        return;
+                    }
+                try {
+                    new CidadeService().update(cidadeSelecionado);
+                    JOptionPane.showMessageDialog(this,
+                            "Desativado com sucesso"
+                    );
+                    cadastroCidade.dispose();
+                    return;
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel desativar");
+                }
             }
         }
+        cadastroCidade.dispose();
 
     }
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {
         CadastroCidade.Callback callback = (cidade -> {
             try {
-                cidades = new CidadeService().getAll();
+                cidades = new CidadeService().getAll(edtPesquisa.getText());
             } catch (Exception ex){
                 System.out.println(ex);
             }
@@ -263,7 +301,7 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
         }
         CadastroCidade.Callback callback = (cidade -> {
             try {
-                cidades = new CidadeService().getAll();
+                cidades = new CidadeService().getAll(edtPesquisa.getText());
             } catch (Exception ex){
                 System.out.println(ex);
             }
@@ -285,8 +323,11 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnVisualizar;
+    private javax.swing.JComboBox<String> cmbStatus;
     private javax.swing.JTextField edtPesquisa;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

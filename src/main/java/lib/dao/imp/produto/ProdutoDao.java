@@ -2,6 +2,7 @@ package lib.dao.imp.produto;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +43,7 @@ public class ProdutoDao<T> extends AbstractDao<T>{
 		this.st.executeUpdate(sql);
 	}
 
-	public void update(Produto produto) throws Exception{
+	public void update(Produto produto) throws SQLException {
 		if (produto.getReferencia() == null)
 			produto.setReferencia("");
 
@@ -50,8 +51,10 @@ public class ProdutoDao<T> extends AbstractDao<T>{
 		String sql = "update produto set nome = '"+ produto.getNome() +"', ativo = "+ produto.getAtivo() +", data_ultima_alteracao = '"+produto.getDataUltimaAlteracao()  +"', unidade_medida = '"+produto.getUnidadeMedida()+
 				"', data_cadastro = '"+ produto.getDataCadastro() +"', quantidade_estoque = '"+produto.getQuantidadeEstoque()+"', quantidade_minima = "+produto.getQuantidadeMinima() + ", marca_id = "+produto.getMarca().getId()+"" +
 				", grupo_id = "+produto.getGrupo().getId()+", referencia = '"+produto.getReferencia()+"'" +
-				", codigo_barras = '"+produto.getCodigoBarras()+"', valor = " + produto.getValor() +", preco_compra = "+ produto.getPrecoCompra() +"" +
-				", data_ultima_compra = '" + produto.getDataUltimaCompra() + "', ultimo_fornecedor_id = " + produto.getUltimoFornecedor().getId() +"  where id = "+ produto.getId() + " ;";
+				", codigo_barras = '"+produto.getCodigoBarras()+"', valor = " + produto.getValor() +", preco_compra = "+ produto.getPrecoCompra() +"" ;
+		if (produto.getUltimoFornecedor() != null)
+			sql += ", data_ultima_compra = '" + produto.getDataUltimaCompra() + "', ultimo_fornecedor_id = " + produto.getUltimoFornecedor().getId() +"";
+		sql += " where id = "+ produto.getId() + " ;";
 		this.st.executeUpdate(sql);
 	}
 

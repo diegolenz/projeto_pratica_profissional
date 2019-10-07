@@ -110,7 +110,7 @@ public class ContaPagar {
     public StatusConta getStatusConta() {
         Date dateAtual = new Date();
         if (!paga) {
-            if ( dataVencimento.compareTo(dateAtual) < 0)
+            if ( dataVencimento.compareTo(dateAtual) > 0)
                 return StatusConta.PENDENTE;
             else return StatusConta.ATRASADO;
         } else {

@@ -2,9 +2,9 @@ package lib.model.financeiro;
 
 public enum StatusConta {
 
-    ATRASADO("ATRASADO"),
-    QUITADA("QUITADA"),
-    PENDENTE("PENDENTE"),
+    ATRASADO("Atrasada"),
+    QUITADA("Quitada"),
+    PENDENTE("Pendete"),
     PAGA_COM_ATRASO("Paga com atraso");
 
     private String descricao;
