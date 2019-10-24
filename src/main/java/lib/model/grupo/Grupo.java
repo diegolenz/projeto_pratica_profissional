@@ -1,6 +1,10 @@
 package lib.model.grupo;
 
 
+import lib.model.interno.PermissaoAcesso;
+
+import java.util.List;
+
 public class Grupo {
 
     private static final Long serialVersionUID = 1L;
@@ -10,6 +14,8 @@ public class Grupo {
     private String nome;
 
     private Boolean ativo;
+
+    List<PermissaoAcesso> permissaoAcessos;
 
     public static Long getSerialVersionUID() {
         return serialVersionUID;
@@ -33,6 +39,14 @@ public class Grupo {
 
     public Boolean getAtivo() {
         return ativo;
+    }
+
+    public List<PermissaoAcesso> getPermissaoAcessos() {
+        return permissaoAcessos;
+    }
+
+    public void setPermissaoAcessos(List<PermissaoAcesso> permissaoAcessos) {
+        this.permissaoAcessos = permissaoAcessos;
     }
 
     public void setAtivo(Boolean ativo) {

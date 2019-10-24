@@ -49,7 +49,7 @@ public class CadastroCondicaoPagamentoForm extends DialogPadrao {
      * Creates new form CadastroCondicaoPagamentoForm
      */
     public CadastroCondicaoPagamentoForm(Window parent, boolean modal, CondicaoPagamento condicaoPagamento, Callback callback) {
-        super( parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super( parent, modal, ModuloSistema.CONDICOES_PAGAMENTO, NivelAcessoModulo.LEITURA_GRAVACAO);
         initComponents();
         this.condicaoPagamento = condicaoPagamento;
         this.tableModelParcelaSimples = new TableModelParcelaSimples();

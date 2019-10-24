@@ -41,7 +41,7 @@ public class PesquisarFormaPagamento extends DialogPadrao {
     }
 
     public PesquisarFormaPagamento(Window parent, boolean modal, PesquisarFormaPagamento.Callback callBack) {
-        super( parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super( parent, modal, ModuloSistema.FORMAS_PAGAMENTO, NivelAcessoModulo.SOMENTE_LEITURA);
         this.callback=callBack;
         initComponents();
         tableModelMeioMovimentoCaixa = new TableModelMeioMovimentoCaixa();

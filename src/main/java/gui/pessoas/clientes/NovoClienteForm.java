@@ -35,7 +35,7 @@ public class NovoClienteForm extends DialogPadrao {
      * Creates new form NovaPessoaForm
      */
     public NovoClienteForm(Window parent, boolean modal, Cliente pessoa) {
-        super( parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super( parent, modal, ModuloSistema.CLIENTES, NivelAcessoModulo.LEITURA_GRAVACAO);
         initComponents();
         this.pessoa = pessoa;
 

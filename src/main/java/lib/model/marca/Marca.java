@@ -1,7 +1,9 @@
 package lib.model.marca;
 
 
+import lib.model.produto.Produto;
 
+import java.util.List;
 
 public class Marca {
 
@@ -10,6 +12,16 @@ public class Marca {
     String nome ;
 
     Boolean ativo;
+
+    List<Produto> produtos;
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
 
     public Integer getId() {
         return id;

@@ -17,6 +17,7 @@ import lib.service.FornecedorService;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -39,7 +40,7 @@ public class PesquisarFornecedor extends DialogPadrao {
     }
 
     public PesquisarFornecedor(Window parent, boolean modal, PesquisarFornecedor.Callback callBack) {
-        super( parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.SOMENTE_LEITURA);
+        super( parent, modal, ModuloSistema.FORNECEDORES, NivelAcessoModulo.SOMENTE_LEITURA);
         this.callback=callBack;
         modelo = new TableModelFornecedor();
         initComponents();
@@ -116,6 +117,11 @@ public class PesquisarFornecedor extends DialogPadrao {
 
         btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnExcluir.setText("excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnVisualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVisualizar.setText("Visualizar");
@@ -174,8 +180,54 @@ public class PesquisarFornecedor extends DialogPadrao {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
-        // TODO add your handling code here:
+        if (tabela.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um registro para continuar");
+            return;
+        }
+        pessoaSelecionada=list.get(tabela.getSelectedRow());
+        CadastroFornecedorForm novapessoa=new CadastroFornecedorForm(this,false, pessoaSelecionada);
+        novapessoa.carregaredt();
+        novapessoa.bloqueiaedt();
+        novapessoa.show();
     }//GEN-LAST:event_btnVisualizarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (tabela.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um registro para continuar");
+            return;
+        }
+        pessoaSelecionada=list.get(tabela.getSelectedRow());
+        CadastroFornecedorForm novapessoa=new CadastroFornecedorForm(this,false, pessoaSelecionada);
+        novapessoa.carregaredt();
+        novapessoa.bloqueiaedt();
+        novapessoa.show();
+        if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o fornecedor selecionado ? ", "Atenção", JOptionPane.YES_NO_OPTION) == 0){
+            try {
+                new FornecedorService().deleteByID(pessoaSelecionada);
+                JOptionPane.showMessageDialog(this, "Fornecedor excluido com sucesso");
+                list = new FornecedorService().getAll("");
+                modelo.setList(list.toArray());
+                tabela.setModel(modelo);
+            }catch (SQLException ex){
+
+                if (!pessoaSelecionada.getAtivo()){
+                    JOptionPane.showMessageDialog(this, "Não foi possivel excluir o fornecedor pois existem " +
+                            "cadastros relacionado a ele \n " + "Fornecedor ja esta desativado");
+                } else if (JOptionPane.showConfirmDialog(this, "Não é possivel excluir o fornecedor, pois existem" +
+                        "cadastros relacionado a ele! \n Deseja Desativa-lo ?" , "Atenção", JOptionPane.YES_NO_OPTION)==0){
+                    pessoaSelecionada.setAtivo(false);
+                    try {
+                        new FornecedorService().update(pessoaSelecionada);
+                        JOptionPane.showMessageDialog(this, "Desativado com sucesso");
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(this, "Falha ao desativar \n" + ex.getCause() +"\n" + ex.getMessage());
+                    }
+                }
+            }
+        }
+        novapessoa.dispose();
+        return;
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnaltActionPerformed(java.awt.event.ActionEvent evt) {
         if (tabela.getSelectedRow() < 0) {
@@ -220,56 +272,13 @@ public class PesquisarFornecedor extends DialogPadrao {
         }
     }                                             
 
-    private void cmbselecionapesquisaActionPerformed(java.awt.event.ActionEvent evt) {
-    }
 
     private void btnnovapessoaActionPerformed(java.awt.event.ActionEvent evt) {
         CadastroFornecedorForm novapessoa=new CadastroFornecedorForm(this, true, new Fornecedor());
         novapessoa.show();
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PesquisarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PesquisarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PesquisarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PesquisarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                PesquisarFornecedor dialog = new PesquisarFornecedor(new javax.swing.JDialog(), true,null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnVisualizar;

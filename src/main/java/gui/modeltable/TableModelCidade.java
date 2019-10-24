@@ -70,6 +70,4 @@ public class TableModelCidade  extends AbstractTableModel {
         return "";
     }
 
-
-
 }

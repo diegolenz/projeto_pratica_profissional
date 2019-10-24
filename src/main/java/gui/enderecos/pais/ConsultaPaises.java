@@ -13,6 +13,7 @@ import lib.dao.imp.endereco.pais.PaisDao;
 import lib.model.endereco.estado.Estado;
 import lib.model.endereco.pais.Pais;
 import lib.model.interno.ModuloSistema;
+import lib.model.interno.NivelAcessoModulo;
 import lib.service.EstadoService;
 import lib.service.PaisService;
 
@@ -34,7 +35,7 @@ public class ConsultaPaises extends SociusTab implements WindowPadrao {
      * Creates new form ConsultaPanel
      */
     public ConsultaPaises(Window parent) {
-        super(parent, ModuloSistema.PESSOAS);
+        super(parent, ModuloSistema.ENDERECO);
         initComponents();
         paises= new ArrayList<>();
         paisService=new PaisService();

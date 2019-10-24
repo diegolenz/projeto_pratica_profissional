@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="a" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="00a15d98-f7b2-46ca-87ae-ebe1280e9296">
+    <subDataset name="marcasDS" uuid="9c85a9cf-af77-4b9c-980c-ff1d188be862">
+        <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+        <queryString>
+            <![CDATA[]]>
+        </queryString>
+        <field name="produtos" class="java.util.List"/>
+        <field name="nome" class="java.lang.String"/>
+    </subDataset>
+    <subDataset name="produtos" uuid="dccb6841-2738-4f9a-b039-32d3858086da">
+        <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+        <queryString>
+            <![CDATA[]]>
+        </queryString>
+        <field name="nome" class="java.lang.String"/>
+    </subDataset>
+    <parameter name="marcas" class="java.util.List"/>
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+    <field name="marcas" class="net.sf.jasperresports.engime.data.JRBeanCollectionDataSource"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="42" splitType="Stretch"/>
+    </title>
+    <pageHeader>
+        <band height="21" splitType="Stretch"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="49" splitType="Stretch"/>
+    </columnHeader>
+    <detail>
+        <band height="229" splitType="Stretch">
+            <componentElement>
+                <reportElement x="0" y="0" width="480" height="150" uuid="a422d826-6f96-48a7-aaaa-34fcece7917e">
+                    <property name="net.sf.jasperreports.export.headertoolbar.table.name" value="produtos"/>
+                </reportElement>
+                <jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+                    <datasetRun subDataset="produtos" uuid="8399e0b2-bfb4-41ce-8a79-4c2c54fe600c">
+                        <dataSourceExpression><![CDATA[$P{REPORT_CONNECTION}]]></dataSourceExpression>
+                    </datasetRun>
+                    <jr:listContents height="150" width="480">
+                        <textField>
+                            <reportElement x="0" y="0" width="100" height="30" uuid="0aea8b9a-690d-441f-b796-7b22dddf7979"/>
+                            <textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+                        </textField>
+                        <componentElement>
+                            <reportElement x="100" y="30" width="100" height="30" uuid="4c865ec3-1380-48b6-b977-afe029b11867"/>
+                            <jr:list>
+                                <datasetRun subDataset="produtos" uuid="b7813842-3608-4fb9-82ab-a36717528d8f">
+                                    <dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.JREmptyDataSource(${produtos}) ]]></dataSourceExpression>
+                                </datasetRun>
+                                <jr:listContents height="30" width="100">
+                                    <textField>
+                                        <reportElement x="0" y="0" width="100" height="30" uuid="42e476d2-2f4c-4cc8-8c45-40a933f211d7"/>
+                                        <textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+                                    </textField>
+                                </jr:listContents>
+                            </jr:list>
+                        </componentElement>
+                    </jr:listContents>
+                </jr:list>
+            </componentElement>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="23" splitType="Stretch"/>
+    </columnFooter>
+    <pageFooter>
+        <band height="18" splitType="Stretch"/>
+    </pageFooter>
+    <summary>
+        <band height="15" splitType="Stretch"/>
+    </summary>
+</jasperReport>

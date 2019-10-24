@@ -127,7 +127,7 @@ public class ProdutoDao<T> extends AbstractDao<T>{
 		return produtos;
 	}
 
-	public Object getByID(Integer id)throws Exception{
+	public Object getByID(Integer id)throws SQLException{
 		String sql = "Select * from produto where id ="+id+" ;";
 		PreparedStatement preparedStatement=st.getConnection().prepareStatement(sql);
 		ResultSet rs = preparedStatement.executeQuery();
@@ -158,7 +158,15 @@ public class ProdutoDao<T> extends AbstractDao<T>{
 		this.st.executeUpdate(sql);
 	}
 
-
+	public List<Produto> findByMarca(Integer idMarca)throws SQLException{
+		String sql = "select id from produto where marca_id = " + idMarca + " ;";
+		ResultSet rs = this.st.getConnection().prepareStatement(sql).executeQuery();
+		List<Produto> produtos = new ArrayList<>();
+		while (rs.next()){
+			produtos.add((Produto) getByID(rs.getInt("id")));
+		}
+		return produtos;
+	}
 
 
 }

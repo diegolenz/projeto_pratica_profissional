@@ -33,7 +33,7 @@ public class CadastroPais extends DialogPadrao {
      * Creates new form CadastroPais
      */
     public CadastroPais(Window parent, boolean modal, Pais pais, Callback callback) {
-        super(parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super(parent, modal, ModuloSistema.ENDERECO, NivelAcessoModulo.LEITURA_GRAVACAO);
         initComponents();
         this.callback = callback;
         this.pais = pais;
@@ -74,6 +74,11 @@ public class CadastroPais extends DialogPadrao {
         pais.setNome(this.edtNome.getText());
         if (pais.getId() == null)
             pais.setAtivo(true);
+        else {
+            if (rdDesativado.isSelected())
+                pais.setAtivo(false);
+            else pais.setAtivo(true);
+        }
     }
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt)  {
@@ -148,7 +153,7 @@ public class CadastroPais extends DialogPadrao {
         jLabel4.setText("País *");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("DDD");
+        jLabel5.setText("DDI");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -256,12 +261,12 @@ public class CadastroPais extends DialogPadrao {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDescricaoForm)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(rdAtivado)
                         .addComponent(jLabel3)
-                        .addComponent(rdDesativado)))
+                        .addComponent(rdDesativado))
+                    .addComponent(lblDescricaoForm))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

@@ -32,7 +32,7 @@ public class CadastrarMarcaForm extends DialogPadrao {
      * Creates new form CadastrarMarcaForm
      */
     public CadastrarMarcaForm(Window parent, boolean modal, Marca marca, Callback callback) {
-        super(parent, modal, ModuloSistema.SISTEMA_OPERADORES, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super(parent, modal, ModuloSistema.MARCAS, NivelAcessoModulo.LEITURA_GRAVACAO);
         marcaService = new MarcaService();
         this.callback = callback;
         this.marca = marca;

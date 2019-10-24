@@ -42,17 +42,19 @@ public class TableModelContas  extends AbstractTableModel {
         ContaPagar p = (ContaPagar) list[rowIndex];
         switch (columnIndex) {
             case 0:
-                return p.getParcela().getNumero();
+                return p.getId();
             case 1:
+                return p.getDescricao();
+            case 2:
                 return Util.builDataSimples(p.getDataLancamento());
-            case 2 :
+            case 3 :
                 return Util.builDataSimples(p.getDataVencimento());
-            case 3:
-                return p.getValor();
             case 4:
-                return p.getStatusConta();
+                return p.getValor();
             case 5:
-                return p.getParcela().getFormaPagamento();
+                return p.getStatusConta();
+            case 6:
+                return p.getFormaPagamento();
 
 
 
@@ -66,14 +68,16 @@ public class TableModelContas  extends AbstractTableModel {
             case 0:
                 return "numero";
             case 1:
-                return "lançamento";
+                return "Descricao";
             case 2:
-                return "Vencimento";
+                return "lançamento";
             case 3:
-                return "Valor";
+                return "Vencimento";
             case 4:
-                return "status";
+                return "Valor";
             case 5:
+                return "status";
+            case 6:
                 return "Forma pagamento";
 
 

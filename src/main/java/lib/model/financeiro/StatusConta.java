@@ -12,4 +12,9 @@ public enum StatusConta {
     StatusConta(String descricao) {
         this.descricao=descricao;
     }
+
+    @Override
+    public String toString() {
+        return descricao;
+    }
 }

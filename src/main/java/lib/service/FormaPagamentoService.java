@@ -43,7 +43,7 @@ public class FormaPagamentoService {
     public FormaPagamento getByID(Integer id) throws SQLException {
         Assert.notNull(id, "ID passado como parametro não pode estar nulo");
         FormaPagamento formaPagamento = formaPagamentoDAO.getByID(id);
-        Assert.notNull(formaPagamento, "Não foi encontrado nenhum estado com esse código");
+       // Assert.notNull(formaPagamento, "Não foi encontrado nenhum estado com esse código");
         return  formaPagamento;
     }
 

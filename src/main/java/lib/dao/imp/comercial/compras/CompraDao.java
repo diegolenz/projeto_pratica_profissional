@@ -8,6 +8,7 @@ import lib.model.comercial.ItemProduto;
 import lib.model.comercial.frete.TipoFrete;
 import lib.model.produto.Produto;
 import lib.service.CondicaoPagamentoService;
+import lib.service.FormaPagamentoService;
 import lib.service.FornecedorService;
 import lib.service.ProdutoService;
 
@@ -95,14 +96,15 @@ public class CompraDao extends AbstractDao {
 
     public void saveContas(List<ContaPagar> contas) throws SQLException {
         for (ContaPagar conta : contas) {
-            String sql = "INSERT INTO conta (modelo_compra , serie_compra, numero_compra, valor, data_Lancamento, data_Vencimento) "
+            String sql = "INSERT INTO conta_pagar (modelo_compra , serie_compra, numero_compra, valor, data_Lancamento, data_Vencimento, forma_pagamento_id) "
                     + "values ('" +
                     conta.getCompra().getModeloNota() + "', " +
                     conta.getCompra().getNumSerieNota() + ", " +
                     conta.getCompra().getNumeroNota() + ", " +
                     conta.getValor() + ", " +
                     "'" + conta.getDataLancamento() + "', " +
-                    "' " + conta.getDataVencimento() + "' " +
+                    "' " + conta.getDataVencimento() + "', " +
+                    " " + conta.getFormaPagamento().getId() + " " +
                     //  conta.getStatusConta().ordinal() + ", " +
                     ");";
             this.st.execute(sql);
@@ -111,13 +113,13 @@ public class CompraDao extends AbstractDao {
     }
 
     public List<ContaPagar> getAllContasByCompra(Compra compra) throws Exception {
-        String sql = "SELECT * FROM conta WHERE modelo_compra = '" + compra.getModeloNota() + "' and numero_compra = " + compra.getNumeroNota() + " and serie_compra =" + compra.getNumSerieNota() + ";";
+        String sql = "SELECT * FROM conta_pagar WHERE modelo_compra = '" + compra.getModeloNota() + "' and numero_compra = " + compra.getNumeroNota() + " and serie_compra =" + compra.getNumSerieNota() + ";";
         PreparedStatement preparedStatement = st.getConnection().prepareStatement(sql);
         ResultSet rs = preparedStatement.executeQuery();
         List<ContaPagar> contas = new ArrayList<>();
         while (rs.next()) {
             ContaPagar contaPagar = new ContaPagar();
-            contaPagar.setParcela(new ParcelaDAO().getByID(rs.getInt("parcela_id")));
+           // contaPagar.setParcela(new ParcelaDAO().getByID(rs.getInt("parcela_id")));
             contaPagar.setDataVencimento(rs.getDate("data_vencimento"));
             contaPagar.setDataLancamento(rs.getDate("data_lancamento"));
             contaPagar.setCompra(compra);
@@ -125,6 +127,7 @@ public class CompraDao extends AbstractDao {
             contaPagar.setValor(rs.getDouble("valor"));
             //contaPagar.setValorRecebido(rs.getDouble("valor_recebido"));
             contaPagar.setPaga(rs.getBoolean("paga"));
+            contaPagar.setFormaPagamento(new FormaPagamentoService().getByID(rs.getInt("forma_pagamento_id")));
             contas.add(contaPagar);
         }
         return contas;

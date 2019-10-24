@@ -4,6 +4,7 @@ import lib.dao.imp.sistema.FuncionarioDao;
 import lib.model.interno.Funcionario;
 import org.springframework.util.Assert;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class FuncionarioService {
@@ -57,7 +58,7 @@ public class FuncionarioService {
         }
 
 
-        public Funcionario getByID(Integer id) throws Exception {
+        public Funcionario getByID(Integer id) throws SQLException {
             Assert.notNull(id, "ID passado como parametro não pode estar nulo");
             Funcionario operador = operadorDao.getByID(id);
             Assert.notNull(operador, "Não foi encontrado nenhuma operador com esse código");

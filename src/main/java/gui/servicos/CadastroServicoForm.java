@@ -33,7 +33,7 @@ public class CadastroServicoForm extends DialogPadrao {
      * Creates new form CadastroServicoForm
      */
     public CadastroServicoForm(Window parent, boolean modal, Servico servico) {
-        super(parent, modal, ModuloSistema.PRODUTOS_SERVICOS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super(parent, modal, ModuloSistema.SERVICOS, NivelAcessoModulo.LEITURA_GRAVACAO);
         initComponents();
         this.servico=servico;
         if (servico.getId()!=null)

@@ -33,7 +33,7 @@ public class ConsultaClientesForm extends SociusTab implements WindowPadrao {
      * Creates new form ConsultaPanel
      */
     public ConsultaClientesForm(Window parent) {
-        super(parent, ModuloSistema.PESSOAS);
+        super(parent, ModuloSistema.CLIENTES);
         initComponents();
         try {
             pessoas = new ClienteService().getAll("");

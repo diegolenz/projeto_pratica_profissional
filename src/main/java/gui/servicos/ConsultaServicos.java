@@ -34,7 +34,7 @@ public class ConsultaServicos extends SociusTab implements WindowPadrao {
      * Creates new form ConsultaPanel
      */
     public ConsultaServicos(Window parent) {
-        super(parent, ModuloSistema.PRODUTOS_SERVICOS);
+        super(parent, ModuloSistema.SERVICOS);
         initComponents();
         tableModelServico=new TableModelServico();
         servicoService = new ServicoService();

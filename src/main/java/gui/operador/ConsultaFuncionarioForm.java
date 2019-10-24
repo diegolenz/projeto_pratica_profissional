@@ -24,9 +24,7 @@ public class ConsultaFuncionarioForm extends SociusTab implements WindowPadrao {
     private CadastrarFuncionario cadastrarOperador;
     private Funcionario operador ;
     private List<Funcionario> operadores;
-    private FuncionarioDao dao;
     private TableModelOperador tableModelPessoa;
-    private JFrame frame =new JFrame();
 
     /**
      * Creates new form ConsultaPanel
@@ -47,14 +45,12 @@ public class ConsultaFuncionarioForm extends SociusTab implements WindowPadrao {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        btnNovo = new javax.swing.JButton();
-        btnAlterar = new javax.swing.JButton();
-        btnVisualizar = new javax.swing.JButton();
-        btnDesativar = new javax.swing.JButton();
         btnPesquisar = new javax.swing.JButton();
         edtPesquisa = new javax.swing.JTextField();
-        cmbOpcao = new javax.swing.JComboBox<>();
+        btnDesativar = new javax.swing.JButton();
+        btnVisualizar = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
+        btnNovo = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setName("Consulta"); // NOI18N
@@ -69,17 +65,17 @@ public class ConsultaFuncionarioForm extends SociusTab implements WindowPadrao {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        btnNovo.setText("Novo");
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+        btnPesquisar.setText("pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoActionPerformed(evt);
+                btnPesquisarActionPerformed(evt);
             }
         });
 
-        btnAlterar.setText("alterar");
-        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+        btnDesativar.setText("Excluir");
+        btnDesativar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterarActionPerformed(evt);
+                btnDesativarActionPerformed(evt);
             }
         });
 
@@ -90,48 +86,19 @@ public class ConsultaFuncionarioForm extends SociusTab implements WindowPadrao {
             }
         });
 
-        btnDesativar.setText("desativar");
-        btnDesativar.addActionListener(new java.awt.event.ActionListener() {
+        btnAlterar.setText("alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDesativarActionPerformed(evt);
+                btnAlterarActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVisualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                    .addComponent(btnDesativar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnNovo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnVisualizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnDesativar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        btnPesquisar.setText("pesquisar");
-        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+        btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisarActionPerformed(evt);
+                btnNovoActionPerformed(evt);
             }
         });
-
-        cmbOpcao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nome" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -139,16 +106,21 @@ public class ConsultaFuncionarioForm extends SociusTab implements WindowPadrao {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cmbOpcao, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(edtPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnPesquisar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPesquisar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 499, Short.MAX_VALUE)
+                        .addComponent(btnNovo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAlterar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnVisualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDesativar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -157,12 +129,15 @@ public class ConsultaFuncionarioForm extends SociusTab implements WindowPadrao {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPesquisar)
-                    .addComponent(edtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbOpcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNovo)
+                    .addComponent(btnVisualizar)
+                    .addComponent(btnAlterar)
+                    .addComponent(btnDesativar))
                 .addContainerGap())
         );
 
@@ -181,17 +156,14 @@ public class ConsultaFuncionarioForm extends SociusTab implements WindowPadrao {
 
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {
-        cadastrarOperador = new CadastrarFuncionario(frame, true);
-        cadastrarOperador.desbloqueiaedt();
-        cadastrarOperador.setVisible(true);
+        new CadastrarFuncionario(getWindowParent(), true, new Funcionario()).show();
     }
-
         private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {  if (this.jTable1.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this, "Selecione um registro para continuar");
             return;
         }
             operador=operadores.get(jTable1.getSelectedRow());
-            cadastrarOperador=new CadastrarFuncionario(frame, true, operador );
+            cadastrarOperador=new CadastrarFuncionario(getWindowParent(), true, operador );
             cadastrarOperador.carregaredt();
             cadastrarOperador.desbloqueiaedt();
             cadastrarOperador.setVisible(true);
@@ -203,7 +175,7 @@ public class ConsultaFuncionarioForm extends SociusTab implements WindowPadrao {
             return;
         }
         operador=operadores.get(jTable1.getSelectedRow());
-        cadastrarOperador=new CadastrarFuncionario(frame, true, operador );
+        cadastrarOperador=new CadastrarFuncionario(getWindowParent(), true, operador );
         cadastrarOperador.carregaredt();
         cadastrarOperador.bloqueiaedt();
         cadastrarOperador.setVisible(true);
@@ -220,9 +192,7 @@ public class ConsultaFuncionarioForm extends SociusTab implements WindowPadrao {
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnVisualizar;
-    private javax.swing.JComboBox<String> cmbOpcao;
     private javax.swing.JTextField edtPesquisa;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

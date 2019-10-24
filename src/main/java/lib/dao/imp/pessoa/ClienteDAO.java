@@ -114,11 +114,11 @@ public class ClienteDAO extends AbstractDao {
 
         while (rs.next()) {
             Cliente cliente = new Cliente();
-            cliente.setId(rs.getInt("id"));
             cliente.setAtivo( rs.getBoolean("ativo"));
             cliente.setDataUltAlteracao(rs.getDate("data_ultima_alteracao"));
             cliente.setDataCadastro(rs.getDate("data_cadastro"));
             getPessoaByID(cliente.getId(), cliente);
+            cliente.setId(rs.getInt("id"));
             clientes.add(cliente);
         }
         return clientes;
@@ -197,40 +197,12 @@ public class ClienteDAO extends AbstractDao {
         ResultSet rs = preparedStatement.executeQuery();
         Cliente cliente=new Cliente();
         while (rs.next()) {
-            cliente.setId(rs.getInt("id"));
-            cliente.setNome(rs.getString("nome"));
-            cliente.setNomeFantasia_Apelido(rs.getString("nome_fantasia_apelido"));
-            cliente.setBairro(rs.getString("bairro"));
-            cliente.setLogradouro(rs.getString("logradouro"));
-            cliente.setComplemento(rs.getString("complemento"));
-            cliente.setCidade(new CidadeService().getCidadeByID(rs.getInt("cidade_ID")));
-            cliente.setNumeroResidencial(rs.getString("numero_residencial"));
-            cliente.setCep(rs.getString("cep"));
+            cliente = new Cliente();
             cliente.setAtivo( rs.getBoolean("ativo"));
-            cliente.setTelefone(rs.getString("telefone"));
-            cliente.setTelefoneAlternativo(rs.getString("telefone_alternativo"));
             cliente.setDataUltAlteracao(rs.getDate("data_ultima_alteracao"));
             cliente.setDataCadastro(rs.getDate("data_cadastro"));
-            cliente.setDataNascimento(rs.getDate("data_nascimento"));
-            cliente.setRgIe(rs.getString("rg_ie"));
-            cliente.setCpfCnpj(rs.getString("cpf_cnpj"));
-            cliente.setEmail(rs.getString("email"));
-
-
-            Integer sexo = rs.getInt("sexo");
-            switch (sexo) {
-                case 0 : cliente.setSexo(Sexo.MASCULINO);
-                case 1 : cliente.setSexo(Sexo.FEMININO);
-                case 2 : cliente.setSexo(Sexo.OUTROS);
-            }
-
-            Integer tipo = rs.getInt("tipo");
-            switch (tipo) {
-                case 0 : cliente.setTipo(TipoPessoa.FISICA);
-                case 1 : cliente.setTipo(TipoPessoa.JURIDICA);
-                case 2 : cliente.setTipo(TipoPessoa.ESTRANGEIRO);
-            }
-
+            getPessoaByID(cliente.getId(), cliente);
+            cliente.setId(rs.getInt("id"));
         }
         return cliente;
     }

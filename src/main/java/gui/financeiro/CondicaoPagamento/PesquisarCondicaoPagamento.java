@@ -40,7 +40,7 @@ public class PesquisarCondicaoPagamento extends DialogPadrao {
      * Creates new form PesquisarCondicaoPagamento
      */
     public PesquisarCondicaoPagamento(Window parent, boolean modal, Callback callback) {
-        super(parent, modal,  ModuloSistema.PRODUTOS_SERVICOS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super(parent, modal,  ModuloSistema.CONDICOES_PAGAMENTO, NivelAcessoModulo.SOMENTE_LEITURA);
         initComponents();
         this.callback = callback;
         this.tableModelCondicaoPagamento = new TableModelCondicaoPagamento();

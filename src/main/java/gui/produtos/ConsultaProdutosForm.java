@@ -32,7 +32,7 @@ public class ConsultaProdutosForm<T> extends SociusTab implements WindowPadrao {
      * Creates new form ConsultaPanel
      */
     public ConsultaProdutosForm(Window parent) {
-        super(parent, ModuloSistema.PRODUTOS_SERVICOS);
+        super(parent, ModuloSistema.PRODUTOS);
         initComponents();
         initTabela();
     }

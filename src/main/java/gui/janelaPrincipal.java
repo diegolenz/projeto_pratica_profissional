@@ -12,6 +12,8 @@ import gui.enderecos.cidades.ConsultaCidades;
 import gui.enderecos.estados.ConsultaEstados;
 import gui.enderecos.pais.ConsultaPaises;
 import gui.financeiro.CondicaoPagamento.ConsultaCondicoesPagamentoForm;
+import gui.financeiro.caixas.ConsultarCaixaForm;
+import gui.financeiro.contas.contas_a_pagar.ConsultaContasAPagar;
 import gui.financeiro.formaPagamento.ConsultaFormasPagamentos;
 import gui.grupo.ConsultaGrupoForm;
 import gui.marca.ConsultarMarca;
@@ -154,11 +156,17 @@ public class janelaPrincipal extends javax.swing.JFrame {
         mnuConsultarMarca = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenu13 = new javax.swing.JMenu();
+        jSeparator7 = new javax.swing.JPopupMenu.Separator();
         mnuItemCondicaoPagamento = new javax.swing.JMenuItem();
         itmMnuFormaPagamento = new javax.swing.JMenuItem();
+        mnuContasPagar = new javax.swing.JMenuItem();
+        mnuCaixas = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnCompras = new javax.swing.JMenuItem();
         btnVenda = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        mnuOperadores = new javax.swing.JMenuItem();
+        mnuGrupoFuncionarios = new javax.swing.JMenuItem();
         jMenu16 = new javax.swing.JMenu();
         mnuConsultaOperador = new javax.swing.JMenuItem();
         mnuCadOperador = new javax.swing.JMenuItem();
@@ -346,6 +354,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMenu18.setText("Cadastros");
         jMenu18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        mnuPaises.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mnuPaises.setText("Países");
         mnuPaises.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -354,6 +363,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMenu18.add(mnuPaises);
 
+        mnuEstados.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mnuEstados.setText("Estados");
         mnuEstados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,6 +372,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMenu18.add(mnuEstados);
 
+        mnuCidades.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mnuCidades.setText("Cidades");
         mnuCidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -371,6 +382,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMenu18.add(mnuCidades);
         jMenu18.add(jSeparator6);
 
+        mnuconsClientes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mnuconsClientes.setText("Clientes ");
         mnuconsClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -379,6 +391,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMenu18.add(mnuconsClientes);
 
+        ConsultarFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ConsultarFornecedor.setText("Fornecedores");
         ConsultarFornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -395,6 +408,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMenu3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jMenu3.add(jSeparator5);
 
+        mnuConsultarProd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mnuConsultarProd.setText("Produtos");
         mnuConsultarProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -403,6 +417,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(mnuConsultarProd);
 
+        mnuConsultaServico.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mnuConsultaServico.setText("Serviços");
         mnuConsultaServico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -412,6 +427,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMenu3.add(mnuConsultaServico);
         jMenu3.add(jSeparator4);
 
+        mnuGrupos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mnuGrupos.setText("Grupos");
         mnuGrupos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -420,6 +436,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(mnuGrupos);
 
+        mnuConsultarMarca.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mnuConsultarMarca.setText("Marcas");
         mnuConsultarMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -433,7 +450,9 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         jMenu13.setText("Financeiro");
         jMenu13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jMenu13.add(jSeparator7);
 
+        mnuItemCondicaoPagamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mnuItemCondicaoPagamento.setText("Condições de pagamentos");
         mnuItemCondicaoPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -442,6 +461,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMenu13.add(mnuItemCondicaoPagamento);
 
+        itmMnuFormaPagamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         itmMnuFormaPagamento.setText("Formas de pagamento");
         itmMnuFormaPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -450,11 +470,30 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMenu13.add(itmMnuFormaPagamento);
 
+        mnuContasPagar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mnuContasPagar.setText("Contas a pagar");
+        mnuContasPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuContasPagarActionPerformed(evt);
+            }
+        });
+        jMenu13.add(mnuContasPagar);
+
+        mnuCaixas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mnuCaixas.setText("Caixas");
+        mnuCaixas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCaixasActionPerformed(evt);
+            }
+        });
+        jMenu13.add(mnuCaixas);
+
         jMenuBar1.add(jMenu13);
 
         jMenu2.setText("Comercial");
         jMenu2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        btnCompras.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCompras.setText("Compras");
         btnCompras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -463,6 +502,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(btnCompras);
 
+        btnVenda.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnVenda.setText("Vendas");
         btnVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -472,6 +512,29 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jMenu2.add(btnVenda);
 
         jMenuBar1.add(jMenu2);
+
+        jMenu5.setText("Sistema");
+        jMenu5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        mnuOperadores.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mnuOperadores.setText("Funcionarios");
+        mnuOperadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuOperadoresActionPerformed(evt);
+            }
+        });
+        jMenu5.add(mnuOperadores);
+
+        mnuGrupoFuncionarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mnuGrupoFuncionarios.setText("Grupos de funcionarios");
+        mnuGrupoFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuGrupoFuncionariosActionPerformed(evt);
+            }
+        });
+        jMenu5.add(mnuGrupoFuncionarios);
+
+        jMenuBar1.add(jMenu5);
 
         jMenu16.setEnabled(false);
 
@@ -528,7 +591,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 .addComponent(btnNovoCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnNovoOrcamento)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnTrocar)
@@ -700,6 +763,58 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private void btnVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVendaActionPerformed
+
+    private void mnuContasPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuContasPagarActionPerformed
+        ConsultaContasAPagar p=new ConsultaContasAPagar(this);
+        Integer i = verrificaJanelaAberta("Contas a pagar");
+        if (i != null){
+            jTabbedPane1.setSelectedIndex(i);
+            return;
+        }
+        jTabbedPane1.addTab("Contas a pagar", p);
+        jTabbedPane1.setSelectedComponent(p);
+        i = jTabbedPane1.getSelectedIndex();
+        jTabbedPane1.setTabComponentAt(i, new ButtonTabComponent(jTabbedPane1));
+    }//GEN-LAST:event_mnuContasPagarActionPerformed
+
+    private void mnuCaixasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCaixasActionPerformed
+       ConsultarCaixaForm p = new ConsultarCaixaForm(this);
+       Integer i = verrificaJanelaAberta("Caixas");
+        if (i != null){
+            jTabbedPane1.setSelectedIndex(i);
+            return;
+        }
+        jTabbedPane1.addTab("Caixas", p);
+        jTabbedPane1.setSelectedComponent(p);
+        i = jTabbedPane1.getSelectedIndex();
+        jTabbedPane1.setTabComponentAt(i, new ButtonTabComponent(jTabbedPane1));
+    }//GEN-LAST:event_mnuCaixasActionPerformed
+
+    private void mnuOperadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOperadoresActionPerformed
+       ConsultaFuncionarioForm p = new ConsultaFuncionarioForm(this);
+       Integer i = verrificaJanelaAberta("Funcionarios");
+        if (i != null){
+            jTabbedPane1.setSelectedIndex(i);
+            return;
+        }
+        jTabbedPane1.addTab("Funcionarios", p);
+        jTabbedPane1.setSelectedComponent(p);
+        i = jTabbedPane1.getSelectedIndex();
+        jTabbedPane1.setTabComponentAt(i, new ButtonTabComponent(jTabbedPane1));
+    }//GEN-LAST:event_mnuOperadoresActionPerformed
+
+    private void mnuGrupoFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuGrupoFuncionariosActionPerformed
+        ConsultaGruposOperadoresForm p = new ConsultaGruposOperadoresForm(this);
+        Integer i = verrificaJanelaAberta("Grupos de funcionarios");
+        if (i != null){
+            jTabbedPane1.setSelectedIndex(i);
+            return;
+        }
+        jTabbedPane1.addTab("Grupos de funcionarios", p);
+        jTabbedPane1.setSelectedComponent(p);
+        i = jTabbedPane1.getSelectedIndex();
+        jTabbedPane1.setTabComponentAt(i, new ButtonTabComponent(jTabbedPane1));
+    }//GEN-LAST:event_mnuGrupoFuncionariosActionPerformed
 
     private void btnNovaCompraAcessoRpdActionPerformed(java.awt.event.ActionEvent evt) {
       //  new NovaCompraForm(this, true, new Compra()).show();
@@ -877,6 +992,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu38;
     private javax.swing.JMenu jMenu39;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
@@ -906,6 +1022,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JPopupMenu.Separator jSeparator6;
+    private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private com.toedter.calendar.JYearChooser jYearChooser1;
     private java.awt.Menu menu1;
@@ -913,15 +1030,19 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private java.awt.MenuBar menuBar1;
     private javax.swing.JMenuItem mnuCadGrupo;
     private javax.swing.JMenuItem mnuCadOperador;
+    private javax.swing.JMenuItem mnuCaixas;
     private javax.swing.JMenuItem mnuCidades;
     private javax.swing.JMenuItem mnuConsultaGrupos;
     private javax.swing.JMenuItem mnuConsultaOperador;
     private javax.swing.JMenuItem mnuConsultaServico;
     private javax.swing.JMenuItem mnuConsultarMarca;
     private javax.swing.JMenuItem mnuConsultarProd;
+    private javax.swing.JMenuItem mnuContasPagar;
     private javax.swing.JMenuItem mnuEstados;
+    private javax.swing.JMenuItem mnuGrupoFuncionarios;
     private javax.swing.JMenuItem mnuGrupos;
     private javax.swing.JMenuItem mnuItemCondicaoPagamento;
+    private javax.swing.JMenuItem mnuOperadores;
     private javax.swing.JMenuItem mnuPaises;
     private javax.swing.JMenuItem mnuconsClientes;
     // End of variables declaration//GEN-END:variables

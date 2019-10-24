@@ -36,7 +36,7 @@ public class ConsultarMarca extends SociusTab implements WindowPadrao {
      * Creates new form ConsultaPanel
      */
     public ConsultarMarca(Window parent ) {
-        super(parent, ModuloSistema.SISTEMA_OPERADORES);
+        super(parent, ModuloSistema.MARCAS);
         initComponents();
         modeloMarca=new TableModelMarca();
         marcaService = new MarcaService();

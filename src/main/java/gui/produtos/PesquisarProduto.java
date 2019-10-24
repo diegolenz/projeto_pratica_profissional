@@ -41,7 +41,7 @@ public class PesquisarProduto extends DialogPadrao {
     }
 
     public PesquisarProduto(Window parent, boolean modal, PesquisarProduto.Callback callBack) {
-        super( parent, modal, ModuloSistema.PRODUTOS_SERVICOS, NivelAcessoModulo.SOMENTE_LEITURA);
+        super( parent, modal, ModuloSistema.PRODUTOS, NivelAcessoModulo.SOMENTE_LEITURA);
         this.callback=callBack;
         this.produtoService = new ProdutoService();
         initComponents();

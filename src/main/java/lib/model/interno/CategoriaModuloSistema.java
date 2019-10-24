@@ -13,13 +13,11 @@ package lib.model.interno;
  * @since 1.3.1
  */
 public enum CategoriaModuloSistema {
-
-    ENDERECO("Endereço"),
-    VIRTUAL(null),
     PESSOAS("Pessoas"),
-    PRODUTOS("Produtos"),
-    ORCAMENTOS("Orçamentos"),
+    ESTOQUE("Serviços"),
+    COMERCIAL("Comercial"),
     FINANCIRO("Financeiro"),
+    CADASTROS("Cadastros"),
     SISTEMA("Sistema");
 
 

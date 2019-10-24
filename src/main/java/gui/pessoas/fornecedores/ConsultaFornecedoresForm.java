@@ -33,7 +33,7 @@ public class ConsultaFornecedoresForm extends SociusTab implements WindowPadrao 
      * Creates new form ConsultaPanel
      */
     public ConsultaFornecedoresForm(Window parent) {
-        super(parent, ModuloSistema.PESSOAS);
+        super(parent, ModuloSistema.FORNECEDORES);
         initComponents();
         initTabela();
         jButton1ActionPerformed(null);

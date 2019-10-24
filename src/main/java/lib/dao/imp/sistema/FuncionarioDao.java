@@ -5,6 +5,7 @@ import lib.model.interno.Funcionario;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class FuncionarioDao  extends AbstractDao {
             return pessoas;
         }
 
-        public Funcionario getByID(Integer id) throws Exception {
+        public Funcionario getByID(Integer id) throws SQLException {
             PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM funcionario WHERE ID = "+id+";");
             ResultSet rs = preparedStatement.executeQuery();
             Funcionario operador=new Funcionario();

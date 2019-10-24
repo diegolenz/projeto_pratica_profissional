@@ -40,7 +40,7 @@ public class PesquisarCliente extends DialogPadrao {
     }
 
     public PesquisarCliente(Window parent, boolean modal, PesquisarCliente.Callback callBack) {
-        super( parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.SOMENTE_LEITURA);
+        super( parent, modal, ModuloSistema.CLIENTES, NivelAcessoModulo.SOMENTE_LEITURA);
         this.callback=callBack;
         initComponents();
         modelo =new TableModelPessoa();

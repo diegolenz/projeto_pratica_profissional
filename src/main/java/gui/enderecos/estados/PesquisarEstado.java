@@ -45,7 +45,7 @@ public class PesquisarEstado extends DialogPadrao {
     }
 
     public PesquisarEstado(Window parent, boolean modal, PesquisarEstado.Callback callBack) {
-        super( parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super( parent, modal, ModuloSistema.ENDERECO, NivelAcessoModulo.SOMENTE_LEITURA);
         this.callback=callBack;
         estadoService=new EstadoService();
         modelo = new TableModelEstado();

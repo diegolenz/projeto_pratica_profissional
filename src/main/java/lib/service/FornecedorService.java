@@ -8,6 +8,7 @@ import lib.model.pessoa.fornecedor.Fornecedor;
 import org.springframework.util.Assert;
 import util.CpfCnpjValidator;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -53,12 +54,10 @@ public class FornecedorService {
         }
         Assert.notNull(pessoa.getNumeroResidencial(),"Numero é obrigatório");
         Pessoa pessoaRetorno = this.getByCpfCnpjExato(pessoa.getCpfCnpj());
-        if (pessoa.getId() != null) {
-            if (pessoaRetorno != null)
-                if (pessoa.getId() != pessoaRetorno.getId())
-                    Assert.notNull(pessoaRetorno, "Cpf já cadastrado !");
-        } else if (pessoaRetorno != null)
-            Assert.notNull(pessoaRetorno, "Cpf já cadastrado !");
+
+        if (pessoaRetorno != null)
+                    Assert.isTrue(pessoaRetorno == null, "Cpf já cadastrado !");
+
 
         fornecedorDAO.save(pessoa);
     }
@@ -82,17 +81,16 @@ public class FornecedorService {
         }
         Assert.notNull(pessoa.getNumeroResidencial(),"Numero é obrigatório");
         Pessoa pessoaRetorno = this.getByCpfCnpjExato(pessoa.getCpfCnpj());
-        if (pessoa.getId() != null) {
-            if (pessoaRetorno != null)
-                if (pessoa.getId() != pessoaRetorno.getId())
-                    Assert.notNull(pessoaRetorno, "Cpf já cadastrado !");
-        } else if (pessoaRetorno != null)
-            Assert.notNull(pessoaRetorno, "Cpf já cadastrado !");
+
+        if (pessoaRetorno != null) {
+            if (pessoa.getId() != pessoaRetorno.getId())
+                Assert.isTrue(pessoaRetorno == null, "Cpf/cnpj já cadastrado !");
+        }
 
         fornecedorDAO.update(pessoa);
     }
 
-    public List getAll(String termo) throws Exception {
+    public List getAll(String termo) throws SQLException {
         return fornecedorDAO.getAllFornecedores(termo);
     }
 
@@ -101,14 +99,14 @@ public class FornecedorService {
     }
 
 
-    public Fornecedor getByID(Integer id) throws Exception {
+    public Fornecedor getByID(Integer id) throws SQLException {
         Assert.notNull(id, "ID passado como parametro não pode estar nulo");
         Fornecedor pessoa = fornecedorDAO.getByID(id);
       //  Assert.notNull(pessoa, "Não foi encontrado nenhuma pessoa com esse código");
         return pessoa;
     }
 
-    public void deleteByID(Pessoa pessoa) throws Exception {
+    public void deleteByID(Pessoa pessoa) throws SQLException {
         fornecedorDAO.deleteByID(pessoa.getId());
     }
 

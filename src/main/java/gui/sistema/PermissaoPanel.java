@@ -24,18 +24,18 @@ public class PermissaoPanel extends javax.swing.JPanel {
         initComponents();
         edtModulo.setText(modulo.getDescricaoSimplificada());
 
-        chkLeituraGravacao.setEnabled(modulo.isModoLeituraGravacaoPermitido() && modulo.isModoSomenteLeituraPermitido());
-        chkLeituraGravacao.setVisible(false);
-
-        if(somenteLeitura) {
-            edtModulo.setEnabled(false);
-            chkLeituraGravacao.setEnabled(false);
-        }
+        chkLeituraGravacao.setEnabled(true);//modulo.isModoLeituraGravacaoPermitido() && modulo.isModoSomenteLeituraPermitido());
+//        chkLeituraGravacao.setVisible(false);
+//
+//        if(somenteLeitura) {
+//            edtModulo.setEnabled(false);
+//            chkLeituraGravacao.setEnabled(false);
+//        }
     }
 
     public void setModuloSelecionado(boolean selected) {
         chkLeituraGravacao.setVisible(selected);
-        chkLeituraGravacao.setSelected(modulo.isModoLeituraGravacaoPermitido());
+        chkLeituraGravacao.setSelected(true);
     }
 
     public void setLeituraGravacaoSelecionado(boolean selected) {
@@ -104,13 +104,6 @@ public class PermissaoPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_chkLeituraGravacaoActionPerformed
 
-    private void chkModuloItemStateChanged(java.awt.event.ItemEvent evt) {
-        chkLeituraGravacao.setVisible(evt.getStateChange() == ItemEvent.SELECTED);
-    }
-
-    private void chkModuloActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
 
 
     public ModuloSistema getModulo() {

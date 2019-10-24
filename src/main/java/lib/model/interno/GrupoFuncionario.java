@@ -33,6 +33,24 @@ public class GrupoFuncionario implements Serializable {
 
     private List<PermissaoAcesso> permissoes;
 
+    private Funcionario funcionario;
+
+    public List<PermissaoAcesso> getPermissoes() {
+        return permissoes;
+    }
+
+    public void setPermissoes(List<PermissaoAcesso> permissoes) {
+        this.permissoes = permissoes;
+    }
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+
     public GrupoFuncionario() {
     }
 

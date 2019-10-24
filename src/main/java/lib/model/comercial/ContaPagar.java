@@ -3,6 +3,7 @@ package lib.model.comercial;
 import lib.model.financeiro.StatusConta;
 import lib.model.financeiro.formaPagamento.FormaPagamento;
 import lib.model.financeiro.parcela.Parcela;
+import lib.model.pessoa.fornecedor.Fornecedor;
 
 import java.util.Date;
 
@@ -12,7 +13,37 @@ public class ContaPagar {
 
     private Compra compra;
 
-    private Parcela parcela;
+    private String descricao;
+
+    private Fornecedor recebedor;
+
+    private boolean ativo;
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Fornecedor getRecebedor() {
+        return recebedor;
+    }
+
+    public void setRecebedor(Fornecedor recebedor) {
+        this.recebedor = recebedor;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+// private Parcela parcela;
 
     private Double valor;
 
@@ -22,10 +53,16 @@ public class ContaPagar {
 
     private FormaPagamento formaPagamento;
 
+    private Double desconto;
+
+    private Double juros;
+
+    private Double multa;
+
     private boolean paga;
 
     private Date dataPagamento;
-    private Double valorRecebido;
+    private Double valorPago;
 
     public Date getDataLancamento() {
         return dataLancamento;
@@ -51,12 +88,12 @@ public class ContaPagar {
         this.paga = paga;
     }
 
-    public Double getValorRecebido() {
-        return valorRecebido;
+    public Double getValorPago() {
+        return valorPago;
     }
 
-    public void setValorRecebido(Double valorRecebido) {
-        this.valorRecebido = valorRecebido;
+    public void setValorPago(Double valorPago) {
+        this.valorPago = valorPago;
     }
 
     public Date getDataPagamento() {
@@ -83,14 +120,6 @@ public class ContaPagar {
         this.compra = compra;
     }
 
-    public Parcela getParcela() {
-        return parcela;
-    }
-
-    public void setParcela(Parcela parcela) {
-        this.parcela = parcela;
-    }
-
     public FormaPagamento getFormaPagamento() {
         return formaPagamento;
     }
@@ -105,6 +134,30 @@ public class ContaPagar {
 
     public void setValor(Double valor) {
         this.valor = valor;
+    }
+
+    public Double getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(Double desconto) {
+        this.desconto = desconto;
+    }
+
+    public Double getJuros() {
+        return juros;
+    }
+
+    public void setJuros(Double juros) {
+        this.juros = juros;
+    }
+
+    public Double getMulta() {
+        return multa;
+    }
+
+    public void setMulta(Double multa) {
+        this.multa = multa;
     }
 
     public StatusConta getStatusConta() {

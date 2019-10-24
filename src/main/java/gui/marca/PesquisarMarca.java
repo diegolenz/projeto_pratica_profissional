@@ -41,7 +41,7 @@ public class PesquisarMarca extends DialogPadrao {
     }
 
     public PesquisarMarca( Window parent, boolean modal, PesquisarMarca.Callback callBack) {
-        super(parent, modal, ModuloSistema.PRODUTOS_SERVICOS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super(parent, modal, ModuloSistema.MARCAS, NivelAcessoModulo.SOMENTE_LEITURA);
         this.callback=callBack;
         tableModelMarca =new TableModelMarca();
         marcaService = new MarcaService();

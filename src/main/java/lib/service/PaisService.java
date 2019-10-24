@@ -18,8 +18,7 @@ public class PaisService {
         Assert.notNull(pais.getNome(), "Campo Nome precisa ser preenchido");
         Assert.notNull(pais.getDdi(), "Campo DDI é obrigatório");
         Optional<Pais> paisOptional = Optional.ofNullable(paisDao.getPaisByNomeExato(pais.getNome()));
-        Assert.isTrue(!paisOptional.isPresent(), "Ja existe um país com esse mesmo nome, o cadastro de país não não deve conter nomes duplicados \n" +
-                "pais encontrado = " + paisOptional.get().getId() + " " + paisOptional.get().getNome());
+        Assert.isTrue(!paisOptional.isPresent(), "Ja existe um país com esse mesmo nome, o cadastro de país não não deve conter nomes duplicados ");
         paisDao.save(pais);
     }
 
@@ -30,8 +29,7 @@ public class PaisService {
         Assert.notNull(pais.getDdi(), "Campo DDI é obrigatório");
         Optional<Pais> paisOptional = Optional.ofNullable(paisDao.getPaisByNomeExato(pais.getNome()));
         if (paisOptional.isPresent())
-        Assert.isTrue( paisOptional.get().getId() == pais.getId(), "Ja existe um país com esse mesmo nome, o cadastro de país não não deve conter nomes duplicados \n" +
-                "pais encontrado = " + paisOptional.get().getId() + " " + paisOptional.get().getNome());
+        Assert.isTrue( paisOptional.get().getId() == pais.getId(), "Ja existe um país com esse mesmo nome, o cadastro de país não não deve conter nomes duplicados ") ;
         paisDao.update(pais);
     }
 

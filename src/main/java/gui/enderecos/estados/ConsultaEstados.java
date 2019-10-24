@@ -39,7 +39,7 @@ public class ConsultaEstados extends SociusTab implements WindowPadrao {
      * Creates new form ConsultaPanel
      */
     public ConsultaEstados(Window parent) {
-        super(parent, ModuloSistema.PESSOAS);
+        super(parent, ModuloSistema.ENDERECO);
         initComponents();
         estadoService=new EstadoService();
        this.btnPesquisarActionPerformed(null);

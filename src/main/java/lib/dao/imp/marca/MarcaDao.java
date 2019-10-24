@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import lib.dao.imp.produto.ProdutoDao;
 import lib.model.marca.Marca;
 
 
 import lib.dao.AbstractDao;
+import lib.service.ProdutoService;
 
 public class MarcaDao<T> extends AbstractDao<T> {
 
@@ -52,6 +54,7 @@ public class MarcaDao<T> extends AbstractDao<T> {
 			marca.setId(rs.getInt("id"));
 			marca.setAtivo(rs.getBoolean("ativo"));
 			marca.setNome(rs.getString("nome"));
+			marca.setProdutos(new ProdutoDao<ProdutoDao>().findByMarca(marca.getId()));
 			marcas.add(marca);
 		}
 		return marcas;
@@ -85,7 +88,7 @@ public class MarcaDao<T> extends AbstractDao<T> {
 		return null;
 	}
 
-	public Marca getByID(Integer id) throws Exception{
+	public Marca getByID(Integer id) throws SQLException{
 		String sql = "Select * from marca where id ="+id+" ;";
 		PreparedStatement preparedStatement=st.getConnection().prepareStatement(sql);
 		ResultSet rs =  preparedStatement.executeQuery();

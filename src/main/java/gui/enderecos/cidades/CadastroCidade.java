@@ -31,7 +31,7 @@ public class CadastroCidade extends DialogPadrao {
      * Creates new form CadastroCidade
      */
     public CadastroCidade(Window parent, boolean modal, Cidade cidade, Callback callback) {
-        super( parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super( parent, modal, ModuloSistema.ENDERECO, NivelAcessoModulo.LEITURA_GRAVACAO);
         cidadeService=new CidadeService();
         estadoService=new EstadoService();
         this.callback = callback;

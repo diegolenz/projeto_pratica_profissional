@@ -34,7 +34,7 @@ public class ConsultaFormasPagamentos extends SociusTab implements WindowPadrao 
 
 
     public ConsultaFormasPagamentos(Window parent) {
-        super(parent, ModuloSistema.FINANCEIRO);
+        super(parent, ModuloSistema.FORMAS_PAGAMENTO);
         initComponents();
         tableModelMeioMovimentoCaixa=new TableModelMeioMovimentoCaixa();
        this.btnpesquisarActionPerformed(null);

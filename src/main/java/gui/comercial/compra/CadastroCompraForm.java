@@ -52,12 +52,15 @@ public class CadastroCompraForm extends DialogPadrao {
      * Creates new form CadastroCompraForm
      */
     public CadastroCompraForm(Window parent, boolean modal, Compra compra) {
-        super(parent, modal, ModuloSistema.FINANCEIRO, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super(parent, modal, ModuloSistema.COMPRAS, NivelAcessoModulo.LEITURA_GRAVACAO);
         initComponents();
         this.compra = compra;
         tableModelProduto = new TableModelItemProduto();
         tableModelContas = new TableModelContas();
         contas = new ArrayList<>();
+        if (compra.getModeloNota() == null){
+            lblStatus.setVisible(false);
+        }
         this.initDados();
     }
 
@@ -838,8 +841,6 @@ public class CadastroCompraForm extends DialogPadrao {
         this.edtFuncionario.setEditable(false);
         this.edtDtChegada.setEnabled(false);
         this.edtDtEmissão.setEnabled(false);
-        this.edtTotalAcrescimos.setEditable(false);
-        this.edtTotalDescontos.setEditable(false);
         this.edtValorFrete.setEditable(false);
         this.edtOutrasDespesas.setEditable(false);
         this.edtValorSeguro.setEditable(false);
@@ -881,8 +882,6 @@ public class CadastroCompraForm extends DialogPadrao {
         this.edtFuncionario.setEditable(true);
         this.edtDtChegada.setEnabled(true);
         this.edtDtEmissão.setEnabled(true);
-        this.edtTotalAcrescimos.setEditable(true);
-        this.edtTotalDescontos.setEditable(true);
         this.edtValorFrete.setEditable(true);
         this.edtOutrasDespesas.setEditable(true);
         this.edtValorSeguro.setEditable(true);
@@ -1271,7 +1270,14 @@ public class CadastroCompraForm extends DialogPadrao {
             data.add(Calendar.DATE, parcela.getDias());
             conta.setDataVencimento(data.getTime());
             conta.setCompra(compra);
-            conta.setParcela(parcela);
+            conta.setFormaPagamento(parcela.getFormaPagamento());
+
+            conta.setMulta(compra.getCondicaoPagamento().getMulta());
+            conta.setDesconto(compra.getCondicaoPagamento().getDesconto());
+            conta.setJuros(compra.getCondicaoPagamento().getJuros());
+            conta.setRecebedor(compra.getFornecedor() );
+            conta.setDescricao("Conta referente a compra Num. " + compra.getNumeroNota() + ", Ser. " + compra.getNumSerieNota() +
+                    ", mod. " + compra.getModeloNota());
             if (pos.equals(tam)) {
                 Double valorParcelaFinal = valorTotal - contas.stream().mapToDouble(ContaPagar::getValor).sum();
                 conta.setValor(valorParcelaFinal);

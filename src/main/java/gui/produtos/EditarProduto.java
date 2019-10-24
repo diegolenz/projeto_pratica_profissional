@@ -28,7 +28,7 @@ public class EditarProduto extends DialogPadrao {
      * Creates new form EditarProduto
      */
     public EditarProduto(Window parent, boolean modal, Produto produto) {
-        super(parent, modal, ModuloSistema.PRODUTOS_SERVICOS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super(parent, modal, ModuloSistema.PRODUTOS, NivelAcessoModulo.LEITURA_GRAVACAO);
         initComponents();
         this.produto=produto;
         tableModelProduto=new TableModelProduto();

@@ -23,7 +23,7 @@ public class TrocarSenhaForm extends DialogPadrao {
 
 
     public TrocarSenhaForm(Window parent, boolean modal, Funcionario operador) {
-        super(parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super(parent, modal, ModuloSistema.SISTEMA_OPERADORES, NivelAcessoModulo.LEITURA_GRAVACAO);
         initComponents();
         this.operador=operador;
         edtUsuario.setText(operador.getUsuario());

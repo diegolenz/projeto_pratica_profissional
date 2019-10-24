@@ -4,6 +4,7 @@ import lib.dao.imp.marca.MarcaDao;
 import lib.model.marca.Marca;
 import org.springframework.util.Assert;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +49,7 @@ public class MarcaService {
         return marcaDao.getAllAtivos();
     }
 
-    public Object getByID(Integer id) throws Exception{
+    public Object getByID(Integer id) throws SQLException {
         Marca marca = (Marca) marcaDao.getByID(id);
       //  Assert.notNull(marca, "Nenhuma marca com esse id foi encontrada");
         return marca;

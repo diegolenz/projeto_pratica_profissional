@@ -4,6 +4,7 @@ import lib.dao.imp.grupo.GrupoDao;
 import lib.model.grupo.Grupo;
 import org.springframework.util.Assert;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +51,7 @@ public class GrupoService {
         return (Grupo) grupoDao.findLast().get();
     }
 
-    public Object getByID(Integer id) throws Exception{
+    public Object getByID(Integer id) throws SQLException {
 
         Grupo grupo = null;
         Optional<Grupo> grupoOptional = grupoDao.getByID(id);

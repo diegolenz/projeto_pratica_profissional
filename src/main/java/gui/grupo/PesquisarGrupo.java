@@ -39,7 +39,7 @@ public class PesquisarGrupo extends DialogPadrao {
     }
 
     public PesquisarGrupo(Window parent, boolean modal, PesquisarGrupo.Callback callBack) {
-        super( parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super( parent, modal, ModuloSistema.GRUPOS_PRODUTOS_SERVICOS, NivelAcessoModulo.SOMENTE_LEITURA);
         this.callback=callBack;
         initComponents();
         this.grupoService = new GrupoService();

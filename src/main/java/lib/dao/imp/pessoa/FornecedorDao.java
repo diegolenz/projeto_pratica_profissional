@@ -40,7 +40,7 @@ public class FornecedorDao extends AbstractDao {
         }
     }
 
-    private List<CondicaoPagamento> getCondicaoByFornecedor(Integer id)throws Exception{
+    private List<CondicaoPagamento> getCondicaoByFornecedor(Integer id)throws SQLException{
         PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM condicao_pagamento_fornecedor WHERE fornecedor_id = "+id+";");
         ResultSet rs = preparedStatement.executeQuery();
         List<CondicaoPagamento> condicaoPagamentos = new ArrayList<>();
@@ -67,9 +67,10 @@ public class FornecedorDao extends AbstractDao {
         // Insere informações da pessoa
         String sql = "INSERT INTO pessoa (" +
                 " nome," +
-                " cpf_cnpj," +
-                " data_nascimento," +
-                " email," +
+                " cpf_cnpj," ;
+        if (fornecedor.getDataNascimento() != null)
+            sql += " data_nascimento," ;
+        sql += " email," +
                 " sexo," +
                 " nome_fantasia_apelido," +
                 " rg_ie," +
@@ -84,9 +85,11 @@ public class FornecedorDao extends AbstractDao {
                 " cep" +
                 ") values (" +
                 "'" +    fornecedor.getNome() +
-                "','" +  fornecedor.getCpfCnpj() +
-                "', '" + date +
-                "', '" + fornecedor.getEmail() +
+                "','" +  fornecedor.getCpfCnpj() + "',";
+        if (fornecedor.getDataNascimento() != null)
+            sql+= " '" + date + "',";
+
+        sql += " '" + fornecedor.getEmail() +
                 "', " +  fornecedor.getSexo().ordinal() +
                 ", '" +  fornecedor.getNomeFantasia_Apelido() +
                 "', '" + fornecedor.getRgIe() +
@@ -114,12 +117,27 @@ public class FornecedorDao extends AbstractDao {
         this.saveCondicoesPagamento(fornecedor.getCondicoesPagamentos(),getUltimoIDPessoa());
     }
 
-    public void deleteByID(Object id) throws Exception {
+    public void deleteByID(Object id) throws SQLException {
+        ResultSet rs = this.st.executeQuery("SELECT * FROM fornecedor where id = " + id  +" ;");
+        Integer idPessoa = null;
+        if (rs.next()){
+            idPessoa = rs.getInt("pessoa_id");
+        }
+
+        this.st.getConnection().setAutoCommit(false);
+        String deleteCondiscoes = "DELETE FROM condicao_pagamento_fornecedor where fornecedor_id =" + fornecedor.getId();
         String sql = "DELETE FROM fornecedor WHERE id = " + id + " ;";
-        this.st.executeUpdate(sql);
+        String deletePessoa = "DELETE FROM pessoa WHERE id = " + idPessoa + " ;";
+
+        this.st.execute(deleteCondiscoes);
+        this.st.execute(sql);
+        this.st.execute(deletePessoa);
+
+        this.st.getConnection().commit();
+        this.st.getConnection().setAutoCommit(true);
     }
 
-    public List getAllFornecedores(String termoBusca) throws Exception {
+    public List getAllFornecedores(String termoBusca) throws SQLException {
         String sql ="";
         if (termoBusca.length() ==0)
             sql = "SELECT * FROM fornecedor;" ;
@@ -133,11 +151,11 @@ public class FornecedorDao extends AbstractDao {
 
         while (rs.next()) {
             Fornecedor fornecedor = new Fornecedor();
-            fornecedor.setId(rs.getInt("id"));
             fornecedor.setAtivo( rs.getBoolean("ativo"));
             fornecedor.setDataUltAlteracao(rs.getDate("data_ultima_alteracao"));
             fornecedor.setDataCadastro(rs.getDate("data_cadastro"));
             getPessoaByID(rs.getInt("pessoa_id"), fornecedor);
+            fornecedor.setId(rs.getInt("id"));
             fornecedor.setCondicoesPagamentos(getCondicaoByFornecedor(fornecedor.getId()));
             fornecedors.add(fornecedor);
         }
@@ -151,6 +169,7 @@ public class FornecedorDao extends AbstractDao {
         String sql = "UPDATE pessoa SET nome = '" + fornecedor.getNome() +
                 "', sexo = " + fornecedor.getSexo().ordinal() +
                 ",  nome_fantasia_apelido = '" + fornecedor.getNomeFantasia_Apelido() +
+                "', cpf_cnpj = '" + fornecedor.getCpfCnpj() +
                 "', rg_ie = '" + fornecedor.getRgIe() +
                 "', telefone = '" + fornecedor.getTelefone()  +
                 "', telefone_alternativo = '" + fornecedor.getTelefoneAlternativo() +
@@ -193,7 +212,7 @@ public class FornecedorDao extends AbstractDao {
         return fornecedors;
     }
 
-    public Fornecedor getByID(Integer id) throws Exception {
+    public Fornecedor getByID(Integer id) throws SQLException {
         PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM fornecedor WHERE ID = "+id+";");
         ResultSet rs = preparedStatement.executeQuery();
         Fornecedor fornecedor=null;
@@ -209,7 +228,7 @@ public class FornecedorDao extends AbstractDao {
         return fornecedor;
     }
 
-    public Fornecedor getPessoaByID(Integer id, Fornecedor fornecedor)throws Exception{
+    public Fornecedor getPessoaByID(Integer id, Fornecedor fornecedor)throws SQLException{
         PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM pessoa WHERE id = '"+ id +"' ;");
         ResultSet rs = preparedStatement.executeQuery();
         if (rs.next()) {
@@ -253,7 +272,8 @@ public class FornecedorDao extends AbstractDao {
     }
 
     public Fornecedor getByCpfCnpjExato(String cpf) throws Exception {
-        PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT id FROM pessoa WHERE cpf_cnpj = '"+cpf+"' ;");
+        PreparedStatement preparedStatement=st.getConnection().prepareStatement(
+               " select * from fornecedor where pessoa_id in (select id from pessoa where cpf_cnpj = '"+cpf+"');");
         ResultSet rs = preparedStatement.executeQuery();
         Fornecedor fornecedor = null ;
         if (rs.next()) {

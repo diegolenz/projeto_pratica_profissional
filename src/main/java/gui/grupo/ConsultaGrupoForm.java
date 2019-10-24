@@ -35,7 +35,7 @@ public class ConsultaGrupoForm extends SociusTab implements WindowPadrao {
      * Creates new form ConsultaPanel
      */
     public ConsultaGrupoForm(Window parent) {
-        super(parent, ModuloSistema.PESSOAS);
+        super(parent, ModuloSistema.GRUPOS_PRODUTOS_SERVICOS);
         initComponents();
         grupos=new ArrayList<>();
         grupoService=new GrupoService();

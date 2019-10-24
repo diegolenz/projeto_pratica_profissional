@@ -6,6 +6,7 @@ import lib.model.grupo.Grupo;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -89,7 +90,7 @@ public class GrupoDao <T> extends AbstractDao<T> {
         return grupos;
     }
 
-    public Optional<Grupo> getByID(Integer id)throws Exception{
+    public Optional<Grupo> getByID(Integer id)throws SQLException {
         String sql = "Select * from grupo where id ="+id+" ;";
         PreparedStatement preparedStatement=st.getConnection().prepareStatement(sql);
         ResultSet rs =  preparedStatement.executeQuery();

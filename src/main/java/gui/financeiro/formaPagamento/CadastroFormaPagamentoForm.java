@@ -28,7 +28,7 @@ public class CadastroFormaPagamentoForm  extends DialogPadrao {
      * Creates new form CadastroMeioPagamentoForm
      */
     public CadastroFormaPagamentoForm(Window parent, boolean modal, FormaPagamento formaPagamento, Callback callback) {
-        super(parent, modal, ModuloSistema.SISTEMA_OPERADORES, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super(parent, modal, ModuloSistema.FORMAS_PAGAMENTO, NivelAcessoModulo.LEITURA_GRAVACAO);
         initComponents();
         this.callback = callback;
         this.formaPagamento = formaPagamento;

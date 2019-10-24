@@ -66,9 +66,10 @@ public class FormaPagamentoDAO extends AbstractDao {
         PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM forma_Pagamento WHERE id = "+id+";");
         //    ResultSet rs = this.st.executeQuery("SELECT * FROM pais WHERE ID = "+id+";");
         ResultSet rs = preparedStatement.executeQuery();
-        FormaPagamento formaPagamento = new FormaPagamento();
+        FormaPagamento formaPagamento =null;
 
         while (rs.next()) {
+            formaPagamento = new FormaPagamento();
             formaPagamento.setId(rs.getInt("id"));
             formaPagamento.setNome(rs.getString("nome"));
             formaPagamento.setAtivo(rs.getBoolean("ativo"));

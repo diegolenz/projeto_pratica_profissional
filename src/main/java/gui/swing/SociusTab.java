@@ -44,7 +44,7 @@ public abstract class SociusTab extends JPanel implements WindowPadrao {
 
         Funcionario operador = AppFacade.getOperador();
 
-        if (!moduloSistema.isVirtual() && !operador.isPermissaoConcedida(moduloSistema, NivelAcessoModulo.LEITURA_GRAVACAO)) {
+        if (!operador.isPermissaoConcedida(moduloSistema, NivelAcessoModulo.LEITURA_GRAVACAO)) {
             JOptionPane.showMessageDialog( this,
                     "Acesso negado \n"+
                     "Você não tem permissão de acesso ao recurso solicitado! \n"

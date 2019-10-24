@@ -45,7 +45,7 @@ public class CadastroProdutos extends DialogPadrao {
      * Creates new form CadastroProdutos
      */
     public CadastroProdutos(Window parent, boolean modal, Produto produto, Callback callback) {
-        super(parent, modal, ModuloSistema.PRODUTOS_SERVICOS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super(parent, modal, ModuloSistema.PRODUTOS, NivelAcessoModulo.LEITURA_GRAVACAO);
 
         initComponents();
        this.callback = callback;

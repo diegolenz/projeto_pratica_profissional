@@ -21,52 +21,49 @@ import java.util.stream.Collectors;
 public enum ModuloSistema implements Serializable {
 
     //produtos
-    PRODUTOS_SERVICOS(CategoriaModuloSistema.PRODUTOS, "Produtos", true, true),
-
-    //orcamentos
-    ORCAMENTO(CategoriaModuloSistema.ORCAMENTOS, "Orçamentos", true,true),
+    PRODUTOS(CategoriaModuloSistema.ESTOQUE, "Produtos"),
+    SERVICOS(CategoriaModuloSistema.ESTOQUE,"Serviços"),
+    MARCAS(CategoriaModuloSistema.ESTOQUE, "Marcas"),
+    GRUPOS_PRODUTOS_SERVICOS(CategoriaModuloSistema.ESTOQUE, "Grupos de produtos/serviços"),
 
     //PESSOAS
-    PESSOAS(CategoriaModuloSistema.PESSOAS, "Pessoas", true, true),
+    FORNECEDORES(CategoriaModuloSistema.PESSOAS, "Forncededores"),
+    CLIENTES(CategoriaModuloSistema.PESSOAS, "Clientes"),
 
-    //VENDAS_COMPRAS
-    FINANCEIRO(CategoriaModuloSistema.FINANCIRO, "Financeiro", true, true),
+    //COMERCIAL
+    COMPRAS(CategoriaModuloSistema.COMERCIAL, "Compras"),
+    VENDAS(CategoriaModuloSistema.COMERCIAL, "Vendas"),
 
-    //atendimento
-    ATENDIMENTO_SUPERVISIONAR_ALTERACAO_TIPO_TITULO(CategoriaModuloSistema.SISTEMA, "Supervisionar alteração de tipo de título", false, true),
-    ATENDIMENTO_SUPERVISIONAR_ALTERACAO_VALOR_TRANSFERENCIA_TITULO(CategoriaModuloSistema.SISTEMA, "Supervisionar alteração do valor de transferência de título", false, true),
-    ATENDIMENTO_SUPERVISIONAR_ALTERACAO_VALOR_CANCELAMENTO_TITULO(CategoriaModuloSistema.SISTEMA, "Supervisionar alteração do valor de cancelamento de título", false, true),
-    ATENDIMENTO_SUPERVISIONAR_CANCELAMENTO_CONTAS_RECEBER(CategoriaModuloSistema.SISTEMA, "Supervisionar cancelamento de contas a receber", false, true),
+    //FINANCEIRO
+    CONTAS_PAGAR(CategoriaModuloSistema.FINANCIRO, "Contas a pagar"),
+    CONTAS_RECEBER(CategoriaModuloSistema.FINANCIRO, "Contas a receber"),
+    CAIXAS(CategoriaModuloSistema.FINANCIRO, "Caixas"),
+    FORMAS_PAGAMENTO(CategoriaModuloSistema.FINANCIRO, "Formas de pagamentos"),
+    CONDICOES_PAGAMENTO(CategoriaModuloSistema.FINANCIRO, "Condições de pagamento"),
 
+    //Sistema
+    SISTEMA_GRUPO_OPERADORES(CategoriaModuloSistema.SISTEMA, "Grupos de operadores"),
+    SISTEMA_OPERADORES(CategoriaModuloSistema.SISTEMA, "Operadores"),
 
+    //CADASTROS
+    ENDERECO(CategoriaModuloSistema.CADASTROS, "Endereços");
 
-
-    // Sistema
-    SISTEMA_GRUPO_OPERADORES(CategoriaModuloSistema.SISTEMA, "Grupos de operadores", true, true),
-    SISTEMA_OPERADORES(CategoriaModuloSistema.SISTEMA, "Operadores", true, true),
-
-
-
-    // ENDEREÇOS
-    ENDERECO_ESTADO(CategoriaModuloSistema.ENDERECO, "Estado", true, true),
-    ENDERECO_BAIRRO(CategoriaModuloSistema.ENDERECO, "Bairro", true, true),
-    ENDERECO_CIDADE(CategoriaModuloSistema.ENDERECO, "Cidade", true, true);
 
     private final CategoriaModuloSistema categoria;
     private final String descricao;
-    private final boolean permiteModoSomenteLeitura;
-    private final boolean permiteModoLeituraGravacao;
+//    private final boolean permiteModoSomenteLeitura;
+//    private final boolean permiteModoLeituraGravacao;
 
-    ModuloSistema(CategoriaModuloSistema categoria, String descricao, boolean permiteModoSomenteLeitura, boolean permiteModoLeituraGravacao) {
+    ModuloSistema(CategoriaModuloSistema categoria, String descricao) {
         this.categoria = categoria;
         this.descricao = descricao;
-        this.permiteModoSomenteLeitura = permiteModoSomenteLeitura;
-        this.permiteModoLeituraGravacao = permiteModoLeituraGravacao;
+//        this.permiteModoSomenteLeitura = permiteModoSomenteLeitura;
+//        this.permiteModoLeituraGravacao = permiteModoLeituraGravacao;
     }
 
-    public boolean isVirtual() {
-        return categoria == CategoriaModuloSistema.VIRTUAL;
-    }
+//    public boolean isVirtual() {
+//        return categoria == CategoriaModuloSistema.VIRTUAL;
+//    }
 
     public CategoriaModuloSistema getCategoria() {
         return categoria;
@@ -80,17 +77,17 @@ public enum ModuloSistema implements Serializable {
         return descricao;
     }
 
-    public boolean isModoSomenteLeituraPermitido() {
-        return permiteModoSomenteLeitura;
-    }
-
-    public boolean isModoLeituraGravacaoPermitido() {
-        return permiteModoLeituraGravacao;
-    }
+//    public boolean isModoSomenteLeituraPermitido() {
+//        return permiteModoSomenteLeitura;
+//    }
+//
+//    public boolean isModoLeituraGravacaoPermitido() {
+//        return permiteModoLeituraGravacao;
+//    }
 
     public static final List<ModuloSistema> getAll() {
         return Arrays.stream(values())
-                .filter(modulo -> !modulo.isVirtual())
+               // .filter(modulo -> !modulo.isVirtual())
                 .sorted(Comparator.comparing(ModuloSistema::getDescricao))
                 .collect(Collectors.toList());
     }

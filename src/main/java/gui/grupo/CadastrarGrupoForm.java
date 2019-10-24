@@ -37,7 +37,7 @@ public class CadastrarGrupoForm extends  DialogPadrao {
      * Creates new form NovaPessoaForm
      */
     public CadastrarGrupoForm(Window parent, boolean modal, Grupo grupo, Callback callback) {
-        super( parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super( parent, modal, ModuloSistema.GRUPOS_PRODUTOS_SERVICOS, NivelAcessoModulo.LEITURA_GRAVACAO);
         initComponents();
         this.callback = callback;
         this.grupo = grupo;

@@ -38,7 +38,7 @@ public class PesquisarPais extends DialogPadrao {
     }
 
     public PesquisarPais(Window parent, boolean modal, PesquisarPais.Callback callBack) {
-        super(parent, modal, ModuloSistema.PESSOAS ,NivelAcessoModulo.SOMENTE_LEITURA);
+        super(parent, modal, ModuloSistema.ENDERECO ,NivelAcessoModulo.SOMENTE_LEITURA);
         this.callback=callBack;
         modelo = new TableModelPais();
         this.paisService=new PaisService();

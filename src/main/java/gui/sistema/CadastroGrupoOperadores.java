@@ -57,7 +57,6 @@ public class CadastroGrupoOperadores extends DialogPadrao {
     private void initPermissoes() {
 
             Arrays.stream(CategoriaModuloSistema.values())
-                    .filter(item -> item != CategoriaModuloSistema.VIRTUAL)
                     .sorted(Comparator.comparing(CategoriaModuloSistema::getDescricao))
                     .forEach(categoria -> {
                         GrupoPermissaoPanel panel = new GrupoPermissaoPanel( categoria, false);
@@ -85,6 +84,7 @@ public class CadastroGrupoOperadores extends DialogPadrao {
         pnlPermissoes = new javax.swing.JPanel();
         edtNome = new javax.swing.JTextField();
         lblTitulo1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -116,10 +116,10 @@ public class CadastroGrupoOperadores extends DialogPadrao {
         pnlPermissoes.setLayout(new javax.swing.BoxLayout(pnlPermissoes, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane2.setViewportView(pnlPermissoes);
 
-        edtNome.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nome do grupo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
-
         lblTitulo1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblTitulo1.setText("Permissoes");
+
+        jLabel1.setText("Nome do grupo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,7 +131,9 @@ public class CadastroGrupoOperadores extends DialogPadrao {
                     .addComponent(jScrollPane2)
                     .addComponent(edtNome)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblTitulo1)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(lblTitulo1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -139,11 +141,13 @@ public class CadastroGrupoOperadores extends DialogPadrao {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTitulo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -161,7 +165,7 @@ public class CadastroGrupoOperadores extends DialogPadrao {
                         .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblTitulo)
-                        .addGap(0, 299, Short.MAX_VALUE))
+                        .addGap(0, 590, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -251,6 +255,7 @@ public class CadastroGrupoOperadores extends DialogPadrao {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTextField edtNome;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblTitulo;

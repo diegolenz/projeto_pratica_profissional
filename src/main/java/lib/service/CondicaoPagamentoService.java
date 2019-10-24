@@ -56,10 +56,10 @@ public class CondicaoPagamentoService {
     }
 
 
-    public CondicaoPagamento getByID(Integer id) throws Exception {
+    public CondicaoPagamento getByID(Integer id) throws SQLException {
         Assert.notNull(id, "ID passado como parametro não pode estar nulo");
         CondicaoPagamento condicaoPagamento = condicaoPagamentoDAO.getByID(id);
-        Assert.notNull(condicaoPagamento, "Não foi encontrado nenhum estado com esse código");
+       // Assert.notNull(condicaoPagamento, "Não foi encontrado nenhum estado com esse código");
         return  condicaoPagamento;
     }
 

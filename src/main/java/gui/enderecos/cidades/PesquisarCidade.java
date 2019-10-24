@@ -45,7 +45,7 @@ public class PesquisarCidade extends DialogPadrao {
     }
 
     public PesquisarCidade(Window  parent, boolean modal, PesquisarCidade.Callback callBack) {
-        super( parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super( parent, modal, ModuloSistema.ENDERECO, NivelAcessoModulo.SOMENTE_LEITURA);
         this.callback=callBack;
         initComponents();
         this.btnpesquisarActionPerformed(null);

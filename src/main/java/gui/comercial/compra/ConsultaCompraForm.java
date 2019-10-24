@@ -31,7 +31,7 @@ public class ConsultaCompraForm extends SociusTab implements WindowPadrao {
      * Creates new form ConsultaPanel
      */
     public ConsultaCompraForm(Window parent) {
-        super(parent, ModuloSistema.PESSOAS);
+        super(parent, ModuloSistema.COMPRAS);
         initComponents();
         tableModelCompra = new TableModelCompra();
         compras = new ArrayList<>();

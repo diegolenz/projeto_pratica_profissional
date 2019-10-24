@@ -39,7 +39,7 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
      * Creates new form ConsultaPanel
      */
     public ConsultaCidades(Window parent) {
-        super(parent, ModuloSistema.PESSOAS);
+        super(parent, ModuloSistema.ENDERECO);
         initComponents();
         modelo =new TableModelCidade();
         this.jButton1ActionPerformed(null);
@@ -228,6 +228,7 @@ public class ConsultaCidades extends SociusTab implements WindowPadrao {
         CadastroCidade cadastroCidade = new CadastroCidade(getWindowParent(), true, cidadeSelecionado, null);
         cadastroCidade.carregaEdt();
         cadastroCidade.bloqueiaEdt();
+        cadastroCidade.show();
         if (JOptionPane.showConfirmDialog(getWindowParent(), "Deseja realmente excluir a cidade selecionada ?", "Atenção", JOptionPane.YES_NO_OPTION)==0) {
             try {
                 new CidadeService().deleteByID(cidadeSelecionado.getId());

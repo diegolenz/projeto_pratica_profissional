@@ -5,12 +5,15 @@
  */
 package gui.operador;
 import gui.enderecos.cidades.PesquisarCidade;
+import gui.swing.DialogPadrao;
 import gui.swing.SwingFormatterFactory;
 import javafx.scene.input.KeyCode;
 import lib.dao.imp.sistema.FuncionarioDao;
 import lib.model.endereco.cidade.Cidade;
 import lib.model.interno.Funcionario;
 import lib.model.interno.GrupoFuncionario;
+import lib.model.interno.ModuloSistema;
+import lib.model.interno.NivelAcessoModulo;
 import lib.model.pessoa.Sexo;
 import lib.model.pessoa.TipoPessoa;
 import lib.service.CidadeService;
@@ -24,7 +27,7 @@ import java.util.List;
  *
  * @author diego.lenz
  */
-public class CadastrarFuncionario extends javax.swing.JDialog {
+public class CadastrarFuncionario extends DialogPadrao {
 
     private String senha;
     private final boolean modoAdicao;
@@ -56,8 +59,8 @@ public class CadastrarFuncionario extends javax.swing.JDialog {
         pnlPermissoes.revalidate(); */
 }
 
-    public CadastrarFuncionario(java.awt.Frame parent, boolean modal, Funcionario operador) {
-        super(parent, modal);
+    public CadastrarFuncionario(Window parent, boolean modal, Funcionario operador) {
+        super(parent, modal, ModuloSistema.SISTEMA_OPERADORES, NivelAcessoModulo.LEITURA_GRAVACAO);
         initComponents();
         if (operador==null){
             operador=new Funcionario();

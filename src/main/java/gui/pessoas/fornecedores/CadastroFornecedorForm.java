@@ -46,7 +46,7 @@ public class CadastroFornecedorForm extends DialogPadrao {
      * Creates new form NovaPessoaForm
      */
     public CadastroFornecedorForm(Window parent, boolean modal, Fornecedor pessoa) {
-        super(parent, modal, ModuloSistema.PESSOAS, NivelAcessoModulo.LEITURA_GRAVACAO);
+        super(parent, modal, ModuloSistema.FORNECEDORES, NivelAcessoModulo.LEITURA_GRAVACAO);
         initComponents();
         this.pessoa = pessoa;
         tableModelCondicaoPagamento = new TableModelCondicaoPagamento();
@@ -1046,6 +1046,7 @@ public class CadastroFornecedorForm extends DialogPadrao {
 
     private void cmbtipocadActionPerformed(java.awt.event.ActionEvent evt) {
         if (cmbtipocad.getSelectedItem() == "FISICA") {
+            edtCep.setText("");
             lblApelido.setText("Apelido");
             lblNomeCompleto.setText("Nome completo *");
             lblCpfCnpj.setText("CPF *");
@@ -1070,6 +1071,7 @@ public class CadastroFornecedorForm extends DialogPadrao {
             lblSexo.setEnabled(true);
 
         } else if (cmbtipocad.getSelectedItem() == "ESTRANGEIRO") {
+            edtCep.setText("");
             lblApelido.setText("Apelido");
             lblNomeCompleto.setText("Nome completo *");
             lblCpfCnpj.setText("Documento *");
@@ -1096,6 +1098,7 @@ public class CadastroFornecedorForm extends DialogPadrao {
         } else {
             lblApelido.setText("Nome fantasia *");
             lblNomeCompleto.setText("razão Social *");
+            edtCep.setText("");
             lblCpfCnpj.setText("CNPJ *");
             lblDtNascimento.setText("Data de fundação");
             lblRgIE.setText("IE");
@@ -1125,47 +1128,6 @@ public class CadastroFornecedorForm extends DialogPadrao {
         this.txtCpf.revalidate();
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroFornecedorForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroFornecedorForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroFornecedorForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroFornecedorForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CadastroFornecedorForm dialog = new CadastroFornecedorForm(new javax.swing.JDialog(), true, null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCondicao;

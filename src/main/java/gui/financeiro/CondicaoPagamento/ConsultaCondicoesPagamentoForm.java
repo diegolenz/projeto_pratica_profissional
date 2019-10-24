@@ -31,7 +31,7 @@ public class ConsultaCondicoesPagamentoForm extends SociusTab implements WindowP
      * Creates new form ConsultaPanel
      */
     public ConsultaCondicoesPagamentoForm(Window parent) {
-        super(parent, ModuloSistema.PESSOAS);
+        super(parent, ModuloSistema.CONDICOES_PAGAMENTO);
         initComponents();
         this.tableModelCondicaoPagamento = new TableModelCondicaoPagamento();
         try {

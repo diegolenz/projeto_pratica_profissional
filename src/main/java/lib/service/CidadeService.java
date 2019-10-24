@@ -5,6 +5,7 @@ import lib.model.endereco.cidade.Cidade;
 import org.springframework.util.Assert;
 
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public class CidadeService {
     }
 
 
-    public Cidade getCidadeByID(Integer id) throws Exception {
+    public Cidade getCidadeByID(Integer id) throws SQLException {
         Assert.notNull(id, "ID passado como parametro não pode estar nulo");
         Cidade cidade = cidadeDao.getByID(id);
         Assert.notNull(cidade.getId(), "Nenhuma cidade foi encontrada com esse código");

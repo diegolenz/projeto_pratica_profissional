@@ -10,10 +10,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 
-/**
- *
- * @author lucas
- */
 public class PermissaoAcesso implements Serializable {
 
     private static final Long serialVersionUID = 1L;
