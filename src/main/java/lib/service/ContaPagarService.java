@@ -1,7 +1,7 @@
 package lib.service;
 
 import lib.dao.imp.financeiro.contas.contas_a_pagar.ContasPagarDao;
-import lib.model.comercial.ContaPagar;
+import lib.model.financeiro.contas.ContaPagar;
 
 import java.sql.SQLException;
 import java.util.HashMap;

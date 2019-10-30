@@ -1,9 +1,8 @@
 package lib.dao.imp.comercial.compras;
 
 import lib.dao.AbstractDao;
-import lib.dao.imp.financeiro.ParcelaDAO;
 import lib.model.comercial.Compra;
-import lib.model.comercial.ContaPagar;
+import lib.model.financeiro.contas.ContaPagar;
 import lib.model.comercial.ItemProduto;
 import lib.model.comercial.frete.TipoFrete;
 import lib.model.produto.Produto;
@@ -208,8 +207,9 @@ public class CompraDao extends AbstractDao {
         return compras;
     }
 
-    public Object getByID(String modelo, Integer numero, Integer serie) throws Exception {
-        String sql = "Select * from compra where numero = " + numero + " and serie = " + serie + " and modelo = '" + modelo + "' ;";
+    public Object getByID(String modelo, Integer numero, Integer serie, Integer fornecedorId) throws Exception {
+        String sql = "Select * from compra where numero = " + numero + " and serie = " + serie + " and modelo = '" + modelo + "' and" +
+                " fornecedor_id = "+ fornecedorId +" ;";
         PreparedStatement preparedStatement = st.getConnection().prepareStatement(sql);
         ResultSet rs = preparedStatement.executeQuery();
         Compra compra = null;

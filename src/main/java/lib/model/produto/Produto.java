@@ -25,6 +25,8 @@ public class Produto {
 
     private Date dataUltimaCompra;
 
+    private Date dataUltimaVenda;
+
     private String codigoBarras;
 
     private Marca marca;
@@ -188,5 +190,13 @@ public class Produto {
 
     public void setDataUltimaCompra(Date dataUltimaCompra) {
         this.dataUltimaCompra = dataUltimaCompra;
+    }
+
+    public Date getDataUltimaVenda() {
+        return dataUltimaVenda;
+    }
+
+    public void setDataUltimaVenda(Date dataUltimaVenda) {
+        this.dataUltimaVenda = dataUltimaVenda;
     }
 }

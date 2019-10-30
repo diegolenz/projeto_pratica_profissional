@@ -13,20 +13,30 @@ import java.io.Serializable;
 public class PermissaoAcesso implements Serializable {
 
     private static final Long serialVersionUID = 1L;
-    private Long id;
+    private Integer id;
 
     private ModuloSistema modulo;
 
     private NivelAcessoModulo nivelAcesso;
 
+    private GrupoFuncionario grupoFuncionario;
+
+    public GrupoFuncionario getGrupoFuncionario() {
+        return grupoFuncionario;
+    }
+
+    public void setGrupoFuncionario(GrupoFuncionario grupoFuncionario) {
+        this.grupoFuncionario = grupoFuncionario;
+    }
+
     public PermissaoAcesso() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -1,9 +1,7 @@
 package lib.dao.imp.financeiro.contas.contas_a_pagar;
 
 import lib.dao.AbstractDao;
-import lib.model.comercial.Compra;
-import lib.model.comercial.ContaPagar;
-import lib.model.financeiro.formaPagamento.FormaPagamento;
+import lib.model.financeiro.contas.ContaPagar;
 import lib.service.FormaPagamentoService;
 import lib.service.FornecedorService;
 

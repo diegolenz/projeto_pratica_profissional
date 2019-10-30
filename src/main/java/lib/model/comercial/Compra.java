@@ -2,6 +2,7 @@ package lib.model.comercial;
 
 import lib.model.comercial.frete.TipoFrete;
 import lib.model.financeiro.CondicaoPagamento.CondicaoPagamento;
+import lib.model.financeiro.contas.ContaPagar;
 import lib.model.interno.Funcionario;
 import lib.model.pessoa.fornecedor.Fornecedor;
 import util.Util;

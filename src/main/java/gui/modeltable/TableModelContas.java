@@ -1,6 +1,6 @@
 package gui.modeltable;
 
-import lib.model.comercial.ContaPagar;
+import lib.model.financeiro.contas.ContaPagar;
 import util.Util;
 
 import javax.swing.table.AbstractTableModel;

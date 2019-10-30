@@ -192,7 +192,7 @@ public class ClienteDAO extends AbstractDao {
         return clientes;
     }
 
-    public Cliente getByID(Integer id) throws Exception {
+    public Cliente getByID(Integer id) throws SQLException {
         PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM cliente WHERE ID = "+id+";");
         ResultSet rs = preparedStatement.executeQuery();
         Cliente cliente=new Cliente();
@@ -207,7 +207,7 @@ public class ClienteDAO extends AbstractDao {
         return cliente;
     }
 
-    public Cliente getPessoaByID(Integer id, Cliente cliente)throws Exception{
+    public Cliente getPessoaByID(Integer id, Cliente cliente)throws SQLException{
         PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM pessoa WHERE id = '"+ id +"' ;");
         ResultSet rs = preparedStatement.executeQuery();
         if (rs.next()) {

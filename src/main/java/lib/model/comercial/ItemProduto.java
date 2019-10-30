@@ -14,6 +14,8 @@ public class ItemProduto extends Produto{
 
     private Compra compra;
 
+    private Venda venda;
+
     private Double valorTotal ;
 
     private Double valorRateio ;
@@ -111,5 +113,13 @@ public class ItemProduto extends Produto{
 
     public void setValorUnitario(Double valorUnitario) {
         this.valorUnitario = valorUnitario;
+    }
+
+    public Venda getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
     }
 }

@@ -7,62 +7,62 @@ package gui.sistema;
 
 import gui.swing.DialogPadrao;
 import lib.model.interno.*;
+import lib.service.GrupoFuncionarioService;
+import lib.service.GrupoService;
 
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
- *
  * @author diego.lenz
  */
 public class CadastroGrupoOperadores extends DialogPadrao {
-    private  GrupoFuncionario grupoOperador;
-    private  Map<CategoriaModuloSistema, GrupoPermissaoPanel> gruposModulo;
-
+    private GrupoFuncionario grupoOperador;
+    private Map<CategoriaModuloSistema, GrupoPermissaoPanel> gruposModulo;
 
 
     public CadastroGrupoOperadores(Window parent, boolean modal, GrupoFuncionario tipooperador) {
         super(parent, modal, ModuloSistema.SISTEMA_OPERADORES, NivelAcessoModulo.LEITURA_GRAVACAO);
         initComponents();
-        if (tipooperador!=null){
-            this.grupoOperador = tipooperador;
-        } else {
-            this.grupoOperador=new GrupoFuncionario();
-        }
-
+        this.grupoOperador = tipooperador;
         this.gruposModulo = new HashMap<>();
         setTitle(grupoOperador.getId() == null ? "Novo grupo de operadores" : "Editar grupo de operadores");
         lblTitulo.setText(getTitle());
         this.initPermissoes();
-
-
     }
 
-    public void carregaedt(){
+    public void carregaedt() {
         edtNome.setText(grupoOperador.getNome());
 
     }
-    public void bloqueiaedt(){
+
+    public void bloqueiaedt() {
         edtNome.setEditable(false);
         btnSalvar.setEnabled(false);
+        pnlPermissoes.setEnabled(false);
+        this.jPanel1.setEnabled(false);
+        this.btnCancelar.setVisible(false);
+        this.btnSalvar.setVisible(false);
     }
 
-    public void desbloqueiaedt(){
+    public void desbloqueiaedt() {
         edtNome.setEditable(true);
         btnSalvar.setEnabled(true);
     }
 
     private void initPermissoes() {
-
-            Arrays.stream(CategoriaModuloSistema.values())
-                    .sorted(Comparator.comparing(CategoriaModuloSistema::getDescricao))
-                    .forEach(categoria -> {
-                        GrupoPermissaoPanel panel = new GrupoPermissaoPanel( categoria, false);
-                        gruposModulo.put(categoria, panel);
-                        pnlPermissoes.add(panel);
-                    });
+        Arrays.stream(CategoriaModuloSistema.values())
+                .sorted(Comparator.comparing(CategoriaModuloSistema::getDescricao))
+                .forEach(categoria -> {
+                    GrupoPermissaoPanel panel = new GrupoPermissaoPanel(categoria,
+                            grupoOperador.getPermissoes().stream().filter(permissaoAcesso -> permissaoAcesso.getModulo().getCategoria().equals(categoria)).collect(Collectors.toList()));
+                    gruposModulo.put(categoria, panel);
+                    pnlPermissoes.add(panel);
+                });
         pnlPermissoes.revalidate();
     }
 
@@ -116,7 +116,7 @@ public class CadastroGrupoOperadores extends DialogPadrao {
         pnlPermissoes.setLayout(new javax.swing.BoxLayout(pnlPermissoes, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane2.setViewportView(pnlPermissoes);
 
-        lblTitulo1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblTitulo1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTitulo1.setText("Permissoes");
 
         jLabel1.setText("Nome do grupo");
@@ -144,10 +144,10 @@ public class CadastroGrupoOperadores extends DialogPadrao {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(lblTitulo1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -188,15 +188,36 @@ public class CadastroGrupoOperadores extends DialogPadrao {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-
+        grupoOperador.setNome(edtNome.getText());
+        if (grupoOperador.getNome() == null || grupoOperador.getNome().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Nome invalido, adicione um nome ao grupo e tente novamente");
+            edtNome.requestFocus();
+            return;
+        }
+        gruposModulo.values().stream().forEach(grupoPermissaoPanel -> {
+            grupoOperador.getPermissoes().addAll(grupoPermissaoPanel.buildPermissoes());
+        });
+        try {
+            new GrupoFuncionarioService().save(grupoOperador);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Falha ao salvar, os seguintes exeções foram encontradas \n" + ex.getMessage());
+            try {
+                new GrupoFuncionarioService().rollback();
+            } catch (SQLException exe) {
+                System.out.println(exe);
+            }
+            return;
+        }
+        JOptionPane.showMessageDialog(this, "Salvo com sucesso");
+        dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {
-        boolean cancelar ;
-        if (JOptionPane.showConfirmDialog(this, "Cancelar", "Tem certeza de que deseja cancelar?",
-                JOptionPane.YES_NO_OPTION)==1)
-            cancelar=true;
-            else cancelar=false;
+        boolean cancelar;
+        if (JOptionPane.showConfirmDialog(this, "Tem certeza de que deseja cancelar?", "Cancelar",
+                JOptionPane.YES_NO_OPTION) == 0)
+            cancelar = true;
+        else cancelar = false;
 
         if (cancelar) {
             this.dispose();
@@ -211,11 +232,11 @@ public class CadastroGrupoOperadores extends DialogPadrao {
      * @param args the command line arguments
      */
     public static void main(String
-        args[]) {
+                                    args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

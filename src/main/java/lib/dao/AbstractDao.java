@@ -7,6 +7,7 @@ import util.JpaUtil;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
@@ -41,9 +42,12 @@ public class AbstractDao<T> {
 
     }
 
-
     protected String corrigirTermosBusca(String termos) {
         return "%" + termos.replace(" ", "%") + "%";
+    }
+
+    public void rollback()throws SQLException {
+        this.st.getConnection().rollback();
     }
 }
 

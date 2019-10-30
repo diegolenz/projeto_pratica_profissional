@@ -10,7 +10,7 @@ import gui.pessoas.fornecedores.PesquisarFornecedor;
 import gui.swing.DialogPadrao;
 import gui.swing.SwingFormatterFactory;
 import javafx.scene.input.KeyCode;
-import lib.model.comercial.ContaPagar;
+import lib.model.financeiro.contas.ContaPagar;
 import lib.model.financeiro.formaPagamento.FormaPagamento;
 import lib.model.interno.ModuloSistema;
 import lib.model.interno.NivelAcessoModulo;
@@ -18,7 +18,6 @@ import lib.model.pessoa.fornecedor.Fornecedor;
 import lib.service.ContaPagarService;
 import lib.service.FormaPagamentoService;
 import lib.service.FornecedorService;
-import org.eclipse.swt.internal.C;
 
 import javax.swing.*;
 import java.awt.*;

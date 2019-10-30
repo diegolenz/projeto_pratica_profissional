@@ -8,6 +8,7 @@ package gui;
 import javax.swing.*;
 
 import gui.comercial.compra.ConsultaCompraForm;
+import gui.comercial.venda.ConsultaVendaForm;
 import gui.enderecos.cidades.ConsultaCidades;
 import gui.enderecos.estados.ConsultaEstados;
 import gui.enderecos.pais.ConsultaPaises;
@@ -163,7 +164,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         mnuCaixas = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnCompras = new javax.swing.JMenuItem();
-        btnVenda = new javax.swing.JMenuItem();
+        mnuVenda = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         mnuOperadores = new javax.swing.JMenuItem();
         mnuGrupoFuncionarios = new javax.swing.JMenuItem();
@@ -502,14 +503,14 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(btnCompras);
 
-        btnVenda.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnVenda.setText("Vendas");
-        btnVenda.addActionListener(new java.awt.event.ActionListener() {
+        mnuVenda.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mnuVenda.setText("Vendas");
+        mnuVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVendaActionPerformed(evt);
+                mnuVendaActionPerformed(evt);
             }
         });
-        jMenu2.add(btnVenda);
+        jMenu2.add(mnuVenda);
 
         jMenuBar1.add(jMenu2);
 
@@ -760,9 +761,18 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jTabbedPane1.setTabComponentAt(i, new ButtonTabComponent(jTabbedPane1));
     }//GEN-LAST:event_btnComprasActionPerformed
 
-    private void btnVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnVendaActionPerformed
+    private void mnuVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuVendaActionPerformed
+        ConsultaVendaForm p=new ConsultaVendaForm(this);
+        Integer i = verrificaJanelaAberta("Vendas");
+        if (i != null){
+            jTabbedPane1.setSelectedIndex(i);
+            return;
+        }
+        jTabbedPane1.addTab("Vendas", p);
+        jTabbedPane1.setSelectedComponent(p);
+        i = jTabbedPane1.getSelectedIndex();
+        jTabbedPane1.setTabComponentAt(i, new ButtonTabComponent(jTabbedPane1));
+    }//GEN-LAST:event_mnuVendaActionPerformed
 
     private void mnuContasPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuContasPagarActionPerformed
         ConsultaContasAPagar p=new ConsultaContasAPagar(this);
@@ -956,7 +966,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnNovoCliente;
     private javax.swing.JButton btnNovoOrcamento;
     private javax.swing.JButton btnTrocar;
-    private javax.swing.JMenuItem btnVenda;
     private javax.swing.JButton btnsair;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField edtoperador;
@@ -1044,6 +1053,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuItemCondicaoPagamento;
     private javax.swing.JMenuItem mnuOperadores;
     private javax.swing.JMenuItem mnuPaises;
+    private javax.swing.JMenuItem mnuVenda;
     private javax.swing.JMenuItem mnuconsClientes;
     // End of variables declaration//GEN-END:variables
 }

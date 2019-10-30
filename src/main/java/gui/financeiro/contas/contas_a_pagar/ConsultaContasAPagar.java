@@ -5,12 +5,11 @@
  */
 package gui.financeiro.contas.contas_a_pagar;
 
-import gui.comercial.compra.CadastroCompraForm;
 import gui.modeltable.TableModelContas;
 import gui.swing.DefaultComboBoxModel;
 import gui.swing.SociusTab;
 import gui.swing.WindowPadrao;
-import lib.model.comercial.ContaPagar;
+import lib.model.financeiro.contas.ContaPagar;
 import lib.model.financeiro.StatusConta;
 import lib.model.interno.ModuloSistema;
 import lib.service.ContaPagarService;

@@ -9,6 +9,7 @@ import gui.modeltable.TableModelTipoOperador;
 
 
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,9 @@ import gui.swing.WindowPadrao;
 import lib.dao.imp.sistema.TipoOperadorDao;
 import lib.model.interno.GrupoFuncionario;
 import lib.model.interno.ModuloSistema;
+import lib.service.GrupoFuncionarioService;
+
+import javax.swing.*;
 
 /**
  *
@@ -33,6 +37,8 @@ public class ConsultaGruposOperadoresForm extends SociusTab implements WindowPad
      */
     public ConsultaGruposOperadoresForm(Window parent) {super(parent, ModuloSistema.SISTEMA_OPERADORES);
         initComponents();
+        this.btnPesquisarActionPerformed(null);
+        tableModelOperador = new TableModelTipoOperador();
     }
 
     /**
@@ -67,6 +73,7 @@ public class ConsultaGruposOperadoresForm extends SociusTab implements WindowPad
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        btnPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnPesquisar.setText("pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,6 +81,9 @@ public class ConsultaGruposOperadoresForm extends SociusTab implements WindowPad
             }
         });
 
+        edtPesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        btnDesativar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnDesativar.setText("desativar");
         btnDesativar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,6 +91,7 @@ public class ConsultaGruposOperadoresForm extends SociusTab implements WindowPad
             }
         });
 
+        btnVisualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVisualizar.setText("visualizar");
         btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,6 +99,7 @@ public class ConsultaGruposOperadoresForm extends SociusTab implements WindowPad
             }
         });
 
+        btnAlterar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnAlterar.setText("alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +107,7 @@ public class ConsultaGruposOperadoresForm extends SociusTab implements WindowPad
             }
         });
 
+        btnNovo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,10 +132,10 @@ public class ConsultaGruposOperadoresForm extends SociusTab implements WindowPad
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnNovo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnVisualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDesativar))
                     .addGroup(layout.createSequentialGroup()
@@ -140,7 +153,7 @@ public class ConsultaGruposOperadoresForm extends SociusTab implements WindowPad
                     .addComponent(btnPesquisar)
                     .addComponent(edtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDesativar)
@@ -154,8 +167,16 @@ public class ConsultaGruposOperadoresForm extends SociusTab implements WindowPad
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-      //   grupos=grupoOperadorDao.listar();
-        tableModelOperador=new TableModelTipoOperador();
+        try {
+            grupos = new GrupoFuncionarioService().getAll(edtPesquisa.getText());
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(this, "Falha ao buscar dados \n" + ex.getMessage());
+            return;
+        }
+        if (grupos.isEmpty() && evt != null){
+            JOptionPane.showMessageDialog(this, "Nenhum resultado encontrado");
+
+        }
         tableModelOperador.setList(grupos.toArray());
         jTable1.setModel(tableModelOperador);
     }//GEN-LAST:event_btnPesquisarActionPerformed
@@ -167,11 +188,25 @@ public class ConsultaGruposOperadoresForm extends SociusTab implements WindowPad
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-
+        if (jTable1.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Selecione um registro");
+            return;
+        }
+        cadastro=new CadastroGrupoOperadores(getWindowParent(),true,grupos.get(jTable1.getSelectedRow()));
+        cadastro.desbloqueiaedt();
+        cadastro.carregaedt();
+        cadastro.show();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
-
+        if (jTable1.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(this, "Selecione um registro");
+            return;
+        }
+        cadastro=new CadastroGrupoOperadores(getWindowParent(),true,grupos.get(jTable1.getSelectedRow()));
+        cadastro.carregaedt();
+        cadastro.bloqueiaedt();
+        cadastro.show();
     }//GEN-LAST:event_btnVisualizarActionPerformed
 
     private void btnDesativarActionPerformed(java.awt.event.ActionEvent evt) {

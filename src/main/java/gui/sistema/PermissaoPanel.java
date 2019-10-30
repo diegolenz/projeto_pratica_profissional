@@ -10,7 +10,6 @@ import lib.model.interno.ModuloSistema;
 import java.awt.event.ItemEvent;
 
 /**
- *
  * @author diego.lenz
  */
 public class PermissaoPanel extends javax.swing.JPanel {
@@ -18,19 +17,13 @@ public class PermissaoPanel extends javax.swing.JPanel {
     private final ModuloSistema modulo;
 
 
-    public PermissaoPanel(ModuloSistema modulo, boolean somenteLeitura) {
+    public PermissaoPanel(ModuloSistema modulo) {
         this.modulo = modulo;
 
         initComponents();
         edtModulo.setText(modulo.getDescricaoSimplificada());
 
-        chkLeituraGravacao.setEnabled(true);//modulo.isModoLeituraGravacaoPermitido() && modulo.isModoSomenteLeituraPermitido());
-//        chkLeituraGravacao.setVisible(false);
-//
-//        if(somenteLeitura) {
-//            edtModulo.setEnabled(false);
-//            chkLeituraGravacao.setEnabled(false);
-//        }
+        // chkLeituraGravacao.setEnabled(true);//modulo.isModoLeituraGravacaoPermitido() && modulo.isModoSomenteLeituraPermitido());
     }
 
     public void setModuloSelecionado(boolean selected) {
@@ -38,45 +31,51 @@ public class PermissaoPanel extends javax.swing.JPanel {
         chkLeituraGravacao.setSelected(true);
     }
 
-    public void setLeituraGravacaoSelecionado(boolean selected) {
-        if (chkLeituraGravacao.isEnabled()) {
-            chkLeituraGravacao.setSelected(selected);
-        }
-    }
-
-    public boolean isModuloSelecionado() {
-        return false;//chkModulo.isSelected();
+    public boolean isLeituraSelecionado() {
+        return this.chkSomenteLeitura.isSelected();
     }
 
     public boolean isLeituraGravacaoSelecionado() {
         return chkLeituraGravacao.isSelected();
     }
 
+    public void setGravacao() {
+        chkLeituraGravacao.setSelected(true);
+    }
 
+    public void setLeitura() {
+        chkSomenteLeitura.setSelected(true);
 
-
-
-
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         chkLeituraGravacao = new javax.swing.JCheckBox();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        chkSomenteLeitura = new javax.swing.JCheckBox();
         edtModulo = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         chkLeituraGravacao.setBackground(new java.awt.Color(255, 255, 255));
         chkLeituraGravacao.setText("Leitura e gravação");
-        chkLeituraGravacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkLeituraGravacaoActionPerformed(evt);
+        chkLeituraGravacao.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chkLeituraGravacaoItemStateChanged(evt);
             }
         });
 
-        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("Somente leitura");
+        chkSomenteLeitura.setBackground(new java.awt.Color(255, 255, 255));
+        chkSomenteLeitura.setText("Somente leitura");
+        chkSomenteLeitura.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chkSomenteLeituraItemStateChanged(evt);
+            }
+        });
 
+        edtModulo.setBackground(new java.awt.Color(255, 255, 255));
         edtModulo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         edtModulo.setText("{modulo.permissoes}");
 
@@ -85,36 +84,40 @@ public class PermissaoPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(edtModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(edtModulo, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(chkLeituraGravacao, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(chkSomenteLeitura, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chkLeituraGravacao, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(chkLeituraGravacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jCheckBox1))
-            .addComponent(edtModulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(edtModulo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(chkSomenteLeitura, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(chkLeituraGravacao)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void chkLeituraGravacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkLeituraGravacaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_chkLeituraGravacaoActionPerformed
+    private void chkLeituraGravacaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkLeituraGravacaoItemStateChanged
+        if (chkLeituraGravacao.isSelected())
+            chkSomenteLeitura.setSelected(false);
+    }//GEN-LAST:event_chkLeituraGravacaoItemStateChanged
 
+    private void chkSomenteLeituraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkSomenteLeituraItemStateChanged
+        if (chkSomenteLeitura.isSelected()){
+            chkLeituraGravacao.setSelected(false);
+        }
+    }//GEN-LAST:event_chkSomenteLeituraItemStateChanged
 
 
     public ModuloSistema getModulo() {
         return modulo;
     }
 
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JCheckBox chkLeituraGravacao;
+    private javax.swing.JCheckBox chkSomenteLeitura;
     private javax.swing.JLabel edtModulo;
-    private javax.swing.JCheckBox jCheckBox1;
     // End of variables declaration//GEN-END:variables
 }

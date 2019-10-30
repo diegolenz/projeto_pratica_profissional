@@ -8,6 +8,7 @@ import lib.model.pessoa.cliente.Cliente;
 import org.springframework.util.Assert;
 import util.CpfCnpjValidator;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -124,7 +125,7 @@ public class ClienteService {
 	}
 
 
-	public Cliente getEnderecoByID(Integer id) throws Exception {
+	public Cliente getByID(Integer id) throws SQLException {
 		Assert.notNull(id, "ID passado como parametro não pode estar nulo");
 		Cliente pessoa = clienteDAO.getByID(id);
 		Assert.notNull(pessoa, "Não foi encontrado nenhuma pessoa com esse código");

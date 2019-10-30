@@ -14,7 +14,7 @@ import gui.swing.DialogPadrao;
 import gui.swing.SwingFormatterFactory;
 import javafx.scene.input.KeyCode;
 import lib.model.comercial.Compra;
-import lib.model.comercial.ContaPagar;
+import lib.model.financeiro.contas.ContaPagar;
 import lib.model.comercial.ItemProduto;
 import lib.model.comercial.frete.TipoFrete;
 import lib.model.financeiro.CondicaoPagamento.CondicaoPagamento;
@@ -30,7 +30,6 @@ import lib.service.ProdutoService;
 import util.Util;
 
 import javax.swing.*;
-import javax.swing.text.html.Option;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.*;
@@ -846,7 +845,7 @@ public class CadastroCompraForm extends DialogPadrao {
         this.edtValorSeguro.setEditable(false);
         this.tblItens.setEnabled(false);
         this.tblContasApagar.setEnabled(false);
-        this.edtCodFornecedor.setEnabled(false);
+      //  this.edtCodFornecedor.setEnabled(false);
         this.edtCodCondicaoPagamento.setEnabled(false);
         this.rdTipoFreteCIF.setEnabled(false);
         this.rdFreteFOB.setEnabled(false);
@@ -869,7 +868,7 @@ public class CadastroCompraForm extends DialogPadrao {
         this.edtValorItem.setEnabled(false);
         btnAddItem.setEnabled(false);
         btnAltCondicao.setEnabled(false);
-        btnAlterarFornecedor.setEnabled(false);
+      //  btnAlterarFornecedor.setEnabled(false);
         btnRemoverItem.setEnabled(false);
         btnCancelar.setEnabled(false);
         btnSalvar.setEnabled(false);
@@ -927,8 +926,9 @@ public class CadastroCompraForm extends DialogPadrao {
         Integer num = Integer.parseInt(edtNumeroNota.getValue().toString());
         String modelo = edtModeloNota.getText();
         Integer serie = Integer.parseInt(edtNumeroSerie.getValue().toString());
+        Integer fornecedorID = compra.getFornecedor().getId();
         try {
-            if (new CompraService().getByNumSerieModelo(num, modelo, serie) != null) {
+            if (new CompraService().getByNumSerieModelo(num, modelo, serie, fornecedorID) != null) {
                 if (edtCodFornecedor.isEnabled())
                     bloqueia();
                 //JOptionPane.showMessageDialog(this, "Código da compra já esta em uso");
@@ -1433,49 +1433,6 @@ public class CadastroCompraForm extends DialogPadrao {
         Double acresUn = (Double) edtAcrescUn.getValue();
         edtCustoProduto.setValue((valorItem * qtd) - (descUn * qtd) + (acresUn * qtd));
     }//GEN-LAST:event_calculaValorTotalPorItem
-
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroCompraForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroCompraForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroCompraForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroCompraForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CadastroCompraForm dialog = new CadastroCompraForm(new javax.swing.JFrame(), true, new Compra());
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddItem;

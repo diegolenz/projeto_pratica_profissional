@@ -126,6 +126,7 @@ public class CadastroCondicaoPagamentoForm extends DialogPadrao {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de condição de pagamento");
         setResizable(false);
 
         lblDEscricaoForm.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

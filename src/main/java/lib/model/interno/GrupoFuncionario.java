@@ -12,6 +12,8 @@
 package lib.model.interno;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -27,15 +29,25 @@ public class GrupoFuncionario implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private Integer id;
 
     private String nome;
 
     private List<PermissaoAcesso> permissoes;
 
-    private Funcionario funcionario;
+    private List<Funcionario> funcionarios;
+
+    private Funcionario funcionarioCadastro;
+
+    private Funcionario funcionarioUltimaAlteracao;
+
+    private Date dataCadastro;
+
+    private Date dataUltimaAlteracao;
 
     public List<PermissaoAcesso> getPermissoes() {
+        if (permissoes == null)
+            permissoes = new ArrayList<>();
         return permissoes;
     }
 
@@ -43,25 +55,56 @@ public class GrupoFuncionario implements Serializable {
         this.permissoes = permissoes;
     }
 
-    public Funcionario getFuncionario() {
-        return funcionario;
-    }
-
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
-    }
-
     public GrupoFuncionario() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
+    public List<Funcionario> getFuncionarios() {
+        return funcionarios;
+    }
+
+    public void setFuncionarios(List<Funcionario> funcionarios) {
+        this.funcionarios = funcionarios;
+    }
+
+    public Funcionario getFuncionarioCadastro() {
+        return funcionarioCadastro;
+    }
+
+    public void setFuncionarioCadastro(Funcionario funcionarioCadastro) {
+        this.funcionarioCadastro = funcionarioCadastro;
+    }
+
+    public Funcionario getFuncionarioUltimaAlteracao() {
+        return funcionarioUltimaAlteracao;
+    }
+
+    public void setFuncionarioUltimaAlteracao(Funcionario funcionarioUltimaAlteracao) {
+        this.funcionarioUltimaAlteracao = funcionarioUltimaAlteracao;
+    }
+
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public Date getDataUltimaAlteracao() {
+        return dataUltimaAlteracao;
+    }
+
+    public void setDataUltimaAlteracao(Date dataUltimaAlteracao) {
+        this.dataUltimaAlteracao = dataUltimaAlteracao;
+    }
 
     @Override
     public int hashCode() {

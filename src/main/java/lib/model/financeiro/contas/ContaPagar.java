@@ -1,5 +1,6 @@
-package lib.model.comercial;
+package lib.model.financeiro.contas;
 
+import lib.model.comercial.Compra;
 import lib.model.financeiro.StatusConta;
 import lib.model.financeiro.formaPagamento.FormaPagamento;
 import lib.model.financeiro.parcela.Parcela;

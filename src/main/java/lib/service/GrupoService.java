@@ -16,7 +16,6 @@ public class GrupoService {
         grupoDao = new GrupoDao();
     }
 
-
     public void save(Grupo grupo) throws Exception{
         Assert.notNull(grupo, "Grupo não pode ser nula");
         Assert.notNull(grupo.getNome(), "Campo Nome é obrigatório");

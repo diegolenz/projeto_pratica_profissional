@@ -77,6 +77,7 @@ public enum ModuloSistema implements Serializable {
         return descricao;
     }
 
+
 //    public boolean isModoSomenteLeituraPermitido() {
 //        return permiteModoSomenteLeitura;
 //    }

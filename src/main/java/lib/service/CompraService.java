@@ -56,8 +56,8 @@ public class CompraService {
         return compraDAO.getAll(termo);
     }
 
-    public Compra getByNumSerieModelo(Integer n, String m, Integer s) throws Exception {
-        return (Compra) compraDAO.getByID(m, n, s);
+    public Compra getByNumSerieModelo(Integer n, String m, Integer s,Integer f) throws Exception {
+        return (Compra) compraDAO.getByID(m, n, s, f);
     }
 
     public List getAllComprasAtivos(String termo) throws Exception {
