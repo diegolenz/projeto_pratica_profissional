@@ -3,6 +3,7 @@ package lib.model.pessoa.cliente;
 import lib.model.financeiro.CondicaoPagamento.CondicaoPagamento;
 import lib.model.pessoa.Pessoa;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +35,9 @@ public class Cliente extends Pessoa {
     }
 
     public List<CondicaoPagamento> getCondicaoPagamentos() {
+        if (condicaoPagamentos==null){
+            condicaoPagamentos = new ArrayList<>();
+        }
         return condicaoPagamentos;
     }
 

@@ -31,4 +31,8 @@ public class GrupoFuncionarioService  {
     public void rollback()throws SQLException{
         grupoOperadorDao.rollback();
     }
+
+    public GrupoFuncionario getById(Integer id)throws SQLException{
+        return grupoOperadorDao.getByID(id);
+    }
 }

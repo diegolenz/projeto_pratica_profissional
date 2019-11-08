@@ -157,17 +157,20 @@ contaPagar = new ContaPagar();
             sql += "  modelo_compra = '" + conta.getCompra().getModeloNota() + "', " +
                     " serie_compra = " + conta.getCompra().getNumSerieNota() + ", numero_compra = " + conta.getCompra().getNumSerieNota() + ", ";
         }
+        if (conta.isPaga()){
+            sql+= "data_pagamento = '" + conta.getDataPagamento() +"',";
+        }
 
         sql += " valor = "+ conta.getValor() + ", data_Lancamento = '" + conta.getDataLancamento() + "', data_Vencimento = '" + conta.getDataVencimento() + "'," +
                 "  forma_pagamento_id= " + conta.getFormaPagamento().getId() + ",  fornecedor_id = " + conta.getRecebedor().getId() +
-                ", multa " +  conta.getMulta() +
-                ", desconto = " + conta.getDesconto()+ ", juros = "  + conta.getJuros()  + ";";
+                ", multa =" +  conta.getMulta() +
+                ", desconto = " + conta.getDesconto()+ ", juros = "  + conta.getJuros()  + ", paga = "+ conta.isPaga() +" where id = " +conta.getId()+ " ;";
 
         this.st.execute(sql);
 
         ResultSet rs = this.st.executeQuery("Select max(id) from conta_pagar");
         if (rs.next()){
-            return getById(rs.getInt("id"));
+            return getById(rs.getInt("max"));
         }
         return null;
     }

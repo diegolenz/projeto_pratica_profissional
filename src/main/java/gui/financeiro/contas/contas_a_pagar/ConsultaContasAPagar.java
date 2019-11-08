@@ -11,6 +11,7 @@ import gui.swing.SociusTab;
 import gui.swing.WindowPadrao;
 import lib.model.financeiro.contas.ContaPagar;
 import lib.model.financeiro.StatusConta;
+import lib.model.financeiro.contas.ContaReceber;
 import lib.model.interno.ModuloSistema;
 import lib.service.ContaPagarService;
 
@@ -97,14 +98,9 @@ public class ConsultaContasAPagar extends SociusTab implements WindowPadrao {
         });
 
         edtRecebedor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        edtRecebedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtRecebedorActionPerformed(evt);
-            }
-        });
 
         btnDesativar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnDesativar.setText("desativar");
+        btnDesativar.setText("Contas");
         btnDesativar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDesativarActionPerformed(evt);
@@ -162,11 +158,6 @@ public class ConsultaContasAPagar extends SociusTab implements WindowPadrao {
         ((DefaultComboBoxModel) cmbModelStatusConta).addElement(StatusConta.PENDENTE);
         ((DefaultComboBoxModel) cmbModelStatusConta).addElement(StatusConta.PAGA_COM_ATRASO);
         cmbStatus.setModel(cmbModelStatusConta);
-        cmbStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbStatusActionPerformed(evt);
-            }
-        });
 
         edtDataPagamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -347,6 +338,10 @@ public class ConsultaContasAPagar extends SociusTab implements WindowPadrao {
             JOptionPane.showMessageDialog(this, "Falha ao retornar dados \n" + ex.getCause() + "\n " + ex.getMessage());
             return;
         }
+        if (contaPagar.getCompra() != null){
+            JOptionPane.showMessageDialog(this, "Compras vinculadas a compra não podem ser editadas \nConta vinculada a compra N "+contaPagar.getCompra().getNumeroNota()+", Modelo"+ contaPagar.getCompra().getModeloNota() +
+                    ", série "+contaPagar.getCompra().getNumSerieNota()+", fornecedor"+ contaPagar.getRecebedor().getNome());
+        }
         CadastroContaPagarForm cadastroContaPagarForm = new CadastroContaPagarForm(getWindowParent(), true, contaPagar);
         cadastroContaPagarForm.carregaEdt();
         cadastroContaPagarForm.show();
@@ -371,7 +366,7 @@ public class ConsultaContasAPagar extends SociusTab implements WindowPadrao {
         cadastroContaPagarForm.show();
     }//GEN-LAST:event_btnVisualizarActionPerformed
 
-    private void btnDesativarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesativarActionPerformed
+    private void btnDesativarActionPerformed(java.awt.event.ActionEvent evt) {                                             
         if (jTable1.getSelectedRow() < 0){
             JOptionPane.showMessageDialog(this, "Selecione um resistro");
             return;
@@ -396,9 +391,7 @@ public class ConsultaContasAPagar extends SociusTab implements WindowPadrao {
             }
         }
         cadastroContaPagarForm.dispose();
-
-
-    }//GEN-LAST:event_btnDesativarActionPerformed
+    }
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         HashMap<String, Object> termos = new HashMap<>();
@@ -415,22 +408,16 @@ public class ConsultaContasAPagar extends SociusTab implements WindowPadrao {
             contaPagarList = new ContaPagarService().getAll(termos);
             tableModelContas.setList(contaPagarList.toArray());
             jTable1.setModel(tableModelContas);
-            if (contaPagarList.isEmpty() && evt != null)
-                JOptionPane.showConfirmDialog(this, "Nenhum resultado encontrado");
-            else
+            if (contaPagarList.isEmpty() ) {
+                if (evt != null) {
+                    JOptionPane.showMessageDialog(this, "Nenhum resultado encontrado");
+                }
+            } else
                 jTable1.setRowSelectionInterval(0,0);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Falha ao retornar dados:" + e.getCause() + "\n Contate o adminstrador do sistema");
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
-
-    private void cmbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbStatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbStatusActionPerformed
-
-    private void edtRecebedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtRecebedorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtRecebedorActionPerformed
 
     private void btnLimparFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparFiltrosActionPerformed
        edtDataPagamento.setDate(null);
@@ -445,7 +432,12 @@ public class ConsultaContasAPagar extends SociusTab implements WindowPadrao {
     }//GEN-LAST:event_btnLimparFiltrosActionPerformed
 
     private void btnReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReceberActionPerformed
-        // TODO add your handling code here:
+        ContaPagar contaPagar = contaPagarList.get(jTable1.getSelectedRow());
+        if ( contaPagar == null){
+            JOptionPane.showMessageDialog(this, "Selecione um registro");
+            return;
+        }
+        new ContaPagarForm(getWindowParent(), true, contaPagar).show();
     }//GEN-LAST:event_btnReceberActionPerformed
 
 

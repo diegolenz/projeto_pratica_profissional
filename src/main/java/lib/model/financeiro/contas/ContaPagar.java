@@ -6,6 +6,7 @@ import lib.model.financeiro.formaPagamento.FormaPagamento;
 import lib.model.financeiro.parcela.Parcela;
 import lib.model.pessoa.fornecedor.Fornecedor;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class ContaPagar {
@@ -162,13 +163,19 @@ public class ContaPagar {
     }
 
     public StatusConta getStatusConta() {
-        Date dateAtual = new Date();
+        Calendar dtAtual = Calendar.getInstance();
+        Calendar dtVencimento = Calendar.getInstance();
+        Calendar dtPagamento = Calendar.getInstance();
+        if (dataVencimento != null)
+            dtVencimento.set(dataVencimento.getDate(), dataVencimento.getMonth(), dataVencimento.getDay());
+        if (dataPagamento != null)
+            dtPagamento.set(dataPagamento.getDate(), dataPagamento.getMonth(), dataPagamento.getDay());
         if (!paga) {
-            if ( dataVencimento.compareTo(dateAtual) > 0)
+            if (dtVencimento.getTime() != null || dtVencimento.getTime().compareTo(dtAtual.getTime()) >= 0)
                 return StatusConta.PENDENTE;
             else return StatusConta.ATRASADO;
         } else {
-            if (paga && dataVencimento.compareTo(dataPagamento) > 0 )
+            if (paga && (dtVencimento.getTime() == null || dtVencimento.getTime().compareTo(dtPagamento.getTime()) >= 0))
                 return StatusConta.QUITADA;
             else return StatusConta.PAGA_COM_ATRASO;
         }

@@ -93,6 +93,7 @@ public class ConsultaClientesForm extends SociusTab implements WindowPadrao {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("pesquisar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,6 +101,7 @@ public class ConsultaClientesForm extends SociusTab implements WindowPadrao {
             }
         });
 
+        btnNovo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +109,7 @@ public class ConsultaClientesForm extends SociusTab implements WindowPadrao {
             }
         });
 
+        btnAlterar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnAlterar.setText("alterar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +117,7 @@ public class ConsultaClientesForm extends SociusTab implements WindowPadrao {
             }
         });
 
+        btnVisualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnVisualizar.setText("visualizar");
         btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +125,7 @@ public class ConsultaClientesForm extends SociusTab implements WindowPadrao {
             }
         });
 
+        btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,7 +164,7 @@ public class ConsultaClientesForm extends SociusTab implements WindowPadrao {
                     .addComponent(jButton1)
                     .addComponent(edtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNovo)
@@ -182,11 +187,14 @@ public class ConsultaClientesForm extends SociusTab implements WindowPadrao {
         novoClienteForm.carregaredt();
         novoClienteForm.bloqueiaedt();
         novoClienteForm.show();
+        if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o usuario ?", "ATENÇÃO", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION){
+            return;
+        }
         try {
             new ClienteService().deleteByID(pessoaSelecionado);
             JOptionPane.showMessageDialog(this, "Excluido com sucesso");
         }catch (Exception e) {
-            if (JOptionPane.showConfirmDialog(this,"Não é possivel excluir o registro, deseja desativa-lo?", "ATENÇÂO", JOptionPane.YES_NO_OPTION)==0) {
+            if (JOptionPane.showConfirmDialog(this,e +"\nNão é possivel excluir o registro, deseja desativa-lo?", "ATENÇÂO", JOptionPane.YES_NO_OPTION)==0) {
                 if (!pessoaSelecionado.getAtivo())
                     JOptionPane.showMessageDialog(this, "Pessoa já está desativada");
                 try {

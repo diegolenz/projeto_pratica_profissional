@@ -93,6 +93,7 @@ public class GrupoOperadorDao extends AbstractDao {
             grupoFuncionario = new GrupoFuncionario();
             grupoFuncionario.setId(rs.getInt("id"));
             grupoFuncionario.setNome(rs.getString("nome"));
+            grupoFuncionario.setAtivo(rs.getBoolean("ativo"));
             grupoFuncionario.setPermissoes(getPermissaoByIdGrupo(grupoFuncionario.getId()));
         }
         return grupoFuncionario;

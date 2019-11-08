@@ -72,25 +72,16 @@ public class CompraDao extends AbstractDao {
                 +compra.getCondicaoPagamento().getId()
                 + " ) ; ";
 
-        this.st.getConnection().setAutoCommit(false);
+
         this.st.executeUpdate(sql);
         this.saveContas(compra.getContas());
         this.saveItens(compra.getItensProdutos());
-
-        this.st.getConnection().commit();
-        this.st.getConnection().setAutoCommit(true);
 
     }
 
     public void cancelar(Compra compra) throws SQLException{
         String sql = "update compra set ativo = false, motivo_cancelamento = '"+ compra.getMotivoCancelamento() + "' where modelo = '"+compra.getModeloNota()+"' and numero = "+ compra.getNumeroNota()+" and serie ="+ compra.getNumSerieNota()+" ;";
         this.st.execute(sql);
-    }
-
-    public void commit()throws SQLException{
-        this.st.getConnection().commit();
-        this.st.clearBatch();
-        this.st.clearWarnings();
     }
 
     public void saveContas(List<ContaPagar> contas) throws SQLException {

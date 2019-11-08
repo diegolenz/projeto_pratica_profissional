@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-public class FornecedorService {
+public class FornecedorService extends Service{
     /*-------------------------------------------------------------------
      *				 		     ATTRIBUTES
      *-------------------------------------------------------------------*/
@@ -66,7 +66,6 @@ public class FornecedorService {
     public void update(Pessoa pessoa) throws Exception {
         Assert.notNull(pessoa, "Pessoa não pode estar nula");
         Assert.notNull(pessoa.getNome(), "Nome é obrigatório");
-      //  Assert.isTrue(pessoa.getTelefone().length()> 7, "Telefone de contato deve ter ao minimo 8 numeros");
         if (pessoa.getDataNascimento() != null)
             Assert.isTrue(pessoa.getDataNascimento().compareTo(new Date()) < 0, "Data de nascimento/fundação deve ser menor que a data de hoje");
         Assert.notNull(pessoa.getCidade(), "Cidade é obrigatória");

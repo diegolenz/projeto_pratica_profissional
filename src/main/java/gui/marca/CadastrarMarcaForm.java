@@ -70,6 +70,8 @@ public class CadastrarMarcaForm extends DialogPadrao {
 
     public void bloqueia(){
         edtNome.setEditable(false);
+        btnsalvar.setVisible(false);
+        btncancelar.setVisible(false);
     }
 
     public void desbloqueiaedt(){

@@ -12,6 +12,7 @@ import lib.model.interno.ModuloSistema;
 import lib.model.interno.NivelAcessoModulo;
 import lib.model.pessoa.Pessoa;
 import lib.model.servico.Servico;
+import lib.service.ServicoService;
 //import sun.plugin2.jvm.RemoteJVMLauncher;
 
 import javax.swing.*;
@@ -24,7 +25,6 @@ import java.util.List;
  * @author diego.lenz
  */
 public class PesquisarServico extends DialogPadrao {
-    private Servico servico;
     private TableModelServico modelo;
     private PesquisarServico.Callback callback;
     private List<Servico> servicos;
@@ -48,11 +48,13 @@ public class PesquisarServico extends DialogPadrao {
     }
 
     public void initTable(){
+        modelo = new TableModelServico();
+        tabela.setModel(modelo);
         this.tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
         this.tabela.getColumnModel().getColumn(1).setPreferredWidth(200);
         this.tabela.getColumnModel().getColumn(2).setPreferredWidth(100);
         this.tabela.getColumnModel().getColumn(3).setPreferredWidth(50);
-        this.tabela.getColumnModel().getColumn(4).setPreferredWidth(50);
+        this.tabela.getColumnModel().getColumn(4).setPreferredWidth(80);
         this.tabela.getColumnModel().getColumn(5).setPreferredWidth(50);
     }
 
@@ -65,26 +67,25 @@ public class PesquisarServico extends DialogPadrao {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cmbselecionapesquisa = new javax.swing.JComboBox();
+        jPanel1 = new javax.swing.JPanel();
         edtpesquisa = new javax.swing.JFormattedTextField();
         btnpesquisar = new javax.swing.JToggleButton();
-        btnselecionar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
+        btnselecionar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
         btnnovo = new javax.swing.JButton();
         btnalt = new javax.swing.JButton();
+        btnVisualiza = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Pesquisar Serviços");
         setBackground(new java.awt.Color(255, 255, 255));
         setLocationByPlatform(true);
         setModal(true);
+        setResizable(false);
 
-        cmbselecionapesquisa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "generico" }));
-        cmbselecionapesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbselecionapesquisaActionPerformed(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         btnpesquisar.setText("Pesquisar");
         btnpesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -93,13 +94,7 @@ public class PesquisarServico extends DialogPadrao {
             }
         });
 
-        btnselecionar.setText("selecionar");
-        btnselecionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnselecionarActionPerformed(evt);
-            }
-        });
-
+        tabela.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -110,6 +105,20 @@ public class PesquisarServico extends DialogPadrao {
         ));
         tabela.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tabela);
+
+        btnselecionar.setText("selecionar");
+        btnselecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnselecionarActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnnovo.setText("novo");
         btnnovo.addActionListener(new java.awt.event.ActionListener() {
@@ -125,44 +134,66 @@ public class PesquisarServico extends DialogPadrao {
             }
         });
 
+        btnVisualiza.setText("editar");
+        btnVisualiza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVisualizaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(edtpesquisa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnnovo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnalt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnVisualiza)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnselecionar)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(edtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnpesquisar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnselecionar)
+                    .addComponent(btnnovo)
+                    .addComponent(btnalt)
+                    .addComponent(btnExcluir)
+                    .addComponent(btnVisualiza))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cmbselecionapesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtpesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnselecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnalt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnnovo)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbselecionapesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(edtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnpesquisar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnselecionar)
-                    .addComponent(btnnovo)
-                    .addComponent(btnalt))
-                .addContainerGap(32, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -170,7 +201,6 @@ public class PesquisarServico extends DialogPadrao {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpesquisarActionPerformed
-        modelo =new TableModelServico();
         try {
             servicos= new ServicoDao().getAll(edtpesquisa.getText());
         } catch (Exception e) {
@@ -186,7 +216,7 @@ public class PesquisarServico extends DialogPadrao {
             JOptionPane.showMessageDialog(this , "Nenhum servico selecionada");
             return;
         } else {
-            servico = (Servico) servicos.get(tabela.getSelectedRow());
+            Servico servico = (Servico) servicos.get(tabela.getSelectedRow());
             if (!servico.isAtivo()) {
                 JOptionPane.showMessageDialog(this,"Serviço selecionado não esta ativo");
                 return;
@@ -196,31 +226,71 @@ public class PesquisarServico extends DialogPadrao {
         }
     }//GEN-LAST:event_btnselecionarActionPerformed
 
-    private void cmbselecionapesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbselecionapesquisaActionPerformed
-
-    }//GEN-LAST:event_cmbselecionapesquisaActionPerformed
-
-    private void btnnovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnovoActionPerformed
-        new CadastroServicoForm(this, true,  new Servico()).show();
+    private void btnnovoActionPerformed(java.awt.event.ActionEvent evt) {
+         new CadastroServicoForm(this, true,  new Servico()).show();
     }
-
 
     private void btnaltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaltActionPerformed
         if (tabela.getSelectedRow() < 0) {
             JOptionPane.showMessageDialog(this , "Nenhuma pessoa selecionada");
             return;
         }
-        servico=servicos.get(tabela.getSelectedRow());
-        new CadastroServicoForm(this, true,  servico).show();
+        Servico servico=servicos.get(tabela.getSelectedRow());
+        CadastroServicoForm cadastroServicoForm = new CadastroServicoForm(this, true,  servico);
+        cadastroServicoForm.carregaEdt();
+        cadastroServicoForm.show();
+
     }//GEN-LAST:event_btnaltActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (tabela.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um registro para continuar");
+            return;
+        }
+        Servico produtoselecionado = servicos.get(tabela.getSelectedRow());
+        try {
+            new ServicoService().deleteByID(produtoselecionado.getId());
+            JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+            return;
+        } catch (Exception e) {
+            if (JOptionPane.showConfirmDialog(this,"Não é possivel excluir o registro, deseja desativa-lo?", "ATENÇÂO", JOptionPane.YES_NO_OPTION)==0) {
+                if (!produtoselecionado.isAtivo())
+                    JOptionPane.showMessageDialog(this, "Serviço já está desativada");
+                try {
+                    new ServicoService().update(produtoselecionado);
+                    JOptionPane.showMessageDialog(this,
+                            "Desativado com sucesso"
+                    );
+                    return;
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel desativar");
+                }
+            }
+        }
+        modelo.setList(servicos.toArray());
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnVisualizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizaActionPerformed
+        if (tabela.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this , "Nenhuma pessoa selecionada");
+            return;
+        }
+        Servico servico=servicos.get(tabela.getSelectedRow());
+        CadastroServicoForm cadastroServicoForm = new CadastroServicoForm(this, true,  servico);
+        cadastroServicoForm.carregaEdt();
+        cadastroServicoForm.bloqueiaEdt();
+        cadastroServicoForm.show();
+    }//GEN-LAST:event_btnVisualizaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnVisualiza;
     private javax.swing.JButton btnalt;
     private javax.swing.JButton btnnovo;
     private javax.swing.JToggleButton btnpesquisar;
     private javax.swing.JButton btnselecionar;
-    private javax.swing.JComboBox cmbselecionapesquisa;
     private javax.swing.JFormattedTextField edtpesquisa;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables

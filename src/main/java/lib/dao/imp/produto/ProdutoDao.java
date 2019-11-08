@@ -47,9 +47,8 @@ public class ProdutoDao<T> extends AbstractDao<T>{
 		if (produto.getReferencia() == null)
 			produto.setReferencia("");
 
-
 		String sql = "update produto set nome = '"+ produto.getNome() +"', ativo = "+ produto.getAtivo() +", data_ultima_alteracao = '"+produto.getDataUltimaAlteracao()  +"', unidade_medida = '"+produto.getUnidadeMedida()+
-				"', data_cadastro = '"+ produto.getDataCadastro() +"', quantidade_estoque = '"+produto.getQuantidadeEstoque()+"', quantidade_minima = "+produto.getQuantidadeMinima() + ", marca_id = "+produto.getMarca().getId()+"" +
+				"', data_cadastro = '"+ produto.getDataCadastro() +"', quantidade_estoque = "+produto.getQuantidadeEstoque()+", quantidade_minima = "+produto.getQuantidadeMinima() + ", marca_id = "+produto.getMarca().getId()+"" +
 				", grupo_id = "+produto.getGrupo().getId()+", referencia = '"+produto.getReferencia()+"'" +
 				", codigo_barras = '"+produto.getCodigoBarras()+"', valor = " + produto.getValor() +", preco_compra = "+ produto.getPrecoCompra() +"" ;
 		if (produto.getUltimoFornecedor() != null)
@@ -58,7 +57,7 @@ public class ProdutoDao<T> extends AbstractDao<T>{
 		this.st.executeUpdate(sql);
 	}
 
-	public List getAll(String termo) throws Exception{
+	public List getAll(String termo) throws SQLException{
 		String sql ="";
 		if (termo.length() == 0)
 			sql = "SELECT * FROM produto ORDER BY nome;";
@@ -95,7 +94,7 @@ public class ProdutoDao<T> extends AbstractDao<T>{
 
 
 
-	public List getAllAtivos(String termo)throws Exception{
+	public List getAllAtivos(String termo)throws SQLException{
 		String sql = "";
 		if (termo.length() == 0)
 			sql = "SELECT * FROM produto where ativo = true ORDER BY nome;";

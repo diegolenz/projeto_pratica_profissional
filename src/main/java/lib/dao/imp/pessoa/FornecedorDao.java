@@ -24,15 +24,16 @@ public class FornecedorDao extends AbstractDao {
         this.fornecedor = new Fornecedor();
     }
 
-    public Integer getUltimoIDPessoa()throws Exception {
-       ResultSet resultSet = this.st.executeQuery("Select id from pessoa order by ID desc limit 1");
-       Integer id=null;
-       while (resultSet.next())
+
+    public Integer getUltimoIDFornecedor() throws Exception {
+        ResultSet resultSet = this.st.executeQuery("Select id from fornecedor order by ID desc limit 1");
+        Integer id = null;
+        while (resultSet.next())
             id = resultSet.getInt("id");
-       return id;
+        return id;
     }
 
-    public void saveCondicoesPagamento(List<CondicaoPagamento> condicoes, Integer id)throws SQLException{
+    public void saveCondicoesPagamento(List<CondicaoPagamento> condicoes, Integer id) throws SQLException {
         for (CondicaoPagamento condicaoPagamento : condicoes) {
             String sql = "INSERT INTO condicao_pagamento_fornecedor ( fornecedor_id, condicao_id) values (" +
                     "" + id + ", " + condicaoPagamento.getId() + " );";
@@ -40,19 +41,19 @@ public class FornecedorDao extends AbstractDao {
         }
     }
 
-    private List<CondicaoPagamento> getCondicaoByFornecedor(Integer id)throws SQLException{
-        PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM condicao_pagamento_fornecedor WHERE fornecedor_id = "+id+";");
+    private List<CondicaoPagamento> getCondicaoByFornecedor(Integer id) throws SQLException {
+        PreparedStatement preparedStatement = st.getConnection().prepareStatement("SELECT * FROM condicao_pagamento_fornecedor WHERE fornecedor_id = " + id + ";");
         ResultSet rs = preparedStatement.executeQuery();
         List<CondicaoPagamento> condicaoPagamentos = new ArrayList<>();
-        while (rs.next()){
+        while (rs.next()) {
             condicaoPagamentos.add(new CondicaoPagamentoService().getByID(rs.getInt("condicao_id")));
         }
         return condicaoPagamentos;
     }
 
-    public void deleteCondicoes(List<CondicaoPagamento> condicoes, Integer fornecedorId)throws Exception{
+    public void deleteCondicoes(List<CondicaoPagamento> condicoes, Integer fornecedorId) throws Exception {
         String sql = "";
-        for (CondicaoPagamento condicaoPagamento : condicoes){
+        for (CondicaoPagamento condicaoPagamento : condicoes) {
             sql = "DELETE FROM condicao_pagamento_fornecedor WHERE condicao_id = " + condicaoPagamento.getId() + " and fornecedor_id = " + fornecedorId + " ;";
             this.st.execute(sql);
         }
@@ -61,15 +62,15 @@ public class FornecedorDao extends AbstractDao {
     public void save(Object obj) throws Exception {
         Fornecedor fornecedor = (Fornecedor) obj;
         String date = "";
-        if (fornecedor.getDataNascimento() !=null)
-            date =  fornecedor.getDataNascimento().toString() ;
+        if (fornecedor.getDataNascimento() != null)
+            date = fornecedor.getDataNascimento().toString();
 
         // Insere informações da pessoa
-        String sql = "INSERT INTO pessoa (" +
+        String sql = "INSERT INTO fornecedor (" +
                 " nome," +
-                " cpf_cnpj," ;
+                " cpf_cnpj,";
         if (fornecedor.getDataNascimento() != null)
-            sql += " data_nascimento," ;
+            sql += " data_nascimento,";
         sql += " email," +
                 " sexo," +
                 " nome_fantasia_apelido," +
@@ -82,82 +83,65 @@ public class FornecedorDao extends AbstractDao {
                 " logradouro," +
                 " complemento," +
                 " numero_residencial, " +
-                " cep" +
+                " cep, " +
+                " ativo," +
+                " data_cadastro," +
+                " data_ultima_alteracao" +
                 ") values (" +
-                "'" +    fornecedor.getNome() +
-                "','" +  fornecedor.getCpfCnpj() + "',";
+                "'" + fornecedor.getNome() +
+                "','" + fornecedor.getCpfCnpj() + "',";
         if (fornecedor.getDataNascimento() != null)
-            sql+= " '" + date + "',";
+            sql += " '" + date + "',";
 
         sql += " '" + fornecedor.getEmail() +
-                "', " +  fornecedor.getSexo().ordinal() +
-                ", '" +  fornecedor.getNomeFantasia_Apelido() +
+                "', " + fornecedor.getSexo().ordinal() +
+                ", '" + fornecedor.getNomeFantasia_Apelido() +
                 "', '" + fornecedor.getRgIe() +
                 "', '" + fornecedor.getTelefone() +
                 "', '" + fornecedor.getTelefoneAlternativo() +
-                "', " +  fornecedor.getTipo().ordinal() +
-                ", " +   fornecedor.getCidade().getId() +
-                ", '" +  fornecedor.getBairro() +
+                "', " + fornecedor.getTipo().ordinal() +
+                ", " + fornecedor.getCidade().getId() +
+                ", '" + fornecedor.getBairro() +
                 "', '" + fornecedor.getLogradouro() +
                 "', '" + fornecedor.getComplemento() +
-                "', '" +  fornecedor.getNumeroResidencial() +
-                "', '" +  fornecedor.getCep() +
-                "' ); ";
-
-        this.st.executeUpdate(sql);
-        //Insere fornecedor referenciando a ultima pessoa inserida no banco
-        String sqlFornecedor =
-                "INSERT INTO fornecedor (ativo, data_cadastro, data_ultima_alteracao, pessoa_id) values ("+
-                    fornecedor.getAtivo() + ", '" +
-                    fornecedor.getDataCadastro() + "','" +
-                    fornecedor.getDataUltAlteracao() +"'," +
-                        getUltimoIDPessoa() +
+                "', '" + fornecedor.getNumeroResidencial() +
+                "', '" + fornecedor.getCep() +
+                "', " +
+                fornecedor.getAtivo() + ", '" +
+                fornecedor.getDataCadastro() + "','" +
+                fornecedor.getDataUltAlteracao() + "'" +
                 " );";
-        this.st.executeUpdate(sqlFornecedor);
-        this.saveCondicoesPagamento(fornecedor.getCondicoesPagamentos(),getUltimoIDPessoa());
+
+        this.st.getConnection().prepareStatement(sql).executeUpdate();
+        this.saveCondicoesPagamento(fornecedor.getCondicoesPagamentos(), getUltimoIDFornecedor());
     }
 
     public void deleteByID(Object id) throws SQLException {
-        ResultSet rs = this.st.executeQuery("SELECT * FROM fornecedor where id = " + id  +" ;");
-        Integer idPessoa = null;
-        if (rs.next()){
-            idPessoa = rs.getInt("pessoa_id");
-        }
-
         this.st.getConnection().setAutoCommit(false);
         String deleteCondiscoes = "DELETE FROM condicao_pagamento_fornecedor where fornecedor_id =" + fornecedor.getId();
         String sql = "DELETE FROM fornecedor WHERE id = " + id + " ;";
-        String deletePessoa = "DELETE FROM pessoa WHERE id = " + idPessoa + " ;";
 
         this.st.execute(deleteCondiscoes);
         this.st.execute(sql);
-        this.st.execute(deletePessoa);
 
         this.st.getConnection().commit();
         this.st.getConnection().setAutoCommit(true);
     }
 
     public List getAllFornecedores(String termoBusca) throws SQLException {
-        String sql ="";
-        if (termoBusca.length() ==0)
-            sql = "SELECT * FROM fornecedor;" ;
+        String sql = "";
+        if (termoBusca.length() == 0)
+            sql = "SELECT * FROM fornecedor;";
         else if ((termoBusca.matches("[0-9]")))
-            sql = "SELECT * FROM fornecedor where  id = "+termoBusca+" " ;
+            sql = "SELECT * FROM fornecedor where  id = " + termoBusca + " ";
         else
-            sql = "select * from fornecedor where pessoa_id = (select id from pessoa where nome like '%"+termoBusca+"%' );";
+            sql = "select * from fornecedor where nome like '%" + termoBusca + "%' );";
 
         ResultSet rs = this.st.executeQuery(sql);
         List<Fornecedor> fornecedors = new ArrayList<>();
 
         while (rs.next()) {
-            Fornecedor fornecedor = new Fornecedor();
-            fornecedor.setAtivo( rs.getBoolean("ativo"));
-            fornecedor.setDataUltAlteracao(rs.getDate("data_ultima_alteracao"));
-            fornecedor.setDataCadastro(rs.getDate("data_cadastro"));
-            getPessoaByID(rs.getInt("pessoa_id"), fornecedor);
-            fornecedor.setId(rs.getInt("id"));
-            fornecedor.setCondicoesPagamentos(getCondicaoByFornecedor(fornecedor.getId()));
-            fornecedors.add(fornecedor);
+            fornecedors.add(getByID(rs.getInt("id")));
         }
         fornecedors.sort(Comparator.comparing(Fornecedor::getNome));
         return fornecedors;
@@ -166,72 +150,43 @@ public class FornecedorDao extends AbstractDao {
     public void update(Object obj) throws SQLException {
         fornecedor = (Fornecedor) obj;
 
-        String sql = "UPDATE pessoa SET nome = '" + fornecedor.getNome() +
+        String sql = "UPDATE fornecedor SET nome = '" + fornecedor.getNome() +
                 "', sexo = " + fornecedor.getSexo().ordinal() +
                 ",  nome_fantasia_apelido = '" + fornecedor.getNomeFantasia_Apelido() +
                 "', cpf_cnpj = '" + fornecedor.getCpfCnpj() +
                 "', rg_ie = '" + fornecedor.getRgIe() +
-                "', telefone = '" + fornecedor.getTelefone()  +
+                "', telefone = '" + fornecedor.getTelefone() +
                 "', telefone_alternativo = '" + fornecedor.getTelefoneAlternativo() +
                 "', tipo = " + fornecedor.getTipo().ordinal() +
                 ",";
-        if (fornecedor.getDataNascimento() != null){
+        if (fornecedor.getDataNascimento() != null) {
             sql += "  data_nascimento = '" + fornecedor.getDataNascimento() + "', ";
         }
         sql +=
                 " email = '" + fornecedor.getEmail() +
-                "', logradouro = '" + fornecedor.getLogradouro() +
-                "', complemento = '" + fornecedor.getComplemento() +
-                "', cep ='"+ fornecedor.getCep() +
-                "', cidade_ID = " + fornecedor.getCidade().getId() +
-                ", numero_residencial = '" + fornecedor.getNumeroResidencial() +
-                "'    WHERE id = " + fornecedor.getId() + " ;";
-        this.st.executeUpdate(sql);
-        sql = "UPDATE fornecedor SET ativo = "+fornecedor.getAtivo() +
-                ",  data_cadastro = '" + fornecedor.getDataCadastro() +
-                "', data_ultima_alteracao = '"+ fornecedor.getDataUltAlteracao() + "' where id = " + fornecedor.getId() +" ;";
+                        "', logradouro = '" + fornecedor.getLogradouro() +
+                        "', complemento = '" + fornecedor.getComplemento() +
+                        "', cep ='" + fornecedor.getCep() +
+                        "', cidade_ID = " + fornecedor.getCidade().getId() +
+                        ", numero_residencial = '" + fornecedor.getNumeroResidencial() +
+                        "', ativo = " + fornecedor.getAtivo() +
+                        ", data_ultima_alteracao = '" + fornecedor.getDataUltAlteracao() + "'" +
+                        " where id = " + fornecedor.getId() + " ;";
 
         this.st.executeUpdate(sql);
-    }
-
-    public List<Fornecedor> getAtivos() throws Exception {
-
-        ResultSet rs = this.st.executeQuery("SELECT * FROM fornecedor where ativo = " + 1 + " ;");
-        List<Fornecedor> fornecedors=new ArrayList<>();
-        while (rs.next()) {
-            Fornecedor fornecedor = new Fornecedor();
-            fornecedor=new Fornecedor();
-            fornecedor.setId(rs.getInt("id"));
-            fornecedor.setAtivo( rs.getBoolean("ativo"));
-            fornecedor.setDataUltAlteracao(rs.getDate("data_ultima_alteracao"));
-            fornecedor.setDataCadastro(rs.getDate("data_cadastro"));
-            getPessoaByID(rs.getInt("pessoa_id"), fornecedor);
-
-            fornecedors.add(fornecedor);
-        }
-        return fornecedors;
     }
 
     public Fornecedor getByID(Integer id) throws SQLException {
-        PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM fornecedor WHERE ID = "+id+";");
+        PreparedStatement preparedStatement = st.getConnection().prepareStatement("SELECT * FROM fornecedor WHERE ID = " + id + ";");
         ResultSet rs = preparedStatement.executeQuery();
-        Fornecedor fornecedor=null;
+        Fornecedor fornecedor = null;
         while (rs.next()) {
-            fornecedor=new Fornecedor();
-            fornecedor.setId(rs.getInt("id"));
-            fornecedor.setAtivo( rs.getBoolean("ativo"));
+            fornecedor = new Fornecedor();
+
+            fornecedor.setAtivo(rs.getBoolean("ativo"));
             fornecedor.setDataUltAlteracao(rs.getDate("data_ultima_alteracao"));
             fornecedor.setDataCadastro(rs.getDate("data_cadastro"));
             fornecedor.setCondicoesPagamentos(getCondicaoByFornecedor(fornecedor.getId()));
-            getPessoaByID(rs.getInt("id"), fornecedor);
-        }
-        return fornecedor;
-    }
-
-    public Fornecedor getPessoaByID(Integer id, Fornecedor fornecedor)throws SQLException{
-        PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM pessoa WHERE id = '"+ id +"' ;");
-        ResultSet rs = preparedStatement.executeQuery();
-        if (rs.next()) {
             fornecedor.setId(rs.getInt("id"));
             fornecedor.setNome(rs.getString("nome"));
             fornecedor.setNomeFantasia_Apelido(rs.getString("nome_fantasia_apelido"));
@@ -247,35 +202,41 @@ public class FornecedorDao extends AbstractDao {
             fornecedor.setRgIe(rs.getString("rg_ie"));
             fornecedor.setCpfCnpj(rs.getString("cpf_cnpj"));
             fornecedor.setEmail(rs.getString("email"));
+            fornecedor.setCondicoesPagamentos(getCondicaoByFornecedor(fornecedor.getId()));
 
 
             Integer sexo = rs.getInt("sexo");
             switch (sexo) {
-                case 0 : fornecedor.setSexo(Sexo.MASCULINO);
-                break;
-                case 1 : fornecedor.setSexo(Sexo.FEMININO);
-                break;
-                case 2 : fornecedor.setSexo(Sexo.OUTROS);
+                case 0:
+                    fornecedor.setSexo(Sexo.MASCULINO);
+                    break;
+                case 1:
+                    fornecedor.setSexo(Sexo.FEMININO);
+                    break;
+                case 2:
+                    fornecedor.setSexo(Sexo.OUTROS);
             }
 
             Integer tipo = rs.getInt("tipo");
             switch (tipo) {
-                case 0 : fornecedor.setTipo(TipoPessoa.FISICA);
-                break;
-                case 1 : fornecedor.setTipo(TipoPessoa.JURIDICA);
-                break;
-                case 2 : fornecedor.setTipo(TipoPessoa.ESTRANGEIRO);
+                case 0:
+                    fornecedor.setTipo(TipoPessoa.FISICA);
+                    break;
+                case 1:
+                    fornecedor.setTipo(TipoPessoa.JURIDICA);
+                    break;
+                case 2:
+                    fornecedor.setTipo(TipoPessoa.ESTRANGEIRO);
             }
-
         }
         return fornecedor;
     }
 
     public Fornecedor getByCpfCnpjExato(String cpf) throws Exception {
-        PreparedStatement preparedStatement=st.getConnection().prepareStatement(
-               " select * from fornecedor where pessoa_id in (select id from pessoa where cpf_cnpj = '"+cpf+"');");
+        PreparedStatement preparedStatement = st.getConnection().prepareStatement(
+                " select * from fornecedor where cpf_cnpj = '" + cpf + "';");
         ResultSet rs = preparedStatement.executeQuery();
-        Fornecedor fornecedor = null ;
+        Fornecedor fornecedor = null;
         if (rs.next()) {
             fornecedor = getByID(rs.getInt("id"));
         }

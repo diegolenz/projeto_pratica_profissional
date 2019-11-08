@@ -23,6 +23,7 @@ public class CondicaoPagamentoDAO extends AbstractDao {
     public void save(Object obj) throws Exception {
         CondicaoPagamento condicaoPagamento = (CondicaoPagamento) obj;
         String sql = "";
+        this.st.getConnection().setAutoCommit(false);
 
         sql=("INSERT INTO condicao_Pagamento (nome, ativo, juros, multa, desconto ) values (" +
                 "'" +  condicaoPagamento.getNome()+  "', "+condicaoPagamento.getAtivo() +
@@ -36,6 +37,8 @@ public class CondicaoPagamentoDAO extends AbstractDao {
             String sqlParcelas = "INSERT INTO condicao_pagamento_parcela (condicao_pagamento_id, parcelas_id) values (" + condicaoPagamento.getId() + ", " + parcela.getId() + " );";
             this.st.executeUpdate(sqlParcelas);
         }
+        this.st.getConnection().commit();
+        this.st.getConnection().setAutoCommit(true);
     }
 
 
@@ -156,9 +159,10 @@ public class CondicaoPagamentoDAO extends AbstractDao {
         PreparedStatement preparedStatement=st.getConnection().prepareStatement("SELECT * FROM condicao_Pagamento WHERE id = "+id+";");
         //    ResultSet rs = this.st.executeQuery("SELECT * FROM pais WHERE ID = "+id+";");
         ResultSet rs = preparedStatement.executeQuery();
-        CondicaoPagamento condicaoPagamento = new CondicaoPagamento();
+        CondicaoPagamento condicaoPagamento = null;
 
         while (rs.next()) {
+            condicaoPagamento = new CondicaoPagamento();
             condicaoPagamento.setId(rs.getInt("id"));
             condicaoPagamento.setNome(rs.getString("nome"));
             condicaoPagamento.setAtivo(rs.getBoolean("ativo"));

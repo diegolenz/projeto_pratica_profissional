@@ -1,7 +1,6 @@
 package lib.model.financeiro.contas;
 
-import lib.model.comercial.Compra;
-import lib.model.comercial.Venda;
+import lib.model.comercial.VendaProduto;
 import lib.model.financeiro.StatusConta;
 import lib.model.financeiro.formaPagamento.FormaPagamento;
 import lib.model.pessoa.cliente.Cliente;
@@ -11,7 +10,7 @@ import java.util.Date;
 public class ContaReceber {
     private Integer id;
 
-    private Venda venda;
+    private VendaProduto venda;
 
     private String descricao;
 
@@ -112,11 +111,11 @@ public class ContaReceber {
         this.id = id;
     }
 
-    public Venda getVenda() {
+    public VendaProduto getVenda() {
         return venda;
     }
 
-    public void setVenda(Venda venda) {
+    public void setVenda(VendaProduto venda) {
         this.venda = venda;
     }
 

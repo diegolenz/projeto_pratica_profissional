@@ -36,7 +36,7 @@ public class PesquisarCliente extends DialogPadrao {
 
     public interface Callback {
 
-        void handle(Pessoa pessoa);
+        void handle(Cliente pessoa);
     }
 
     public PesquisarCliente(Window parent, boolean modal, PesquisarCliente.Callback callBack) {
@@ -71,6 +71,7 @@ public class PesquisarCliente extends DialogPadrao {
         setLocationByPlatform(true);
         setModal(true);
 
+        btnpesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnpesquisar.setText("Pesquisar");
         btnpesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +79,7 @@ public class PesquisarCliente extends DialogPadrao {
             }
         });
 
+        btnselecionar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnselecionar.setText("selecionar");
         btnselecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +87,7 @@ public class PesquisarCliente extends DialogPadrao {
             }
         });
 
+        tabela.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -96,6 +99,7 @@ public class PesquisarCliente extends DialogPadrao {
         tabela.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tabela);
 
+        btnnovapessoa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnnovapessoa.setText("Nova pessoa");
         btnnovapessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,6 +107,7 @@ public class PesquisarCliente extends DialogPadrao {
             }
         });
 
+        btnalt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnalt.setText("alterar");
         btnalt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,7 +115,13 @@ public class PesquisarCliente extends DialogPadrao {
             }
         });
 
+        btnExcluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnExcluir.setText("excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,13 +136,14 @@ public class PesquisarCliente extends DialogPadrao {
                         .addGap(2, 2, 2)
                         .addComponent(btnpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnselecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnnovapessoa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnalt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExcluir)))
+                        .addComponent(btnExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnselecionar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -139,22 +151,62 @@ public class PesquisarCliente extends DialogPadrao {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnpesquisar))
+                    .addComponent(edtpesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnalt)
-                    .addComponent(btnnovapessoa)
-                    .addComponent(btnselecionar)
-                    .addComponent(btnExcluir))
+                    .addComponent(btnalt, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnnovapessoa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnselecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (tabela.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um registro para continuar");
+            return;
+        }
+        Cliente pessoaSelecionado=list.get(tabela.getSelectedRow());
+        NovoClienteForm novoClienteForm = new NovoClienteForm(this, true, pessoaSelecionado);
+        novoClienteForm.carregaredt();
+        novoClienteForm.bloqueiaedt();
+        novoClienteForm.show();
+        if (JOptionPane.showConfirmDialog(novoClienteForm,"Deseja realmente excluir o cliente selecionado ?", "Atenção", JOptionPane.YES_NO_OPTION) !=0)
+            return;
+
+        try {
+            new ClienteService().deleteByID(pessoaSelecionado);
+            JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+        }catch (Exception e) {
+            if (JOptionPane.showConfirmDialog(this,"Não é possivel excluir o registro, deseja desativa-lo?", "ATENÇÂO", JOptionPane.YES_NO_OPTION)==0) {
+                if (!pessoaSelecionado.getAtivo())
+                    JOptionPane.showMessageDialog(this, "Pessoa já está desativada");
+                try {
+                    new ClienteService().update(pessoaSelecionado);
+                    JOptionPane.showMessageDialog(this,
+                            "Desativado com sucesso"
+                    );
+                } catch (Exception e1) {
+                    JOptionPane.showMessageDialog(this, "Não foi possivel desativar");
+                }
+            }
+        }
+        try {
+            list = new ClienteService().getAll(edtpesquisa.getText());
+        } catch (Exception e){
+            JOptionPane.showConfirmDialog(this,"Falha ao retornar dados, contate o adminstrador do sistema \n" + e.getMessage());
+        }
+        modelo.setList(list.toArray());
+        tabela.setModel(modelo);
+        novoClienteForm.dispose();
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnaltActionPerformed(java.awt.event.ActionEvent evt) {
         if (tabela.getSelectedRow() < 0) {
@@ -201,49 +253,7 @@ public class PesquisarCliente extends DialogPadrao {
         NovoClienteForm novapessoa=new NovoClienteForm(this, true, new Cliente());
         novapessoa.show();
     }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PesquisarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PesquisarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PesquisarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PesquisarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                PesquisarCliente dialog = new PesquisarCliente(new javax.swing.JDialog(), true,null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnalt;

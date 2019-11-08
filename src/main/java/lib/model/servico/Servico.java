@@ -23,6 +23,16 @@ public class Servico {
 
     private Grupo grupo;
 
+    public Servico buildServico(ItemServico itemProduto){
+        Servico p = new Servico();
+        p.setId(itemProduto.getId());
+        p.setNome(itemProduto.getNome());
+        p.setGrupo(itemProduto.getGrupo());
+        p.setValor(itemProduto.getValor());
+        p.setAtivo(itemProduto.isAtivo());
+        return p;
+    }
+
     public Grupo getGrupo() {
         return grupo;
     }

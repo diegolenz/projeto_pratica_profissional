@@ -210,7 +210,7 @@ public class PesquisarMarca extends DialogPadrao {
 
     private void btnselecionarActionPerformed(java.awt.event.ActionEvent evt) {
         if (tabela.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(this , "Nenhuma pessoa selecionada");
+            JOptionPane.showMessageDialog(this , "Nenhuma marca selecionada");
             return;
         } else {
             marcaSelecionada = (Marca) marcas.get(tabela.getSelectedRow());
@@ -322,7 +322,7 @@ public class PesquisarMarca extends DialogPadrao {
         cadastrarMarcaForm.show();
 
         try {
-            if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a marca selecionada ?", "Atenção", JOptionPane.YES_NO_OPTION) != 0) {
+            if (JOptionPane.showConfirmDialog(cadastrarMarcaForm, "Deseja realmente excluir a marca selecionada ?", "Atenção", JOptionPane.YES_NO_OPTION) != 0) {
                 cadastrarMarcaForm.dispose();
                 return;
             }
@@ -333,6 +333,7 @@ public class PesquisarMarca extends DialogPadrao {
                 if (!marcaSelecionada.getAtivo())
                     JOptionPane.showMessageDialog(this, "Marca já está desativada");
                 try {
+                    marcaSelecionada.setAtivo(false);
                     marcaService.update(marcaSelecionada);
                     JOptionPane.showMessageDialog(this,
                             "Desativado com sucesso"

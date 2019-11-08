@@ -11,10 +11,6 @@ public class TableModelOperador extends AbstractTableModel {
         this.list = new Object[0];
     }
 
-
-
-
-
     protected Object list[];
 
     public Object[] getList() {
@@ -56,13 +52,13 @@ public class TableModelOperador extends AbstractTableModel {
     public String getColumnName(int column) {
         switch (column) {
             case 0:
-                return "codigo";
+                return "Código";
             case 1:
-                return "nome";
+                return "Nome";
             case 2:
-                return "documento";
+                return "Documento";
             case 3:
-                return "usuario";
+                return "Usuário";
 
         }
         return "";

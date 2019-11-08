@@ -2,32 +2,52 @@ package lib.model.interno;
 
 import lib.model.pessoa.Pessoa;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Funcionario extends Pessoa{
+public class Funcionario extends Pessoa {
 
-        private static final Long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
-        private Integer id;
+    private Integer id;
 
-        private String usuario;
+    private String usuario;
 
-        private String senha;
+    private String senha;
 
-        private Date dataCadastro;
+    private Date dataCadastro;
 
     private Date dataUltAlteracao;
 
-        private boolean ativo;
+    private boolean ativo;
 
-        private boolean primeiroLogin;
+    private boolean alterarSenhaProximoLogin;
 
 
-        private List<GrupoFuncionario> grupos;
+    private List<GrupoFuncionario> grupos;
 
-        private NivelAcessoOperador nivelAcesso;
+    private NivelAcessoOperador nivelAcesso;
 
+    private Date dataAdmissao;
+
+    private Date dataDemissao;
+
+    public Date getDataAdmissao() {
+        return dataAdmissao;
+    }
+
+    public void setDataAdmissao(Date dataAdmissao) {
+        this.dataAdmissao = dataAdmissao;
+    }
+
+    public Date getDataDemissao() {
+        return dataDemissao;
+    }
+
+    public void setDataDemissao(Date dataDemissao) {
+        this.dataDemissao = dataDemissao;
+    }
 
     public NivelAcessoOperador getNivelAcesso() {
         return nivelAcesso;
@@ -50,6 +70,9 @@ public class Funcionario extends Pessoa{
     }
 
     public List<GrupoFuncionario> getGrupos() {
+        if (grupos == null) {
+            grupos = new ArrayList<>();
+        }
         return grupos;
     }
 
@@ -58,63 +81,63 @@ public class Funcionario extends Pessoa{
     }
 
 
-        public Funcionario() {
-            this.nivelAcesso = NivelAcessoOperador.RESPEITAR_PERMISSOES;
-            this.ativo = true;
-            this.primeiroLogin = true;
-        }
+    public Funcionario() {
+        this.nivelAcesso = NivelAcessoOperador.RESPEITAR_PERMISSOES;
+        this.ativo = true;
+        this.alterarSenhaProximoLogin = true;
+    }
 
-        public Integer getId() {
-            return id;
-        }
+    public Integer getId() {
+        return id;
+    }
 
-        public void setId(Integer id) {
-            this.id = id;
-        }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-        public String getUsuario() {
-            return usuario;
-        }
+    public String getUsuario() {
+        return usuario;
+    }
 
-        public void setUsuario(String usuario) {
-            this.usuario = usuario;
-        }
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 
-        public String getSenha() {
-            return (senha);
-        }
+    public String getSenha() {
+        return (senha);
+    }
 
-        public void setSenha(String senha) {
-            this.senha = (senha);
-        }
+    public void setSenha(String senha) {
+        this.senha = (senha);
+    }
 
-        public Date getDataCadastro() {
-            return dataCadastro;
-        }
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
 
-        public void setDataCadastro(Date dataCadastro) {
-            this.dataCadastro = dataCadastro;
-        }
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
 
-        public boolean isAtivo() {
-            return ativo;
-        }
+    public boolean isAtivo() {
+        return ativo;
+    }
 
-        public void setAtivo(boolean ativo) {
-            this.ativo = ativo;
-        }
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 
-        public boolean isPrimeiroLogin() {
-            return primeiroLogin;
-        }
+    public boolean isAlterarSenhaProximoLogin() {
+        return alterarSenhaProximoLogin;
+    }
 
-        public void setPrimeiroLogin(boolean primeiroLogin) {
-            this.primeiroLogin = primeiroLogin;
-        }
+    public void setAlterarSenhaProximoLogin(boolean alterarSenhaProximoLogin) {
+        this.alterarSenhaProximoLogin = alterarSenhaProximoLogin;
+    }
 
-        public static Long getSerialVersionUID() {
-            return serialVersionUID;
-        }
+    public static Long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Date getDataUltAlteracao() {
         return dataUltAlteracao;

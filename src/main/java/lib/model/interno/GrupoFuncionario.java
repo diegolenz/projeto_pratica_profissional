@@ -45,6 +45,16 @@ public class GrupoFuncionario implements Serializable {
 
     private Date dataUltimaAlteracao;
 
+    private Boolean ativo;
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
     public List<PermissaoAcesso> getPermissoes() {
         if (permissoes == null)
             permissoes = new ArrayList<>();

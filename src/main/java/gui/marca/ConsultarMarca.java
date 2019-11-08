@@ -268,7 +268,7 @@ public class ConsultarMarca extends SociusTab implements WindowPadrao {
         cadastrarMarcaForm.show();
 
         try {
-            if (JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a marca selecionada ?", "Atenção", JOptionPane.YES_NO_OPTION) != 0) {
+            if (JOptionPane.showConfirmDialog(cadastrarMarcaForm, "Deseja realmente excluir a marca selecionada ?", "Atenção", JOptionPane.YES_NO_OPTION) != 0) {
                 cadastrarMarcaForm.dispose();
                 return;
             }

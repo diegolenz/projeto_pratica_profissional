@@ -54,8 +54,8 @@ public class CadastrarGrupoForm extends  DialogPadrao {
     public void bloqueiaedt() {
         this.edtCódigo.setEnabled(false);
         this.edtNome.setEnabled(false);
-        btnsalvar.setEnabled(false);
-        btncancelar.setEnabled(false);
+        btnsalvar.setVisible(false);
+        btncancelar.setVisible(false);
     }
 
     public void desbloqueiaedt() {

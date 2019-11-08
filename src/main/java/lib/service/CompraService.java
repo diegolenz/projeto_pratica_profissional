@@ -9,7 +9,7 @@ import lib.model.produto.Produto;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CompraService {
+public class CompraService extends Service{
     /*-------------------------------------------------------------------
      *				 		     ATTRIBUTES
      *-------------------------------------------------------------------*/

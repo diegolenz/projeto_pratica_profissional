@@ -5,35 +5,34 @@
  */
 package gui;
 
-import javax.swing.*;
-
 import gui.comercial.compra.ConsultaCompraForm;
-import gui.comercial.venda.ConsultaVendaForm;
+import gui.comercial.venda.ConsultaVendaProdutosForm;
 import gui.enderecos.cidades.ConsultaCidades;
 import gui.enderecos.estados.ConsultaEstados;
 import gui.enderecos.pais.ConsultaPaises;
 import gui.financeiro.CondicaoPagamento.ConsultaCondicoesPagamentoForm;
 import gui.financeiro.caixas.ConsultarCaixaForm;
 import gui.financeiro.contas.contas_a_pagar.ConsultaContasAPagar;
+import gui.financeiro.contas.contas_a_receber.ConsultaContasAReceber;
 import gui.financeiro.formaPagamento.ConsultaFormasPagamentos;
 import gui.grupo.ConsultaGrupoForm;
 import gui.marca.ConsultarMarca;
-import gui.operador.CadastrarFuncionario;
-import gui.operador.ConsultaFuncionarioForm;
-import gui.operador.login;
 import gui.pessoas.clientes.ConsultaClientesForm;
 import gui.pessoas.clientes.NovoClienteForm;
 import gui.pessoas.fornecedores.ConsultaFornecedoresForm;
-import gui.produtos.*;
+import gui.produtos.ConsultaProdutosForm;
 import gui.servicos.ConsultaServicos;
 import gui.sistema.CadastroGrupoOperadores;
 import gui.sistema.ConsultaGruposOperadoresForm;
 import gui.sistema.PanelPrincipal;
+import gui.sistema.operador.ConsultaFuncionarioForm;
+import gui.sistema.operador.login;
 import gui.swing.ButtonTabComponent;
 import lib.dao.AbstractDao;
 import lib.model.interno.Funcionario;
 import lib.model.pessoa.cliente.Cliente;
 
+import javax.swing.*;
 import java.sql.SQLException;
 
 /**
@@ -161,10 +160,12 @@ public class janelaPrincipal extends javax.swing.JFrame {
         mnuItemCondicaoPagamento = new javax.swing.JMenuItem();
         itmMnuFormaPagamento = new javax.swing.JMenuItem();
         mnuContasPagar = new javax.swing.JMenuItem();
+        mnuContasReceber = new javax.swing.JMenuItem();
         mnuCaixas = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnCompras = new javax.swing.JMenuItem();
-        mnuVenda = new javax.swing.JMenuItem();
+        mnuVendaProdutos = new javax.swing.JMenuItem();
+        mnuVendaservicos = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         mnuOperadores = new javax.swing.JMenuItem();
         mnuGrupoFuncionarios = new javax.swing.JMenuItem();
@@ -294,7 +295,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         btnNovoCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnNovoCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/business_application_addmale_useradd_insert_add_user_client_2312.png"))); // NOI18N
-        btnNovoCliente.setText("Novo Cliente");
+        btnNovoCliente.setToolTipText("Novo Cliente");
         btnNovoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnNovoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -304,7 +305,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         btnNovaCompraAcessoRpd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnNovaCompraAcessoRpd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/shoppingcart_to_compra_12829 (1).png"))); // NOI18N
-        btnNovaCompraAcessoRpd.setText("Nova Compra");
+        btnNovaCompraAcessoRpd.setToolTipText("Nova Compra");
         btnNovaCompraAcessoRpd.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnNovaCompraAcessoRpd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,7 +316,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
         btnNovaVenda.setBackground(new java.awt.Color(255, 255, 255));
         btnNovaVenda.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnNovaVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/shoppingcart_below_compra_12831 (1).png"))); // NOI18N
-        btnNovaVenda.setText("Nova fatura");
+        btnNovaVenda.setToolTipText("Nova fatura");
         btnNovaVenda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnNovaVenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -325,7 +326,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
 
         btnNovoOrcamento.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnNovoOrcamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/construction_project_plan_building_architect_design_develop-71_icon-icons.com_60239.png"))); // NOI18N
-        btnNovoOrcamento.setText("Novo orçamento");
+        btnNovoOrcamento.setToolTipText("Novo orçamento");
         btnNovoOrcamento.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnNovoOrcamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -480,6 +481,15 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMenu13.add(mnuContasPagar);
 
+        mnuContasReceber.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mnuContasReceber.setText("Contas a receber");
+        mnuContasReceber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuContasReceberActionPerformed(evt);
+            }
+        });
+        jMenu13.add(mnuContasReceber);
+
         mnuCaixas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         mnuCaixas.setText("Caixas");
         mnuCaixas.addActionListener(new java.awt.event.ActionListener() {
@@ -503,14 +513,18 @@ public class janelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(btnCompras);
 
-        mnuVenda.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        mnuVenda.setText("Vendas");
-        mnuVenda.addActionListener(new java.awt.event.ActionListener() {
+        mnuVendaProdutos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mnuVendaProdutos.setText("Vendas de produtos");
+        mnuVendaProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuVendaActionPerformed(evt);
+                mnuVendaProdutosActionPerformed(evt);
             }
         });
-        jMenu2.add(mnuVenda);
+        jMenu2.add(mnuVendaProdutos);
+
+        mnuVendaservicos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mnuVendaservicos.setText("Vendas de serviços");
+        jMenu2.add(mnuVendaservicos);
 
         jMenuBar1.add(jMenu2);
 
@@ -592,7 +606,7 @@ public class janelaPrincipal extends javax.swing.JFrame {
                 .addComponent(btnNovoCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnNovoOrcamento)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 485, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnTrocar)
@@ -761,18 +775,18 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jTabbedPane1.setTabComponentAt(i, new ButtonTabComponent(jTabbedPane1));
     }//GEN-LAST:event_btnComprasActionPerformed
 
-    private void mnuVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuVendaActionPerformed
-        ConsultaVendaForm p=new ConsultaVendaForm(this);
-        Integer i = verrificaJanelaAberta("Vendas");
+    private void mnuVendaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuVendaProdutosActionPerformed
+        ConsultaVendaProdutosForm p=new ConsultaVendaProdutosForm(this);
+        Integer i = verrificaJanelaAberta("Vendas de produtos" );
         if (i != null){
             jTabbedPane1.setSelectedIndex(i);
             return;
         }
-        jTabbedPane1.addTab("Vendas", p);
+        jTabbedPane1.addTab("Vendas de produtos", p);
         jTabbedPane1.setSelectedComponent(p);
         i = jTabbedPane1.getSelectedIndex();
         jTabbedPane1.setTabComponentAt(i, new ButtonTabComponent(jTabbedPane1));
-    }//GEN-LAST:event_mnuVendaActionPerformed
+    }//GEN-LAST:event_mnuVendaProdutosActionPerformed
 
     private void mnuContasPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuContasPagarActionPerformed
         ConsultaContasAPagar p=new ConsultaContasAPagar(this);
@@ -826,6 +840,19 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jTabbedPane1.setTabComponentAt(i, new ButtonTabComponent(jTabbedPane1));
     }//GEN-LAST:event_mnuGrupoFuncionariosActionPerformed
 
+    private void mnuContasReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuContasReceberActionPerformed
+        ConsultaContasAReceber p=new ConsultaContasAReceber(this);
+        Integer i = verrificaJanelaAberta("Contas a receber");
+        if (i != null){
+            jTabbedPane1.setSelectedIndex(i);
+            return;
+        }
+        jTabbedPane1.addTab("Contas a receber", p);
+        jTabbedPane1.setSelectedComponent(p);
+        i = jTabbedPane1.getSelectedIndex();
+        jTabbedPane1.setTabComponentAt(i, new ButtonTabComponent(jTabbedPane1));
+    }//GEN-LAST:event_mnuContasReceberActionPerformed
+
     private void btnNovaCompraAcessoRpdActionPerformed(java.awt.event.ActionEvent evt) {
       //  new NovaCompraForm(this, true, new Compra()).show();
     }
@@ -847,12 +874,6 @@ public class janelaPrincipal extends javax.swing.JFrame {
         jTabbedPane1.setTabComponentAt(i, new ButtonTabComponent(jTabbedPane1));
     }
 
-
-    private void mnuCadServicoActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-
     private void mnuConsultaGruposActionPerformed(java.awt.event.ActionEvent evt) {
         ConsultaGruposOperadoresForm obj=new ConsultaGruposOperadoresForm(this);
         Integer i = verrificaJanelaAberta("Grupo de operadores");
@@ -867,8 +888,8 @@ public class janelaPrincipal extends javax.swing.JFrame {
     }
 
     private void mnuCadOperadorActionPerformed(java.awt.event.ActionEvent evt) {
-        CadastrarFuncionario cadastrarOperador=new CadastrarFuncionario(this, true, new Funcionario());
-        cadastrarOperador.show();
+//        CadastrarFuncionario cadastrarOperador=new CadastrarFuncionario(this, true, new Funcionario());
+//        cadastrarOperador.show();
     }
 
     private void mnuCadGrupoActionPerformed(java.awt.event.ActionEvent evt) {
@@ -1047,13 +1068,15 @@ public class janelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuConsultarMarca;
     private javax.swing.JMenuItem mnuConsultarProd;
     private javax.swing.JMenuItem mnuContasPagar;
+    private javax.swing.JMenuItem mnuContasReceber;
     private javax.swing.JMenuItem mnuEstados;
     private javax.swing.JMenuItem mnuGrupoFuncionarios;
     private javax.swing.JMenuItem mnuGrupos;
     private javax.swing.JMenuItem mnuItemCondicaoPagamento;
     private javax.swing.JMenuItem mnuOperadores;
     private javax.swing.JMenuItem mnuPaises;
-    private javax.swing.JMenuItem mnuVenda;
+    private javax.swing.JMenuItem mnuVendaProdutos;
+    private javax.swing.JMenuItem mnuVendaservicos;
     private javax.swing.JMenuItem mnuconsClientes;
     // End of variables declaration//GEN-END:variables
 }

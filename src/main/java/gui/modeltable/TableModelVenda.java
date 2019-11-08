@@ -1,6 +1,7 @@
 package gui.modeltable;
 
-import lib.model.comercial.Venda;
+import lib.model.comercial.VendaProduto;
+import lib.model.comercial.VendaServico;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -35,7 +36,7 @@ public class TableModelVenda extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Venda p = (Venda) list[rowIndex];
+        VendaProduto  p = (VendaProduto) list[rowIndex];
         switch (columnIndex) {
             case 0:
                 return p.getNumeroNota();

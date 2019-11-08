@@ -17,15 +17,15 @@ public class ServicoDao<T> extends AbstractDao<T>{
 
 
     public void save(Servico servico) throws Exception {
-        String sql = "INSERT INTO servico (nome, ativo, valor, dt_ult_alteracao, dt_cadastro, grupo_id) values ('"+servico.getNome()+"', "+ servico.isAtivo() +
+        String sql = "INSERT INTO servico (nome, ativo, valor, data_ultima_alteracao, data_cadastro, grupo_id) values ('"+servico.getNome()+"', "+ servico.isAtivo() +
                 ", "+ servico.getValor() +", '"+servico.getDt_ult_alteracao() +"', '"+servico.getDt_cadastro() +"', "+ servico.getGrupo().getId() +
                 " ) ; ";
         this.st.executeUpdate(sql);
     }
 
     public void update(Servico servico) throws Exception {
-        String sql = "update servico set nome = '"+ servico.getNome() +"', ativo = "+ servico.isAtivo() +", dt_ult_alteracao = '"+servico.getDt_ult_alteracao()  +
-                "', dt_cadastro = '"+ servico.getDt_cadastro() +"'" +
+        String sql = "update servico set nome = '"+ servico.getNome() +"', ativo = "+ servico.isAtivo() +", data_ultima_alteracao = '"+servico.getDt_ult_alteracao()  +
+                "', data_cadastro = '"+ servico.getDt_cadastro() +"'" +
                 ", grupo_id = "+servico.getGrupo().getId()+" where id = "+ servico.getId() + " ;";
         this.st.executeUpdate(sql);
     }
@@ -42,15 +42,7 @@ public class ServicoDao<T> extends AbstractDao<T>{
         ResultSet rs = this.st.executeQuery(sql);
         List servicos = new ArrayList();
         while (rs.next()){
-            Servico servico=new Servico();
-            servico.setId(rs.getInt("id"));
-            servico.setAtivo(rs.getBoolean("ativo"));
-            servico.setNome(rs.getString("nome"));
-            servico.setGrupo((Grupo) new GrupoService().getByID(rs.getInt("grupo_id")));
-            servico.setValor(rs.getDouble("valor"));
-            servico.setDt_ult_alteracao(rs.getDate("dt_ult_alteracao"));
-            servico.setDt_cadastro(rs.getDate("dt_cadastro"));
-            servicos.add(servico);
+            servicos.add(getByID(rs.getInt("id")));
         }
         return servicos;
     }
@@ -68,22 +60,14 @@ public class ServicoDao<T> extends AbstractDao<T>{
         ResultSet rs = this.st.executeQuery(sql);
         List servicos = new ArrayList();
         while (rs.next()){
-            Servico servico=new Servico();
-            servico.setId(rs.getInt("id"));
-            servico.setAtivo(rs.getBoolean("ativo"));
-            servico.setNome(rs.getString("nome"));
-            servico.setGrupo((Grupo) new GrupoService().getByID(rs.getInt("grupo_id")));
-            servico.setValor(rs.getDouble("valor"));
-            servico.setDt_ult_alteracao(rs.getDate("dt_ult_alteracao"));
-            servico.setDt_cadastro(rs.getDate("dt_cadastro"));
-            servicos.add(servico);
+            servicos.add(getByID(rs.getInt("id")));
         }
         return servicos;
     }
 
     public Object getByID(Integer id)throws Exception{
-        String sql = "Select from servico where id ="+id+" ;";
-        ResultSet rs = this.st.executeQuery(sql);
+        String sql = "Select * from servico where id ="+id+" ;";
+        ResultSet rs = this.st.getConnection().prepareStatement(sql).executeQuery();
         Servico servico=null;
         while (rs.next()){
             servico=new Servico();
@@ -92,8 +76,8 @@ public class ServicoDao<T> extends AbstractDao<T>{
             servico.setNome(rs.getString("nome"));
             servico.setGrupo((Grupo) new GrupoService().getByID(rs.getInt("grupo_id")));
             servico.setValor(rs.getDouble("valor"));
-            servico.setDt_ult_alteracao(rs.getDate("dt_ult_alteracao"));
-            servico.setDt_ult_alteracao(rs.getDate("dt_cadastro"));
+            servico.setDt_ult_alteracao(rs.getDate("data_ultima_alteracao"));
+            servico.setDt_ult_alteracao(rs.getDate("data_cadastro"));
         }
         return servico;
     }

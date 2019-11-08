@@ -77,7 +77,7 @@ public class GrupoDao <T> extends AbstractDao<T> {
         else if ((!termoBusca.matches("[0-9]")))
             sql = "Select * from grupo where id = "+ termoBusca +" and  ativo = true ;";
         else
-            sql = "SELECT * FROM grupo WHERE nome ="+ termoBusca +" and  ativo = true ;";
+            sql = "SELECT * FROM grupo WHERE nome = "+ termoBusca +" and  ativo = true ;";
         ResultSet rs = this.st.executeQuery(sql);
         List grupos = new ArrayList();
         while (rs.next()){

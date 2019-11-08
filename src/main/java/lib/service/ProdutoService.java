@@ -5,6 +5,7 @@ import lib.dao.imp.produto.ProdutoDao;
 import lib.model.produto.Produto;
 import org.springframework.util.Assert;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class ProdutoService {
         produtoDao.save(produto);
     }
 
-    public void update(Produto produto)throws Exception{
+    public void update(Produto produto)throws SQLException {
         Assert.notNull(produto, "Produto não pode ser nulo");
         Assert.notNull(produto, "Falha Técnica: ID nulo, para um registro ser alterado o objeto deve conter um ID");
         Assert.notNull(produto.getNome(), "Campo Nome é obrigatório");
@@ -48,16 +49,16 @@ public class ProdutoService {
         produtoDao.update(produto);
     }
 
-    public List getAll(String termo) throws Exception{
+    public List getAll(String termo) throws SQLException{
         List list = produtoDao.getAll(termo);
         return list;
     }
 
-    public List getAllAtivos(String busca)throws Exception{
+    public List getAllAtivos(String busca)throws SQLException{
         return produtoDao.getAllAtivos(busca);
     }
 
-    public Object getByID(Integer id)throws Exception{
+    public Object getByID(Integer id)throws SQLException{
         Produto produto = (Produto) produtoDao.getByID(id);
         Assert.notNull(produto, "Nenhum produto foi encontrada");
         return produto;
